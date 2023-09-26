@@ -4,8 +4,12 @@
     --color-bg : #191414;
     --color-primary-green : #1ed760;
     --color-secondary-green : #1db954;
+    --main-padding : 8px;
+    --resizer-width : 3px;
 }
 
 body {
-    font-family: spotify-sans;
+    font-family: spotify-sans-bold;
+    background-color: black;
+    margin: 0;
 }
