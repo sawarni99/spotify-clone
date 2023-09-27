@@ -17,5 +17,5 @@ export const getStyleValue = (ref, style) => {
 
 // Get style for given ref...
 export const getStyle = (ref, style) => {
-    return window.getComputedStyle(ref).getPropertyValue(style);
+    return window.getComputedStyle(ref.current).getPropertyValue(style);
 }

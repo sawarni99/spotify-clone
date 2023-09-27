@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { numToPx, pxToNum } from './helper/StyleHelper';
+import { getStyleValue, numToPx } from './helper/StyleHelper';
 import './App.css';
 
 /*
@@ -10,41 +10,36 @@ import './App.css';
 
 const sizeInterval = [{min: 72, max: 72}, {min: 280, max: 420}, {min: 584, max: 1096}]
 const INITIAL_INDEX = 0;
+const MIN_WIDTH_MAIN = 400;
 
 function App() {
 	const sideBarRef = useRef(null);
 	const resizerRef = useRef(null);
 	const appRef = useRef(null);
 	const [sideBarIndex, setSideBarIndex] = useState(INITIAL_INDEX);
-	const currentSideBarWidth = useRef(null);
 
 	// Initializing initial width...
 	useEffect(() => {
 		sideBarRef.current.style.width = numToPx(sizeInterval[INITIAL_INDEX].min);
-		currentSideBarWidth.current = sideBarRef.current.style.width;
 	}, [])
 
 	// Logic while resizing window...
 	useEffect(() => {
-		const windowWidth = window.innerWidth;
 		const sideBar = sideBarRef.current;
 		const observer = new ResizeObserver((entries) => {
-
-			const appWidth = entries[0].contentRect.left + entries[0].contentRect.right;
-			console.log(windowWidth, appWidth)
-			if(appWidth > sizeInterval[2].max && appWidth < 1450){
-				sideBar.style.maxWidth = numToPx(sizeInterval[1].max);
+			const appWidth = entries[0].contentRect.width;
+			if(appWidth < sizeInterval[2].max + MIN_WIDTH_MAIN) {
 				sideBar.style.minWidth = numToPx(sizeInterval[1].min);
+				sideBar.style.maxWidth = numToPx(sizeInterval[1].max);
+				setSideBarIndex(1);
 			}
 
-			if(appWidth > sizeInterval[2].min && appWidth < sizeInterval[2].max){
-				sideBar.style.maxWidth = numToPx(sizeInterval[0].max);
+			if(appWidth < sizeInterval[1].max + MIN_WIDTH_MAIN) {
 				sideBar.style.minWidth = numToPx(sizeInterval[0].min);
+				sideBar.style.maxWidth = numToPx(sizeInterval[0].max);
+				setSideBarIndex(0);
 			}
 
-			// const widthChangeRatio = appWidth/windowWidth;
-			// console.log(currentSideBarWidth.current)
-			// sideBar.style.width = numToPx(pxToNum(currentSideBarWidth.current) * widthChangeRatio);
 		});
 
 		observer.observe(appRef.current);
@@ -72,20 +67,25 @@ function App() {
 					}
 				}else{
 					if(mousePosX > sizeInterval[i].min && mousePosX < sizeInterval[i].max) {
-						sideBar.style.minWidth = numToPx(sizeInterval[i].min);
-						sideBar.style.maxWidth = numToPx(sizeInterval[i].max);
-						sideBar.style.width = numToPx(mousePosX);
-						tempIndex = i;
+						let minWidth = sizeInterval[i].min;
+						let maxWidth = sizeInterval[i].max;
+						if(mousePosX + MIN_WIDTH_MAIN >= getStyleValue(appRef, 'width')) {
+							maxWidth = getStyleValue(appRef, 'width') - MIN_WIDTH_MAIN;
+						}
+
+						if(minWidth < maxWidth){
+							sideBar.style.minWidth = numToPx(minWidth);
+							sideBar.style.maxWidth = numToPx(maxWidth);
+							sideBar.style.width = numToPx(mousePosX);
+							tempIndex = i;
+						}
 					}
 				}
 			}
-
-			currentSideBarWidth.current = sideBar.style.width;
 		}
 
 		const onMouseUp = () => {
 			window.removeEventListener('mousemove', onMouseMove);
-			// console.log('New', currentSideBarWidth.current);
 			setSideBarIndex(tempIndex);
 		}
 
