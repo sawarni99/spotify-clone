@@ -1,11 +1,13 @@
 :root {
-    --color-gray : #B3B3B3;
-    --color-white : #FFFFFF;
-    --color-bg : #191414;
-    --color-primary-green : #1ed760;
-    --color-secondary-green : #1db954;
-    --main-padding : 8px;
-    --resizer-width : 3px;
+    --color-gray: #B3B3B3;
+    --color-secondary-gray: #535353;
+    --color-white: #FFFFFF;
+    --color-bg: #121212;
+    --color-primary-green: #1ed760;
+    --color-secondary-green: #1db954;
+    --main-padding: 8px;
+    --resizer-width: 5px;
+    --border-radius: 7px;
 }
 
 body {

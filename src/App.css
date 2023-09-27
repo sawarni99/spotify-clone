@@ -7,23 +7,24 @@
 }
 
 .app-body {
-    border: solid red 1px;
     display: flex;
     flex-grow: 1;
 }
 
 .app-side-bar {
-    border: solid green 1px;
     margin-right: calc(var(--main-padding) - var(--resizer-width));
     overflow: hidden;
     display: flex;
 }
 
 .app-resizer{
-    border-left: 1px solid var(--color-gray);
+    border-left: 1px solid var(--color-secondary-gray);
     width: var(--resizer-width);
     height: 100%;
     cursor: col-resize;
+    opacity: 0;
+
+    /* To stop dragging the div while moving the mouse.*/
     user-drag: none;
     -webkit-user-drag: none;
     user-select: none;
@@ -32,16 +33,35 @@
     -ms-user-select: none;
 }
 
-.app-side-bar-main {
+.app-resizer:hover {
+    opacity: 1;
+}
+
+.app-side-bar-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--main-padding)
+}
+
+.app-side-bar-menu {
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
+    height: 115px; /* Just for testing. have to remove. */
+}
+
+.app-side-bar-library {
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
     flex-grow: 1;
 }
 
 .app-main {
-    border: solid green 1px;
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius);
     flex-grow: 1;
 }
 
 .app-player {
-    border: solid red 1px;
     height: 72px;
 }

@@ -13,7 +13,7 @@ function App() {
 		<div className="App" ref={appRef}>
 			<div className='app-body'>
 				<div className='app-side-bar' ref={sideBarRef} >
-					<div className='app-side-bar-main'>
+					<div className='app-side-bar-container'>
 						<div className='app-side-bar-menu'></div>
 						<div className='app-side-bar-library'></div>
 					</div>
