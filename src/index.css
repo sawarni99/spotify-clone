@@ -1,13 +1,15 @@
 :root {
     --color-gray: #B3B3B3;
-    --color-secondary-gray: #535353;
+    --color-gray-secondary: #535353;
     --color-white: #FFFFFF;
     --color-bg: #121212;
+    --color-bg-secondary: #212121;
     --color-primary-green: #1ed760;
     --color-secondary-green: #1db954;
     --main-padding: 8px;
     --resizer-width: 5px;
     --border-radius: 7px;
+    --min-width: 72px;
 }
 
 body {
