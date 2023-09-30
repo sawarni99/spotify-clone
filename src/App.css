@@ -65,6 +65,8 @@
     background-color: var(--color-bg);
     border-radius: var(--border-radius);
     flex-grow: 1;
+    overflow: auto;
+    height: calc(100vh - var(--min-width));
 }
 
 .app-player {
