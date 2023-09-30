@@ -10,10 +10,11 @@
     --resizer-width: 5px;
     --border-radius: 7px;
     --min-width: 72px;
+    --min-height: 56px;
 }
 
 body {
-    font-family: spotify-sans-bold;
+    font-family: spotify-sans-semi-bold;
     background-color: black;
     margin: 0;
 }

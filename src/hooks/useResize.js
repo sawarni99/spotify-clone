@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { sizeInterval, INITIAL_INDEX, MIN_WIDTH_MAIN } from '../helper/constants';
-import { getStyleValue, numToPx } from '../helper/StyleHelper';
+import { sizeInterval, INITIAL_INDEX, MIN_WIDTH_MAIN } from '../utils/Constants';
+import { getStyleValue, numToPx } from '../utils/StyleUtil';
 
 export default function useResize(appRef, sideBarRef, resizerRef) {
     const [sideBarIndex, setSideBarIndex] = useState(INITIAL_INDEX);

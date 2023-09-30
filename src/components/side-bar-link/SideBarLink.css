@@ -1,0 +1,15 @@
+.side-bar-link {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: inherit;
+    font-size: 15px;
+}
+
+.side-bar-link-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--min-height);
+    width: calc(var(--min-width) - var(--main-padding));
+}

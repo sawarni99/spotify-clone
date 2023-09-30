@@ -47,7 +47,6 @@
 .app-side-bar-menu {
     background-color: var(--color-bg);
     border-radius: var(--border-radius);
-    height: 115px; /* Just for testing. have to remove. */
 }
 
 .app-side-bar-library {

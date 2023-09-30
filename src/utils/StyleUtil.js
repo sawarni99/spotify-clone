@@ -19,3 +19,8 @@ export const getStyleValue = (ref, style) => {
 export const getStyle = (ref, style) => {
     return window.getComputedStyle(ref.current).getPropertyValue(style);
 }
+
+// Get variable styles...
+export const getRootStyle = (style) => {
+    return window.getComputedStyle(document.querySelector(':root')).getPropertyValue(style);
+}
