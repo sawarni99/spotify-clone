@@ -1,0 +1,18 @@
+.nav-bar {
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    height: var(--min-height);
+    border-top-left-radius: inherit ;
+    border-top-right-radius: inherit ;
+    z-index: 2;
+}
+
+.nav-bar-background {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 50%;
+    width: 100%;
+    z-index: 0;
+}
