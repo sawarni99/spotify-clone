@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { getRootStyle } from '../../utils/StyleUtil';
 import Icon from '../icon/Icon'
 import { widthStates } from '../../utils/Constants';
+import { Link } from 'react-router-dom';
 
 const styleUnselected = {
   color: getRootStyle('--color-gray'),
@@ -12,7 +13,7 @@ const styleSelected = {
   color: getRootStyle('--color-white'),
 }
 
-export default function SideBarLink({icon, name, onClick, selected, widthState}) {
+export default function SideBarLink({icon, name, onClick, selected, widthState, to}) {
   
 
   const [ state, setState ] = useState('unselected');
@@ -52,14 +53,16 @@ export default function SideBarLink({icon, name, onClick, selected, widthState})
 
 
   return (
-    <div 
-      onMouseOver={onMouseOver} 
-      onMouseOut={onMouseOut} 
-      className='side-bar-link' style={style} onClick={onClick} >
-        <div className='side-bar-link-icon'>
-          <Icon name={icon} state={state} />
-        </div>
-        { widthState !== widthStates.small && <span>{name}</span> }
-    </div>
+    <Link to={to} className='react-link'>
+      <div 
+        onMouseOver={onMouseOver} 
+        onMouseOut={onMouseOut} 
+        className='side-bar-link' style={style} onClick={onClick} >
+          <div className='side-bar-link-icon'>
+            <Icon name={icon} state={state} />
+          </div>
+          { widthState !== widthStates.small && <span>{name}</span> }
+      </div>
+    </Link>
   )
 }

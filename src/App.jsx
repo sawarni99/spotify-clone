@@ -1,9 +1,16 @@
 import { useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useResize } from './hooks/hooks';
 import SideBarLink from './components/side-bar-link/SideBarLink'
 import CircularButton from './components/circular-button/CircularButton';
 import { pages, widthStates } from './utils/Constants';
+import Home from './pages/home/Home';
+import Search from './pages/search/Search';
 import './App.css';
+
+/*
+	1. Have to create a 404 page...
+*/
 
 function App() {
 	const sideBarRef = useRef(null);
@@ -39,50 +46,59 @@ function App() {
 	}
 
 	return (
-		<div className="App" ref={appRef}>
-			<div className='app-body'>
-				<div className='app-side-bar' ref={sideBarRef} >
-					<div className='app-side-bar-container'>
-						<div className='app-side-bar-menu'>
-							<SideBarLink 
-								icon='home' 
-								onClick={onClickHome} 
-								name='Home' 
-								selected={pages.home === selectedPage}
-								widthState={widthState}
-							/>
-							<SideBarLink 
-								icon='search' 
-								onClick={onClickSearch} 
-								name='Search'
-								selected={pages.search === selectedPage} 
-								widthState={widthState}
-							/>
-						</div>
-						<div className='app-side-bar-library'>
-							<div className="app-side-bar-library-head">
+		<Router>
+			<div className="App" ref={appRef}>
+				<div className='app-body'>
+					<div className='app-side-bar' ref={sideBarRef} >
+						<div className='app-side-bar-container'>
+							<div className='app-side-bar-menu'>
 								<SideBarLink 
-									icon='library'
-									name='Library'
+									icon='home' 
+									onClick={onClickHome} 
+									name='Home' 
+									selected={pages.home === selectedPage}
 									widthState={widthState}
-									onClick={onClickLibrary}
+									to={pages.home}
 								/>
-								{ 
-									( widthState === widthStates.large ) ?
-										<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
-									(widthState === widthStates.medium) ?
-										<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
-									null
-								}
+								<SideBarLink 
+									icon='search' 
+									onClick={onClickSearch} 
+									name='Search'
+									selected={pages.search === selectedPage} 
+									widthState={widthState}
+									to={pages.search}
+								/>
+							</div>
+							<div className='app-side-bar-library'>
+								<div className="app-side-bar-library-head">
+									<SideBarLink 
+										icon='library'
+										name='Library'
+										widthState={widthState}
+										onClick={onClickLibrary}
+									/>
+									{ 
+										( widthState === widthStates.large ) ?
+											<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
+										(widthState === widthStates.medium) ?
+											<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
+										null
+									}
+								</div>
 							</div>
 						</div>
+						<div className='app-resizer' ref={resizerRef} />
 					</div>
-					<div className='app-resizer' ref={resizerRef} />
+					<div className='app-main'>
+						<Routes>
+							<Route path={pages.home} element={<Home />}/>
+							<Route path={pages.search} element={<Search />}/>
+						</Routes>
+					</div>
 				</div>
-				<div className='app-main'></div>
+				<div className='app-player'></div>
 			</div>
-			<div className='app-player'></div>
-		</div>
+		</Router>	
 	);
 }
 
