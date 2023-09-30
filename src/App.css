@@ -25,7 +25,6 @@
     opacity: 0;
 
     /* To stop dragging the div while moving the mouse.*/
-    user-drag: none;
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -53,6 +52,13 @@
     background-color: var(--color-bg);
     border-radius: var(--border-radius);
     flex-grow: 1;
+}
+
+.app-side-bar-library-head {
+    border-radius: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .app-main {

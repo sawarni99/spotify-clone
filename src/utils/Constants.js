@@ -7,7 +7,7 @@ export const sizeInterval = [
 export const widthStates = {
     small: 0,
     medium: 1,
-    large: 3,
+    large: 2,
 }
 
 export const INITIAL_INDEX = 1;

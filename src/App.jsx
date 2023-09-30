@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react';
 import { useResize } from './hooks/hooks';
 import SideBarLink from './components/side-bar-link/SideBarLink'
-import { pages } from './utils/Constants';
+import CircularButton from './components/circular-button/CircularButton';
+import { pages, widthStates } from './utils/Constants';
 import './App.css';
 
 function App() {
 	const sideBarRef = useRef(null);
 	const resizerRef = useRef(null);
 	const appRef = useRef(null);
-	const widthState = useResize(appRef, sideBarRef, resizerRef);
+	const [ widthState, setWidthState ] = useResize(appRef, sideBarRef, resizerRef);
 	const [ selectedPage, setSelectedPage ] = useState(pages.home);
 
 	const onClickHome = () => {
@@ -17,6 +18,24 @@ function App() {
 
 	const onClickSearch = () => {
 		setSelectedPage(pages.search);
+	}
+
+	const onClickLibrary = () => {
+		let value = widthStates.medium;
+		
+		if(widthState !== widthStates.small) {
+			value = widthStates.small
+		}
+
+		setWidthState(value);
+	}
+
+	const onClickCollapse = () => {
+		setWidthState(widthStates.medium);
+	}
+
+	const onClickExpand = () => {
+		setWidthState(widthStates.large);
 	}
 
 	return (
@@ -32,16 +51,31 @@ function App() {
 								selected={pages.home === selectedPage}
 								widthState={widthState}
 							/>
-
 							<SideBarLink 
 								icon='search' 
 								onClick={onClickSearch} 
-								name='Search' 
+								name='Search'
 								selected={pages.search === selectedPage} 
 								widthState={widthState}
 							/>
 						</div>
-						<div className='app-side-bar-library'></div>
+						<div className='app-side-bar-library'>
+							<div className="app-side-bar-library-head">
+								<SideBarLink 
+									icon='library'
+									name='Library'
+									widthState={widthState}
+									onClick={onClickLibrary}
+								/>
+								{ 
+									( widthState === widthStates.large ) ?
+										<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
+									(widthState === widthStates.medium) ?
+										<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
+									null
+								}
+							</div>
+						</div>
 					</div>
 					<div className='app-resizer' ref={resizerRef} />
 				</div>

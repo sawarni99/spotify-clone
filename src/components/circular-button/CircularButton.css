@@ -1,0 +1,21 @@
+.circular-button {
+    height: var(--min-height);
+    width: var(--min-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circular-button-icon {
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 500px;
+    cursor: pointer;
+}
+
+.circular-button-icon:hover {
+    background-color: var(--color-bg-secondary);
+}

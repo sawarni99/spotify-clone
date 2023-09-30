@@ -5,6 +5,27 @@ import { getStyleValue, numToPx } from '../utils/StyleUtil';
 export default function useResize(appRef, sideBarRef, resizerRef) {
     const [sideBarIndex, setSideBarIndex] = useState(INITIAL_INDEX);
 
+	// To set the sidebar index from outside...
+	const setCustomSideBarIndex = (value) => {
+
+		if(typeof value !== 'number') return;
+
+		const sideBar = sideBarRef.current;
+		let minWidth = sizeInterval[value].min;
+		let maxWidth = sizeInterval[value].max;
+
+		if(minWidth + MIN_WIDTH_MAIN >= getStyleValue(appRef, 'width')) return;
+
+		if(maxWidth + MIN_WIDTH_MAIN >= getStyleValue(appRef, 'width')) {
+			maxWidth = getStyleValue(appRef, 'width') - MIN_WIDTH_MAIN;
+		}
+
+		sideBar.style.minWidth = numToPx(minWidth);
+		sideBar.style.maxWidth = numToPx(maxWidth);
+
+		setSideBarIndex(value);
+	}
+
 	useEffect(() => {
 		const sideBar = sideBarRef.current;
         const resizer = resizerRef.current;
@@ -36,9 +57,9 @@ export default function useResize(appRef, sideBarRef, resizerRef) {
 			for(let i=0; i<sizeInterval.length; i++){
 				if( i === 0){
 					if(mousePosX > 0 && mousePosX < sizeInterval[0].max) {
+						sideBar.style.width = numToPx(mousePosX);
 						sideBar.style.minWidth = numToPx(sizeInterval[0].min);
 						sideBar.style.maxWidth = numToPx(sizeInterval[0].max);
-						sideBar.style.width = numToPx(mousePosX);
                         setSideBarIndex(0);
 					}
 				}else{
@@ -82,5 +103,5 @@ export default function useResize(appRef, sideBarRef, resizerRef) {
 		}
 	}, [appRef, sideBarRef, resizerRef]);
 
-    return sideBarIndex;
+    return [ sideBarIndex, setCustomSideBarIndex ];
 }
