@@ -4,17 +4,22 @@
     --color-white: #FFFFFF;
     --color-bg: #121212;
     --color-bg-secondary: #212121;
+    --color-bg-ternary: #282828;
     --color-primary-green: #1ed760;
     --color-secondary-green: #1db954;
     --main-padding: 8px;
+    --secondary-padding: 24px;
     --resizer-width: 5px;
     --border-radius: 7px;
     --min-width: 72px;
     --min-height: 56px;
+    --font-size-primary: 16px;
+    --font-size-secondary: 14px;
 }
 
 body {
     font-family: spotify-sans-semi-bold;
+    font-size: var(--font-size-primary);
     background-color: black;
     margin: 0;
     color: var(--color-white);

@@ -6,6 +6,21 @@
     border-top-left-radius: inherit ;
     border-top-right-radius: inherit ;
     z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--secondary-padding);
+    display: flex;
+}
+
+.nav-bar-left, .nav-bar-right {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.nav-bar-right {
+    justify-content: end;
 }
 
 .nav-bar-background {

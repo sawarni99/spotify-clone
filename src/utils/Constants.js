@@ -16,3 +16,14 @@ export const pages = {
     home: '/',
     search: '/search'
 }
+
+export const profileMenuList = [
+    {
+        key: 'account',
+        name: 'Account'
+    },
+    {
+        key: 'logout',
+        name: 'Log out'
+    }
+]

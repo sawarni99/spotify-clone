@@ -1,0 +1,53 @@
+.profile-button-container{
+    position: relative;
+}
+
+.profile-button {
+    height: 32px;
+    width: 32px;
+    border-radius: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-button:hover {
+    transform: scale(1.05);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile-button:active {
+    opacity: 0.5;
+}
+
+.profile-button img {
+    height: 24px;
+    width: 24px;
+    border-radius: inherit;
+}
+
+.profile-menu {
+    right: 0px;
+    margin-top: var(--main-padding);
+    background-color: var(--color-bg-ternary);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    width: 180px;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: var(--font-size-secondary);
+}
+
+.profile-menu-item {
+    cursor: default;
+    display: flex;
+    align-items: center;
+    border-radius: inherit;
+    padding: 12px 8px 12px 8px;
+}
+
+.profile-menu-item:hover {
+    background-color: var(--color-gray-secondary);
+}
