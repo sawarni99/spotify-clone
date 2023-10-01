@@ -20,6 +20,11 @@ export default function Home() {
     }
   }
 
+  // const onChangeInput = (value) => {   // value will come here from the search input...
+  //   // Do something with value got from search param...
+  //   // console.log(value);
+  // }
+
   return (
     <div ref={mainRef} onScroll={onScroll} className='home'>
       <NavBar color={navProp.color} isSolid={navProp.isSolid} />

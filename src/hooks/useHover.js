@@ -6,13 +6,17 @@ export default function useHover(mainRef) {
 
   useEffect(() => {
     const main = mainRef.current;
-
+    
     const onMouseOver = () => {
-      setState('hover');
+      if(state !== 'selected') {
+        setState('hover');
+      }
     }
 
     const onMouseOut = () => {
-      setState('unselected');
+      if(state !== 'selected') {
+        setState('unselected');
+      }
     }
 
     main.addEventListener('mouseover', onMouseOver);
@@ -23,7 +27,7 @@ export default function useHover(mainRef) {
       main.removeEventListener('mouseout', onMouseOut);
     }
 
-  }, [mainRef]);
+  }, [mainRef, state]);
 
-  return state;
+  return [ state, setState ];
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export default function useCheckOutsideClick(ref, setShowMenu) {
+export default function useCheckOutsideClick(ref, setState, value) {
 
     useEffect(() => {
 
@@ -8,7 +8,7 @@ export default function useCheckOutsideClick(ref, setShowMenu) {
             if(ref.current === null) return false;
             
             if(!ref.current.contains(event.target)) {
-                setShowMenu(false);
+                setState(value);
             }
 
         }
@@ -19,5 +19,5 @@ export default function useCheckOutsideClick(ref, setShowMenu) {
             window.removeEventListener('click', onClickOnWindow)
         }
 
-    }, [ref]);
+    }, [ref, setState, value]);
 }

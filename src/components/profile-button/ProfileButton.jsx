@@ -9,7 +9,7 @@ export default function ProfileButton({src}) {
     const mainRef = useRef(null);
 
     
-    useCheckOutsideClick(mainRef, setShowMenu);
+    useCheckOutsideClick(mainRef, setShowMenu, false);
 
     const onClickProfile = () => {
         setShowMenu(value => !value);

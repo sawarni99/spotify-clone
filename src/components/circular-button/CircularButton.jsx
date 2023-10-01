@@ -11,7 +11,7 @@ export default function CircularButton({icon, onClick}) {
     return (
         <div className='circular-button'>
             <div className="circular-button-icon" ref={mainRef} onClick={onClick}>
-                <Icon name={icon} size='small' state={iconEvent} />
+                <Icon name={icon} size='small' state={iconEvent[0]} />
             </div>
         </div>
     )

@@ -30,6 +30,14 @@ body {
     text-decoration: none;
 }
 
+input {
+    background: var(--color-bg-ternary);
+    outline: none;
+    border: none;
+    font-family: spotify-sans;
+    color: var(--color-white);
+}
+
 ::-webkit-scrollbar {
     width: 15px;
     height: 15px;
