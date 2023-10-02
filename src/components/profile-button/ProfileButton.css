@@ -37,7 +37,7 @@
     width: 180px;
     padding: 4px;
     border-radius: 4px;
-    font-size: var(--font-size-secondary);
+    font-size: var(--font-size-small);
 }
 
 .profile-menu-item {

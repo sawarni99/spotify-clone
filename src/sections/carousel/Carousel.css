@@ -1,0 +1,12 @@
+
+.carousel-title {
+    font-size: var(--font-size-large);
+    font-family: spotify-sans-bold;
+}
+
+.carousel-items {
+    margin-block: var(--secondary-padding);
+    display: flex;
+    gap: var(--secondary-padding);
+    width: 100%;
+}

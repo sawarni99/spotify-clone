@@ -1,0 +1,29 @@
+.card {
+    max-width: 184px;
+    padding: 16px;
+    border-radius: 5px;
+    background-color: var(--color-bg-light);
+    flex-grow: 1;
+}
+
+.card-name {
+    font-family: spotify-sans-bold;
+    margin-top: 16px;
+}
+
+.card-img-container {
+    background-color: var(--color-bg-secondary);
+    width: inherit;
+    aspect-ratio: 1;
+    border-radius: inherit;
+}
+
+.card-img {
+    
+}
+
+.card-desc {
+    margin-top: 16px;
+    font-size: var(--font-size-small);
+    color: var(--color-gray);
+}

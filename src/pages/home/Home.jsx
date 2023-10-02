@@ -1,6 +1,7 @@
 import './Home.css'
 import React, { useRef, useState } from 'react'
 import NavBar from '../../sections/nav-bar/NavBar'
+import Carousel from '../../sections/carousel/Carousel'
 
 export default function Home() {
   const [ navProp, setNavprop ] = useState({color: '#212121', isSolid: false})
@@ -29,7 +30,7 @@ export default function Home() {
     <div ref={mainRef} onScroll={onScroll} className='home'>
       <NavBar color={navProp.color} isSolid={navProp.isSolid} />
       <div className="home-main">
-
+        <Carousel title='Made for you' />
       </div>
     </div>
   )

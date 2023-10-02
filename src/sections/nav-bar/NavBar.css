@@ -2,7 +2,7 @@
     position: sticky;
     top: 0px;
     left: 0px;
-    height: calc(var(--min-height) + var(--main-padding));
+    height: var(--nav-bar-height);
     border-top-left-radius: inherit ;
     border-top-right-radius: inherit ;
     z-index: 2;
@@ -27,7 +27,7 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    height: 50%;
+    height: var(--nav-bar-bg-height);
     width: 100%;
     z-index: 0;
 }

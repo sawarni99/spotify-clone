@@ -7,6 +7,7 @@
 }
 
 .home-main {
-    height: 200vh;
+    margin-top: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    padding-inline: var(--secondary-padding);
 }
 

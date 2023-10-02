@@ -3,6 +3,7 @@
     --color-gray-secondary: #535353;
     --color-white: #FFFFFF;
     --color-bg: #121212;
+    --color-bg-light: #181818;
     --color-bg-secondary: #212121;
     --color-bg-ternary: #282828;
     --color-primary-green: #1ed760;
@@ -14,7 +15,12 @@
     --min-width: 72px;
     --min-height: 56px;
     --font-size-primary: 16px;
-    --font-size-secondary: 14px;
+    --font-size-small: 14px;
+    --font-size-large: 24px;
+    --font-size-x-large: 32px;
+    --font-size-xx-large: 96px;
+    --nav-bar-bg-height: calc((100vh - var(--min-width))/2 - 2 * var(--main-padding));
+    --nav-bar-height: calc(var(--min-height) + var(--main-padding));
 }
 
 body {
