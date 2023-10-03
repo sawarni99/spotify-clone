@@ -1,7 +1,7 @@
 import './PlayButton.css';
 import React from 'react'
 
-export default function PlayButton({plain, size}) {
+export default function PlayButton({plain, size, onClick}) {
 
   let className = 'play-button normal';
   let style = {
@@ -14,7 +14,7 @@ export default function PlayButton({plain, size}) {
   }
 
   return (
-    <div className={className} style={style} >
+    <div className={className} style={style} onClick={onClick} >
         <img 
           src='./assets/icons/play-black-selected.png' 
           className='play-button-icon'   

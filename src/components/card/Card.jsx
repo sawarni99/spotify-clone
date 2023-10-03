@@ -8,12 +8,13 @@ export default function Card({src, name, desc, onClick}) {
     if(name === undefined || name === null) name = 'Loading...'
     if(desc === undefined || desc === null) desc = 'Loading...'
 
-    const onClickPlay = () => {
+    const onClickPlay = (event) => {
+        event.stopPropagation();
         // Logic for play the album/artist/playlist...
     }
 
     return (
-        <div className='card'>
+        <div className='card' onClick={onClick}>
             <div className="card-img-container">
                 <img src="" alt="" className="card-img" />
                 <div className='card-play-button'>
