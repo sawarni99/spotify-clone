@@ -15,7 +15,6 @@ export default function Carousel({title}) {
             <Card />
             <Card />
             <Card />
-            <Card />
         </div>
     </div>
   )

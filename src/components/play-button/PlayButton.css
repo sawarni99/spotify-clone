@@ -1,0 +1,25 @@
+.play-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 500px;
+}
+
+.play-button.normal {
+    background-color: var(--color-secondary-green);
+    box-shadow: 4px 8px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.play-button.plain {
+    background-color: white;
+}
+
+.play-button-icon {
+    height: 36%;
+    margin-left: 3px;
+}
+
+.play-button:hover {
+    background-color: var(--color-primary-green);
+    transform: scale(1.03);
+}

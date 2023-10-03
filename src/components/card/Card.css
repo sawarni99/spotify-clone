@@ -1,9 +1,11 @@
 .card {
     max-width: 184px;
+    min-width: 134px;
     padding: 16px;
     border-radius: 5px;
     background-color: var(--color-bg-light);
     flex-grow: 1;
+    cursor: pointer;
 }
 
 .card-name {
@@ -16,14 +18,28 @@
     width: inherit;
     aspect-ratio: 1;
     border-radius: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-.card-img {
-    
+.card-play-button {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: var(--main-padding);
+    display: none;
 }
 
 .card-desc {
     margin-top: 16px;
     font-size: var(--font-size-small);
     color: var(--color-gray);
+}
+
+.card:hover .card-play-button {
+    display: block;
+}
+
+.card:hover {
+    background-color:var(--color-bg-ternary);
 }
