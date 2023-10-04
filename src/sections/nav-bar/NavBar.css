@@ -5,7 +5,7 @@
     height: var(--nav-bar-height);
     border-top-left-radius: inherit ;
     border-top-right-radius: inherit ;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     align-items: center;
     padding: 0 var(--secondary-padding);
@@ -27,7 +27,28 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    height: var(--nav-bar-bg-height);
-    width: 100%;
+    height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    width: calc(100% - 2*var(--secondary-padding));
     z-index: 0;
+    padding-top: var(--nav-bar-height);
+    padding-inline: var(--secondary-padding);
+}
+
+.nav-bar-home {
+    position: relative;
+    z-index: 2;
+    min-height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    padding: var(--secondary-padding);
+}
+
+.nav-bar-home-head {
+    font-size: var(--font-size-x-large);
+    font-family: spotify-sans-bold;
+}
+
+.nav-bar-home-body {
+    padding-top: var(--secondary-padding);
+    row-gap: var(--main-padding);
+    column-gap: var(--secondary-padding);
+    display: grid;
 }

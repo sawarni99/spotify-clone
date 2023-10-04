@@ -7,7 +7,7 @@
 }
 
 .home-main {
-    margin-top: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    margin-top: var(--secondary-padding);
     padding-inline: var(--secondary-padding);
 }
 

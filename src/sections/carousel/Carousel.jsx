@@ -2,39 +2,54 @@ import './Carousel.css'
 import React, { useEffect, useState } from 'react'
 import Card from '../../components/card/Card'
 
+const sampleData = [];
+for(let i=0; i<10; i++) {
+  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...'})
+}
+
 export default function Carousel({title, parentRef, data}) {
+
+  if( title === undefined || title === null ) {
+    title = 'Title Loading...'
+  }
 
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
 
+    let dataToUse = [];
+    if(data === undefined || data === null) {
+      dataToUse = sampleData;
+    }else {
+      dataToUse = data;
+    }
+
     const observer = new ResizeObserver((entries) => {
       const parentWidth = entries[0].contentRect.width;
       let numOfItems = 7;
-      console.log(entries[0]);
 
-      if( parentWidth < 1300 && data.length >= 6 ) {
+      if( parentWidth < 1300 && dataToUse.length >= 6 ) {
         numOfItems = 6;
       }
 
-      if( parentWidth < 1150 && data.length >= 5 ) {
+      if( parentWidth < 1150 && dataToUse.length >= 5 ) {
         numOfItems = 5;
       }
 
-      if(parentWidth < 1000 && data.length >= 4) {
+      if(parentWidth < 1000 && dataToUse.length >= 4) {
         numOfItems = 4;
       }
 
-      if( parentWidth < 770 && data.length >= 3 ) {
+      if( parentWidth < 770 && dataToUse.length >= 3 ) {
         numOfItems = 3;
       }
 
-      if( parentWidth < 560 && data.length >= 2 ) {
+      if( parentWidth < 560 && dataToUse.length >= 2 ) {
         numOfItems = 2;
       }
 
       setCards(() => {
-        return data.slice(0, numOfItems);
+        return dataToUse.slice(0, numOfItems);
       })
 
     });
