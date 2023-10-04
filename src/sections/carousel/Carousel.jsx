@@ -13,23 +13,23 @@ export default function Carousel({title, parentRef, data}) {
       let numOfItems = 7;
       console.log(entries[0]);
 
-      if( parentWidth < 1300 ) {
+      if( parentWidth < 1300 && data.length >= 6 ) {
         numOfItems = 6;
       }
 
-      if( parentWidth < 1150 ) {
+      if( parentWidth < 1150 && data.length >= 5 ) {
         numOfItems = 5;
       }
 
-      if(parentWidth < 1000) {
+      if(parentWidth < 1000 && data.length >= 4) {
         numOfItems = 4;
       }
 
-      if( parentWidth < 770 ) {
+      if( parentWidth < 770 && data.length >= 3 ) {
         numOfItems = 3;
       }
 
-      if( parentWidth < 560 ) {
+      if( parentWidth < 560 && data.length >= 2 ) {
         numOfItems = 2;
       }
 
@@ -49,8 +49,9 @@ export default function Carousel({title, parentRef, data}) {
 
   return (
     <div className='carousel'>
-        <div className='carousel-title'>
-            {title}
+        <div className="carousel-head">
+          <div className='carousel-title'>{title}</div>
+          {data.lentgh > 7 && <div className="carousel-show-all">Show all</div> }
         </div>
         <div className="carousel-items">
             {

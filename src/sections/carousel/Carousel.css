@@ -1,11 +1,31 @@
 
+.carousel-head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carousel-show-all {
+    font-size: 14px;
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+
 .carousel-title {
     font-size: var(--font-size-large);
     font-family: spotify-sans-bold;
+    cursor: pointer;
+}
+
+.carousel-show-all:hover, .carousel-title:hover {
+    text-decoration: underline;
 }
 
 .carousel-items {
-    margin-block: var(--secondary-padding);
+    margin-top: var(--secondary-padding);
+    margin-bottom: calc( 2* var(--secondary-padding));
     display: flex;
     gap: var(--secondary-padding);
     width: 100%;
