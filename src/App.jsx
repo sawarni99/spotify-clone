@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useResize } from './hooks/hooks';
+import { useResizeAll } from './hooks/hooks';
 import SideBarLink from './components/side-bar-link/SideBarLink'
 import CircularButton from './components/circular-button/CircularButton';
 import { pages, widthStates } from './utils/Constants';
@@ -16,7 +16,7 @@ function App() {
 	const sideBarRef = useRef(null);
 	const resizerRef = useRef(null);
 	const appRef = useRef(null);
-	const [ widthState, setWidthState ] = useResize(appRef, sideBarRef, resizerRef);
+	const [ widthState, setWidthState ] = useResizeAll(appRef, sideBarRef, resizerRef);
 	const [ selectedPage, setSelectedPage ] = useState(pages.home);
 
 	const onClickHome = () => {

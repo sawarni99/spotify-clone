@@ -1,6 +1,6 @@
 import './Carousel.css'
-import React, { useEffect, useState } from 'react'
 import Card from '../../components/card/Card'
+import { useResize } from '../../hooks/hooks'
 
 const sampleData = [];
 for(let i=0; i<10; i++) {
@@ -13,55 +13,38 @@ export default function Carousel({title, parentRef, data}) {
     title = 'Title Loading...'
   }
 
-  const [cards, setCards] = useState([]);
+  if(data === undefined || data === null) {
+    data = sampleData;
+  }
 
-  useEffect(() => {
+  const widthState = useResize(parentRef, [1300, 1150, 1000, 770, 560]);
+  let cards = [data];
 
-    let dataToUse = [];
-    if(data === undefined || data === null) {
-      dataToUse = sampleData;
-    }else {
-      dataToUse = data;
-    }
+  let numOfItems = 0;
+  switch(widthState) {
+    case 0 :
+      numOfItems = 2;
+      break;
+    case 1:
+      numOfItems = 3;
+      break;
+    case 2:
+      numOfItems = 4;
+      break;
+    case 3:
+      numOfItems = 5;
+      break;
+    case 4:
+      numOfItems = 6;
+      break;
+    default:
+      numOfItems = 7;
+  }
 
-    const observer = new ResizeObserver((entries) => {
-      const parentWidth = entries[0].contentRect.width;
-      let numOfItems = 7;
-
-      if( parentWidth < 1300 && dataToUse.length >= 6 ) {
-        numOfItems = 6;
-      }
-
-      if( parentWidth < 1150 && dataToUse.length >= 5 ) {
-        numOfItems = 5;
-      }
-
-      if(parentWidth < 1000 && dataToUse.length >= 4) {
-        numOfItems = 4;
-      }
-
-      if( parentWidth < 770 && dataToUse.length >= 3 ) {
-        numOfItems = 3;
-      }
-
-      if( parentWidth < 560 && dataToUse.length >= 2 ) {
-        numOfItems = 2;
-      }
-
-      setCards(() => {
-        return dataToUse.slice(0, numOfItems);
-      })
-
-    });
-
-    observer.observe(parentRef.current);
-
-    return () => {
-      observer.disconnect();
-    }
-
-  }, [parentRef, data]);
-
+  if(data.length >= numOfItems) {
+    cards = data.slice(0, numOfItems);
+  }
+  
   return (
     <div className='carousel'>
         <div className="carousel-head">

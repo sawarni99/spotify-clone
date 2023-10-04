@@ -33,22 +33,3 @@
     padding-top: var(--nav-bar-height);
     padding-inline: var(--secondary-padding);
 }
-
-.nav-bar-home {
-    position: relative;
-    z-index: 2;
-    min-height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
-    padding: var(--secondary-padding);
-}
-
-.nav-bar-home-head {
-    font-size: var(--font-size-x-large);
-    font-family: spotify-sans-bold;
-}
-
-.nav-bar-home-body {
-    padding-top: var(--secondary-padding);
-    row-gap: var(--main-padding);
-    column-gap: var(--secondary-padding);
-    display: grid;
-}

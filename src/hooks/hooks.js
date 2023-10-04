@@ -1,5 +1,6 @@
-import useResize from "./useResize";
+import useResizeAll from "./useResizeAll";
 import useHover from './useHover';
 import useCheckOutsideClick from './useCheckOutsideClick';
+import useResize from "./useResize";
 
-export {useResize, useHover, useCheckOutsideClick};
+export {useResizeAll, useHover, useCheckOutsideClick, useResize};
