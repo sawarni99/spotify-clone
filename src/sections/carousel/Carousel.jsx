@@ -51,7 +51,7 @@ export default function Carousel({title, parentRef, data}) {
     <div className='carousel'>
         <div className="carousel-head">
           <div className='carousel-title'>{title}</div>
-          {data.lentgh > 7 && <div className="carousel-show-all">Show all</div> }
+          {data.length > 7 && <div className="carousel-show-all">Show all</div> }
         </div>
         <div className="carousel-items">
             {
