@@ -4,6 +4,7 @@ import NavBar from '../../sections/nav-bar/NavBar'
 import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useResize } from '../../hooks/hooks';
 import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
+import Carousel from '../../sections/carousel/Carousel';
 
 export default function Search() {
 
@@ -65,6 +66,9 @@ export default function Search() {
 
 			<div className="search-browser">
 				<TrackSearchResult />
+				<Carousel title="Artists" parentRef={mainRef} hideShowAll/>
+				<Carousel title="Albums" parentRef={mainRef} hideShowAll />
+				<Carousel title="Playlists" parentRef={mainRef} hideShowAll />
 			</div>
 		</div>
 	)

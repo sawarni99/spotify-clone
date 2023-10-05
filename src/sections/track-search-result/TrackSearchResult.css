@@ -1,9 +1,10 @@
 .track-result {
-    --track-height: 202px;
+    --track-height: 210px;
     --track-width: 252px;
     display: flex;
     flex-wrap: wrap;
     gap: var(--secondary-padding);
+    margin-bottom: calc(2* var(--secondary-padding));
 }
 
 .track-result-left {

@@ -7,7 +7,7 @@ for(let i=0; i<10; i++) {
   sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...'})
 }
 
-export default function Carousel({title, parentRef, data}) {
+export default function Carousel({title, parentRef, data, hideShowAll}) {
 
   if( title === undefined || title === null ) {
     title = 'Title Loading...'
@@ -49,7 +49,7 @@ export default function Carousel({title, parentRef, data}) {
     <div className='carousel'>
         <div className="carousel-head">
           <div className='carousel-title'>{title}</div>
-          <div className="carousel-show-all">Show all</div>
+          { !hideShowAll && <div className="carousel-show-all">Show all</div> }
         </div>
         <div className="carousel-items">
             {
