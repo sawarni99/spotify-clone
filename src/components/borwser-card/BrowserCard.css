@@ -1,0 +1,10 @@
+.browser-card {
+    height: 125px;
+    width: 125px;
+    padding: var(--secondary-padding);
+    font-size: var(--font-size-medium);
+    font-family: spotify-sans-bold;
+    border-radius: 8px;
+    background-color: var(--color-bg-ternary);
+}
+

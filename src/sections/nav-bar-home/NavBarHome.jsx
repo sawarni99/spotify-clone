@@ -8,17 +8,14 @@ export default function NavBarHome({parentRef, data, sizeState}) {
 
     if(sizeState === 2) {
         childStyle = {
-            gridTemplateRows: '1fr 1fr',
             gridTemplateColumns: '1fr 1fr 1fr',
         }
     } else if(sizeState === 1) {
         childStyle = {
-            gridTemplateRows: '1fr 1fr 1fr',
             gridTemplateColumns: '1fr 1fr',
         }
     } else {
         childStyle = {
-            gridTemplateRows: '1fr 1fr 1fr 1fr 1fr 1fr',
             gridTemplateColumns: '1fr',
         }
     }

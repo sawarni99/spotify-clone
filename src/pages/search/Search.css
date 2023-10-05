@@ -1,0 +1,20 @@
+.search {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.search-browser {
+    padding: var(--secondary-padding);
+}
+
+.search-browser-header {
+    font-size: var(--font-size-large);
+    font-family: spotify-sans-bold;
+}
+
+.search-browser-body {
+    margin-top: var(--secondary-padding);
+    display: grid;
+    gap: var(--secondary-padding);
+}

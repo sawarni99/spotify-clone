@@ -4,12 +4,16 @@ import ProfileButton from '../../components/profile-button/ProfileButton'
 import SearchInput from '../../components/input/Input'
 import NavBarHome from '../nav-bar-home/NavBarHome'
 import { getRootStyle } from '../../utils/StyleUtil'
-import {useResize} from '../../hooks/hooks';
+import {useResize, useScroll} from '../../hooks/hooks';
 
-export default function NavBar({color, isSolid, onChange, page, parentRef}) {
+export default function NavBar({ onChange, page, parentRef }) {
     
+    const color = '#212121';
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
+    const isSolid = useScroll(parentRef, 200);
+    console.log(isSolid)
+
     const mainStyle = {
         background: isSolid ? color : null,
     }
@@ -21,7 +25,7 @@ export default function NavBar({color, isSolid, onChange, page, parentRef}) {
 
     // To pass the value to the parent...
     useEffect(() => {
-        if(onChange !== undefined && onChange === 'function') {
+        if(onChange !== undefined && typeof onChange === 'function') {
             onChange(inputValue);
         }
     }, [inputValue, onChange]);

@@ -14,6 +14,7 @@
     flex-grow: 1;
     height: calc(var(--min-height) - 3*var(--main-padding));
     margin: 5px;
+    width: inherit;
 }
 
 .input-container:has(.input:hover) {
