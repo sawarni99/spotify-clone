@@ -1,0 +1,65 @@
+.track-result {
+    --track-height: 202px;
+    --track-width: 252px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--secondary-padding);
+}
+
+.track-result-left {
+    flex: 1;
+}
+
+.track-result-right {
+    flex: 2;
+}
+
+.track-result-left-head,.track-result-right-head {
+    margin-bottom: var(--secondary-padding);
+    font-size: var(--font-size-x-medium);
+    font-family: spotify-sans-bold;
+}
+
+.track-result-left-body, .track-result-right-body {
+    min-width: var(--track-width);
+    height: var(--track-height);
+    border-radius: 5px;
+}
+
+.track-result-left-body {
+    position: relative;
+    background-color: var(--color-bg-light);
+    padding: var(--secondary-padding);
+    cursor: pointer;
+}
+
+.track-result-img-left-container {
+    background-color: var(--color-bg-ternary);
+    height: 50%;
+    aspect-ratio: 1;
+    border-radius: inherit;
+}
+
+.track-result-left-desc {
+    font-size: var(--font-size-large);
+    font-family: spotify-sans-bold;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.track-result-left-play {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: var(--secondary-padding);
+    display: none;
+}
+
+.track-result-left-body:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.track-result-left-body:hover .track-result-left-play {
+    display: block;
+}

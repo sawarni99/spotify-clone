@@ -1,0 +1,49 @@
+.track-card {
+    display: flex;
+    padding: var(--main-padding);
+    border-radius: 5px;
+    gap: var(--main-padding);
+}
+
+.track-card:hover {
+    background-color: var(--color-bg-secondary);
+}
+
+.track-card-img-container {
+    width: 45px;
+    aspect-ratio: 1;
+    border-radius: inherit;
+    background-color: var(--color-bg-ternary);
+    cursor: pointer;
+}
+
+.track-card-desc {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.track-card-name {
+    font-size: var(--font-size-primary);
+}
+
+.track-card-artist {
+    font-size: var(--font-size-small);
+    color: var(--color-gray);
+}
+
+.track-card-duration {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-small);
+    color: var(--color-gray);
+}
+
+.track-card-options {
+    display: flex;
+    align-items: center;
+    margin-left: var(--secondary-padding);
+    margin-right: var(--main-padding);
+    cursor: pointer;
+}

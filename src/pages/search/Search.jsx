@@ -3,6 +3,7 @@ import React, { useRef } from 'react'
 import NavBar from '../../sections/nav-bar/NavBar'
 import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useResize } from '../../hooks/hooks';
+import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
 
 export default function Search() {
 
@@ -48,7 +49,7 @@ export default function Search() {
 	return (
 		<div className='search' ref={mainRef}>
 			<NavBar onChange={onChangeInputvalue} page='search' parentRef={mainRef} />
-			<div className="search-browser">
+			{/* <div className="search-browser">
 				<div className="search-browser-header">
 					Browse all
 				</div>
@@ -60,6 +61,10 @@ export default function Search() {
 					<BrowserCard />
 					<BrowserCard />
 				</div>
+			</div> */}
+
+			<div className="search-browser">
+				<TrackSearchResult />
 			</div>
 		</div>
 	)
