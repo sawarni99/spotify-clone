@@ -6,7 +6,7 @@
 }
 
 .track-card:hover {
-    background-color: var(--color-bg-secondary);
+    background-color: rgba(89, 89, 89, 0.5);
 }
 
 .track-card-img-container {

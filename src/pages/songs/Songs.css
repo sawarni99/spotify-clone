@@ -5,3 +5,22 @@
     position: relative;
     overflow: auto;
 }
+
+.songs-page-menu {
+    position: relative;
+    z-index: 2;
+    padding: var(--secondary-padding);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.songs-page-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--secondary-padding);
+    margin-bottom: var(--secondary-padding);
+    margin-left: var(--main-padding);
+}
+
+.songs-page-options {
+    cursor: pointer;
+}
