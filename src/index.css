@@ -19,7 +19,7 @@
     --font-size-medium: 20px;
     --font-size-x-medium: 22px;
     --font-size-large: 24px;
-    --font-size-x-large: 32px;
+    --font-size-x-large: 64px;
     --font-size-xx-large: 96px;
     --nav-bar-bg-height: calc((100vh - var(--min-width))/2 - 2 * var(--main-padding));
     --nav-bar-height: calc(var(--min-height) + var(--main-padding));

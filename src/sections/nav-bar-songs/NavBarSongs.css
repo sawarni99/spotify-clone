@@ -1,0 +1,33 @@
+.nav-bar-songs {
+    position: relative;
+    z-index: 2;
+    height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    padding: var(--secondary-padding);
+    display: flex;
+    gap: var(--secondary-padding);
+}
+
+.nav-bar-songs-img-container {
+    height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    width: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.3);
+    background-color: var(--color-bg-ternary);
+}
+
+.nav-bar-songs-info {
+    flex-grow: 1;
+}
+
+.nav-bar-songs-name {
+    height: 70%;
+    font-family: spotify-sans-bold;
+    display: flex;
+    align-items: end;
+}
+
+.nav-bar-songs-desc {
+    margin-top: var(--main-padding);
+    font-size: var(--font-size-small);
+    margin-left: 5px;
+    color: var(--color-gray);
+}

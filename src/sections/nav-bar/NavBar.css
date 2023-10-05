@@ -27,7 +27,6 @@
     position: absolute;
     top: 0px;
     left: 0px;
-    height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
     width: calc(100% - 2*var(--secondary-padding));
     z-index: 0;
     padding-top: var(--nav-bar-height);

@@ -14,7 +14,10 @@ export const INITIAL_INDEX = 1;
 export const MIN_WIDTH_MAIN = 400;
 export const pages = {
     home: '/',
-    search: '/search'
+    search: '/search',
+    album: '/album',
+    playlist: '/playlist',
+    artist: '/artist',
 }
 
 export const profileMenuList = [

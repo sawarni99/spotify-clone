@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react'
 import ProfileButton from '../../components/profile-button/ProfileButton'
 import SearchInput from '../../components/input/Input'
 import NavBarHome from '../nav-bar-home/NavBarHome'
+import NavBarSongs from '../nav-bar-songs/NavBarSongs'
 import { getRootStyle } from '../../utils/StyleUtil'
 import {useResize, useScroll} from '../../hooks/hooks';
 
-export default function NavBar({ onChange, page, parentRef }) {
+export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     
-    const color = '#212121';
+    const color = '#85CDBF';
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
+    if(albumInfo === undefined || albumInfo === null) albumInfo = null; 
     console.log(isSolid)
 
     const mainStyle = {
@@ -39,6 +41,7 @@ export default function NavBar({ onChange, page, parentRef }) {
                 backgroundImage: (getRootStyle('--color-bg') !== color) ? 
                     `linear-gradient(180deg, ${color}, ${getRootStyle('--color-bg')})` :
                     null,
+                height: 'calc(var(--nav-bar-bg-height) - var(--nav-bar-height)',
             }
             child = <NavBarHome parentRef={parentRef} sizeState={widthState} />
             break;
@@ -49,8 +52,14 @@ export default function NavBar({ onChange, page, parentRef }) {
             }
             break;
 
-        case 'album':
-            // Do something...
+        case 'songs':
+            bgStyle = {
+                backgroundImage: (getRootStyle('--color-bg') !== color) ? 
+                    `linear-gradient(180deg, ${color}, ${getRootStyle('--color-bg')})` :
+                    null,
+                height: 'calc(100vh - 3 * var(--nav-bar-height))',
+            }
+            child = <NavBarSongs parentRef={parentRef} sizeState={widthState} info={albumInfo} />
             break;
 
         default:

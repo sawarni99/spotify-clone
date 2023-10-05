@@ -7,6 +7,7 @@ import { pages, widthStates } from './utils/Constants';
 import Home from './pages/home/Home';
 import Search from './pages/search/Search';
 import './App.css';
+import Songs from './pages/songs/Songs';
 
 /*
 	1. Have to create a 404 page...
@@ -93,6 +94,7 @@ function App() {
 						<Routes>
 							<Route path={pages.home} element={<Home />}/>
 							<Route path={pages.search} element={<Search />}/>
+							<Route path={pages.album || pages.artist || pages.playlist} element={<Songs/>} />
 						</Routes>
 					</div>
 				</div>
