@@ -22,12 +22,12 @@ export default function NavBarSongs({info, sizeState}) {
             break;
         case 1:
             style = {
-                fontSize: 'var(--font-size-x-large)'
+                fontSize: 'var(--font-size-xx-large)'
             }
             break;
         default:
             style = {
-                fontSize: 'var(--font-size-xx-large)'
+                fontSize: 'var(--font-size-xxx-large)'
             }
     }   
 

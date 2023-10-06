@@ -9,7 +9,7 @@ import {useResize, useScroll} from '../../hooks/hooks';
 
 export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     
-    const color = '#85CDBF';
+    const color = '#212121';
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);

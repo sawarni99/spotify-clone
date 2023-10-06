@@ -2,7 +2,7 @@ import Icon from '../icon/Icon'
 import './TrackCard.css'
 import React from 'react'
 
-export default function({src, name, artist, duration}) {
+export default function TrackCard({src, name, artist, duration}) {
 
     if(src === undefined || src === null) src=''
     if(name === undefined || name === null) name='Loading...'
