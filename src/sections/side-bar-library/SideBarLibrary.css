@@ -1,0 +1,12 @@
+.side-bar-library {
+    max-height: calc(100% - 2*var(--main-padding));
+    overflow: auto;
+    padding: 5px;
+    padding-top: var(--secondary-padding);
+}
+
+.side-bar-library-large {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    gap: var(--main-padding);
+}

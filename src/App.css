@@ -52,6 +52,8 @@
     background-color: var(--color-bg);
     border-radius: var(--border-radius);
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .app-side-bar-library-head {
@@ -59,6 +61,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.app-side-bar-library-body {
+    height: calc(100vh - 3*var(--min-height) - var(--min-width) - var(--main-padding));
 }
 
 .app-main {

@@ -9,13 +9,29 @@
     cursor: pointer;
 }
 
+.long-card-plain {
+    height: 40px;
+    width: calc(100% - 2*var(--main-padding));
+    border-radius: 5px;
+    padding: var(--main-padding);
+    display: flex;
+    cursor: pointer;
+}
+
 .long-card-img-container {
     height: inherit;
     aspect-ratio: 1;
-    border-top-left-radius: inherit;
-    border-bottom-left-radius: inherit;
     background: var(--color-gray-secondary);
     box-shadow: 4px 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.long-card .long-card-img-container {
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.long-card-plain .long-card-img-container {
+    border-radius: inherit;
 }
 
 .long-card-name {
@@ -29,11 +45,19 @@
     padding-left: var(--secondary-padding);
 }
 
+.long-card-plain .long-card-name {
+    padding-left: var(--main-padding);
+}
+
 .long-card-play {
     position: absolute;
     right: 0;
     margin-right: var(--secondary-padding);
     display: none;
+}
+
+.long-card-plain:hover {
+    background: var(--color-bg-light);
 }
 
 .long-card:hover .long-card-play {

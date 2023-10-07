@@ -14,7 +14,6 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
     if(albumInfo === undefined || albumInfo === null) albumInfo = null; 
-    console.log(isSolid)
 
     const mainStyle = {
         background: isSolid ? color : null,

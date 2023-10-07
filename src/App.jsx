@@ -8,6 +8,7 @@ import Home from './pages/home/Home';
 import Search from './pages/search/Search';
 import './App.css';
 import Songs from './pages/songs/Songs';
+import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
 
 /*
 	1. Have to create a 404 page...
@@ -85,6 +86,9 @@ function App() {
 											<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
 										null
 									}
+								</div>
+								<div className="app-side-bar-library-body">
+									<SideBarLibrary widthState={widthState} parentRef={sideBarRef} />
 								</div>
 							</div>
 						</div>

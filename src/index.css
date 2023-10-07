@@ -48,7 +48,7 @@ input {
 }
 
 ::-webkit-scrollbar {
-    width: 15px;
+    width: 0px;
     height: 15px;
 }
 
