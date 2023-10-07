@@ -1,13 +1,15 @@
 import './SideBarLibrary.css'
-import React from 'react'
+import React, { useRef } from 'react'
 import LongCard from '../../components/long-card/LongCard'
 import Card from '../../components/card/Card'
 import { widthStates } from '../../utils/Constants'
-import { useResize } from '../../hooks/hooks'
+import { useResize, useScroll } from '../../hooks/hooks'
 
 export default function SideBarLibrary({widthState, parentRef}) {
 
     const parentSizeState = useResize(parentRef, [1100,900,700]);
+    const mainRef = useRef(null);
+    const scrolled = useScroll(mainRef, 1);
 
     let noDesc = false
     if(widthState === widthStates.small){
@@ -42,8 +44,8 @@ export default function SideBarLibrary({widthState, parentRef}) {
 
 
     return (
-        <div className='side-bar-library'>
-            <div className="side-bar-library-shadow" />
+        <div className='side-bar-library' ref={mainRef}>
+            { scrolled && !noDesc && <div className="side-bar-library-shadow" /> }
 
             {
                 widthState === widthStates.large ?

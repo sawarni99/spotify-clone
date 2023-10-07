@@ -7,7 +7,7 @@
 }
 
 .home-main {
-    margin-top: var(--secondary-padding);
+    margin-top: var(--main-padding);
     padding-inline: var(--secondary-padding);
 }
 

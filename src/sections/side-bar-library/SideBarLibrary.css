@@ -1,12 +1,20 @@
 .side-bar-library {
-    max-height: calc(100% - 2*var(--main-padding));
+    max-height: calc(100% - 5px);
     overflow: auto;
+    position: relative;
+}
+
+.side-bar-library-large, .side-bar-library-small {
     padding: 5px;
-    padding-top: var(--secondary-padding);
 }
 
 .side-bar-library-large {
     display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
     gap: var(--main-padding);
+}
+
+.side-bar-library-shadow {
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 6px 4px rgba(0, 0, 0, 0.5);
 }
