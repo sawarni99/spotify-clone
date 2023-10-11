@@ -9,6 +9,7 @@ import Search from './pages/search/Search';
 import './App.css';
 import Songs from './pages/songs/Songs';
 import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
+import Player from './sections/player/Player';
 
 /*
 	1. Have to create a 404 page...
@@ -102,7 +103,9 @@ function App() {
 						</Routes>
 					</div>
 				</div>
-				<div className='app-player'></div>
+				<div className='app-player'>
+					<Player />
+				</div>
 			</div>
 		</Router>	
 	);

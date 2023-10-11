@@ -5,8 +5,8 @@ export default function PlayButton({plain, size, onClick}) {
 
   let className = 'play-button normal';
   let style = {
-    height: (size === 'small') ? '32px' : '50px',
-    width: (size === 'small') ? '32px' : '50px',
+    height: (size === 'small') ? '35px' : '50px',
+    width: (size === 'small') ? '35px' : '50px',
   }
 
   if(plain) {

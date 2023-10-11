@@ -78,5 +78,4 @@
 .app-player {
     min-height: var(--min-height);
     margin-block: var(--main-padding);
-    border: 1px red solid;
 }

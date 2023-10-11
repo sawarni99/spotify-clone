@@ -19,6 +19,10 @@
     margin-left: 3px;
 }
 
+.play-button.plain:hover {
+    background-color: white;
+}
+
 .play-button:hover {
     background-color: var(--color-primary-green);
     transform: scale(1.03);
