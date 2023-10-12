@@ -54,6 +54,12 @@
     width: 70%;
 }
 
+.player-time {
+    font-size: var(--font-size-x-small);
+    color: var(--color-gray);
+    margin-inline: 10px;
+}
+
 .player-right {
     flex: 1;
     display: flex;

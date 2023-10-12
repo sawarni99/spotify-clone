@@ -5,6 +5,8 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover } from '../../hooks/hooks';
 
+const duration = 60; // Testing purpose...
+
 export default function Player() {
 
     const [progress, setProgress] = useState(0);
@@ -42,7 +44,7 @@ export default function Player() {
             console.log(progress);
             interval = setInterval(() => {
                 if(!isProgressBarClicked){
-                    setProgress(progress => progress + 1);
+                    setProgress(progress => progress + (100/duration));
                 }
             }, 1000);
         }else {
@@ -88,7 +90,9 @@ export default function Player() {
                     </div>
                 </div>
                 <div className="player-progress">
+                    <div className="player-time">0:00</div>
                     <ProgressBar progress={progress} setProgress={setProgress} onClicked={onProgressBarClicked} />
+                    <div className="player-time">2:00</div>
                 </div>
             </div>
             <div className="player-right">
