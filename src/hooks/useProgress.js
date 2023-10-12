@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-// import {getStyleValue, pxToNum} from '../../utils/StyleUtil';
 
 export default function useProgress(barRef, progressRef, setProgress) {
 
-    // const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(false);
 
     const getPositionPercent = (event, bar) => {
         const barLeft = bar.getBoundingClientRect().left;
@@ -16,7 +15,6 @@ export default function useProgress(barRef, progressRef, setProgress) {
     useEffect(() => {
 
         const bar = barRef.current;
-        const progress = progressRef.current;
 
         const onMouseMove = (event) => {
             const progressPercent = getPositionPercent(event, bar);
@@ -32,11 +30,14 @@ export default function useProgress(barRef, progressRef, setProgress) {
         
         const onMouseUp = () => {
             window.removeEventListener('mousemove', onMouseMove);
+
+            setClicked(false);
         }
         
         const onMouseDown = (event) => {
             window.addEventListener('mousemove', onMouseMove);
-            
+
+            setClicked(true);
             const progressPercent = getPositionPercent(event, bar);
             setProgress(progressPercent);
         }
@@ -56,5 +57,5 @@ export default function useProgress(barRef, progressRef, setProgress) {
 
     }, [barRef, progressRef, setProgress]);
 
-    // return clicked;
+    return clicked;
 }

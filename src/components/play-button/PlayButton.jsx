@@ -1,12 +1,17 @@
 import './PlayButton.css';
 import React from 'react'
 
-export default function PlayButton({plain, size, onClick}) {
+export default function PlayButton({plain, size, onClick, isPlaying}) {
 
   let className = 'play-button normal';
+  let src = './assets/icons/play-black-selected.png';
   let style = {
     height: (size === 'small') ? '35px' : '50px',
     width: (size === 'small') ? '35px' : '50px',
+  }
+
+  if(isPlaying) {
+    src = './assets/icons/pause-black-selected.png';
   }
 
   if(plain) {
@@ -16,7 +21,7 @@ export default function PlayButton({plain, size, onClick}) {
   return (
     <div className={className} style={style} onClick={onClick} >
         <img 
-          src='./assets/icons/play-black-selected.png' 
+          src={src}
           className='play-button-icon'   
           alt='Play' 
         />

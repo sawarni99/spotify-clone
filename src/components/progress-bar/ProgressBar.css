@@ -19,6 +19,13 @@
     height: 12px;
     width: 12px;
     border-radius: 500px;
+
+    /* To stop dragging the div while moving the mouse. */
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .progress-bar:hover .progress-bar-progress {
