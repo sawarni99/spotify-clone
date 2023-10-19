@@ -20,14 +20,13 @@ function App() {
 	const resizerRef = useRef(null);
 	const appRef = useRef(null);
 	const [ widthState, setWidthState ] = useResizeAll(appRef, sideBarRef, resizerRef);
-	const [ selectedPage, setSelectedPage ] = useState(pages.home);
-
+	const [selectedPage, setSelectedPage] = useState(null);
 	const onClickHome = () => {
-		setSelectedPage(pages.home);
+		setSelectedPage(pages.home)
 	}
 
 	const onClickSearch = () => {
-		setSelectedPage(pages.search);
+		setSelectedPage(pages.search)
 	}
 
 	const onClickLibrary = () => {
@@ -59,7 +58,7 @@ function App() {
 									icon='home' 
 									onClick={onClickHome} 
 									name='Home' 
-									selected={pages.home === selectedPage}
+									selected={window.location.pathname === pages.home || selectedPage === pages.home}
 									widthState={widthState}
 									to={pages.home}
 								/>
@@ -67,7 +66,7 @@ function App() {
 									icon='search' 
 									onClick={onClickSearch} 
 									name='Search'
-									selected={pages.search === selectedPage} 
+									selected={window.location.pathname.startsWith(pages.search) || selectedPage === pages.search} 
 									widthState={widthState}
 									to={pages.search}
 								/>

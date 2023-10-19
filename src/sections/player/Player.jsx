@@ -77,7 +77,7 @@ export default function Player() {
     }, [progress]);
 
     useEffect(() => {
-        console.log(sound);
+        // Change sound here...
     }, [sound]);
 
 
