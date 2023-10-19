@@ -11,6 +11,7 @@ const duration = 60; // Testing purpose...
 export default function Player() {
     
     const [progress, setProgress] = useState(0);
+    const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
     let isProgressBarClicked = false;
 
@@ -36,6 +37,16 @@ export default function Player() {
     const onProgressBarClicked = (clicked) => {
         // Logic to pause the progression when progress bar is clicked...
         isProgressBarClicked = clicked;
+    }
+
+    const onclickSoundButton = () => {
+        setSound(sound => {
+            if(sound === 0) {
+                return 50;
+            }else {
+                return 0;
+            }
+        })
     }
 
     useEffect(() => {
@@ -64,6 +75,10 @@ export default function Player() {
             setIsPlaying(false);
         }
     }, [progress]);
+
+    useEffect(() => {
+        console.log(sound);
+    }, [sound]);
 
 
     return (
@@ -96,10 +111,17 @@ export default function Player() {
                 </div>
             </div>
             <div className="player-right">
-                <div className="player-vol-img">
-                    <Icon name='sound-on' state='hover' size='small' />
+                <div onClick={onclickSoundButton} className="player-vol-img">
+                    {
+                        (sound > 0) ? 
+                        <Icon name='sound-on' state='hover' size='small' /> : 
+                        <Icon name='sound-off' state='hover' size='small' />
+                    }
+                    
                 </div>
-                <div className="player-vol"></div>
+                <div className="player-vol">
+                    <ProgressBar progress={sound} duration={100} setProgress={setSound} />
+                </div>
             </div>
         </div>
     )

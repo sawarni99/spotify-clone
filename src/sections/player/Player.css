@@ -65,8 +65,15 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: var(--main-padding);
+}
+
+.player-vol-img {
+    cursor: pointer;
 }
 
 .player-vol {
     width: 30%;
+    margin-bottom: 2px;
+    margin-right: var(--secondary-padding);
 }
