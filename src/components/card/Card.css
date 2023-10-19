@@ -63,3 +63,14 @@
 .card:hover {
     background-color:var(--color-bg-ternary);
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) {
+    .card:hover .card-play-button {
+        display: none;
+    }
+
+    .card:hover {
+        background-color: var(--color-bg-light);
+    }    
+}

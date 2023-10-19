@@ -79,3 +79,33 @@
     min-height: var(--min-height);
     margin-block: var(--main-padding);
 }
+
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+    .App {
+        padding: 0;
+        position: relative;
+    }
+
+    .app-main {
+        border-radius: 0;
+    }
+
+    .app-side-bar-library, .app-resizer {
+        display: none;
+    }
+
+    .app-side-bar {
+        width: none;
+    }
+
+    .app-side-bar-menu {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        width: 100%;
+        background-color: transparent;
+        justify-content: space-around;
+    }
+}

@@ -7,7 +7,7 @@ export default function LongCard({src, name, onClick, plain, noDesc}) {
     if(name === undefined || name === null) name = 'Loading...'
 
     const onClickPlay = (event) => {
-        event.stoppropagation();
+        event.stopPropagation();
         // Logic for play button...
     }
 

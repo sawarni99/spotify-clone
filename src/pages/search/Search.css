@@ -18,3 +18,19 @@
     display: grid;
     gap: var(--secondary-padding);
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+
+    .search-browser {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: var(--min-width);
+    }
+    .search-browser-body {
+        gap: var(--secondary-padding);
+    }
+
+}

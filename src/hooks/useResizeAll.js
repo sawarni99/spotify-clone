@@ -35,16 +35,21 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
         // Logic while resizing window...
 		const observer = new ResizeObserver((entries) => {
 			const appWidth = entries[0].contentRect.width;
-			if(appWidth < sizeInterval[2].max + MIN_WIDTH_MAIN) {
-				sideBar.style.minWidth = numToPx(sizeInterval[1].min);
-				sideBar.style.maxWidth = numToPx(sizeInterval[1].max);
-				setSideBarIndex(1);
-			}
-
-			if(appWidth < sizeInterval[1].max + MIN_WIDTH_MAIN) {
-				sideBar.style.minWidth = numToPx(sizeInterval[0].min);
-				sideBar.style.maxWidth = numToPx(sizeInterval[0].max);
-				setSideBarIndex(0);
+			if(appWidth > 400){
+				if(appWidth < sizeInterval[2].max + MIN_WIDTH_MAIN) {
+					sideBar.style.minWidth = numToPx(sizeInterval[1].min);
+					sideBar.style.maxWidth = numToPx(sizeInterval[1].max);
+					setSideBarIndex(1);
+				}
+	
+				if(appWidth < sizeInterval[1].max + MIN_WIDTH_MAIN) {
+					sideBar.style.minWidth = numToPx(sizeInterval[0].min);
+					sideBar.style.maxWidth = numToPx(sizeInterval[0].max);
+					setSideBarIndex(0);
+				}
+			}else {
+				sideBar.style.minWidth = numToPx(0);
+				sideBar.style.maxWidth = numToPx(0);
 			}
 
 		});

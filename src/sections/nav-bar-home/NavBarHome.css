@@ -16,3 +16,10 @@
     column-gap: var(--secondary-padding);
     display: grid;
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) {
+    .nav-bar-home {
+        display: none;
+    }
+}

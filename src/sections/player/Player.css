@@ -77,3 +77,46 @@
     margin-bottom: 2px;
     margin-right: var(--secondary-padding);
 }
+
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+    .player {
+        position: absolute;
+        height: 50px;
+        bottom: var(--min-width);
+        background-color: rgba(0, 0, 0, 0.8);
+        width: 95%;
+        left: 2.5%;
+        border-radius: 10px;
+        z-index: 10;
+    }
+
+    .player-previous, .player-next, .player-right, .player-time {
+        display: none;
+    }
+
+
+    .player-progress {
+        position: absolute;
+        left: 2.5%;
+        bottom: calc(var(--main-padding)*-1);
+        width: 95%;
+    }
+
+    .player-left {
+        align-items: center;
+    }
+
+    .player-song-img-container {
+        margin: var(--main-padding);
+        height: 80%;
+    }
+
+    .player-center {
+        flex-direction: row;
+        align-items: center;
+        flex: 0;
+        margin: var(--secondary-padding);
+    }
+}

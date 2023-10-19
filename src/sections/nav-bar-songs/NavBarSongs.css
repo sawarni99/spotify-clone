@@ -31,3 +31,17 @@
     margin-left: 5px;
     color: var(--color-gray);
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+    .nav-bar-songs {
+        flex-direction: column;
+    }
+
+    .nav-bar-songs-img-container {
+        display: flex;
+        justify-content: center;
+        width: 200px;
+        height: 200px;
+    }
+}

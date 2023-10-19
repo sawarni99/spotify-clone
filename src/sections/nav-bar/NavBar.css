@@ -32,3 +32,26 @@
     padding-top: var(--nav-bar-height);
     padding-inline: var(--secondary-padding);
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) {
+    .nav-bar-background {
+        display: none;
+    }
+
+    .nav-bar {
+        flex-direction: column-reverse;
+        height: auto;
+        padding: var(--main-padding);
+        gap: var(--secondary-padding);
+    }
+
+    .nav-bar-right {
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .nav-bar-left {
+        width: 100%;
+    }
+}

@@ -11,3 +11,12 @@
     padding-inline: var(--secondary-padding);
 }
 
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+
+    .home-main {
+        padding-bottom: var(--min-width);
+    }
+
+    
+}

@@ -24,3 +24,12 @@
 .songs-page-options {
     cursor: pointer;
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+
+    .songs-page-menu {
+        margin-bottom: var(--min-width);
+    }
+
+}

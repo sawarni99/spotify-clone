@@ -24,3 +24,10 @@
 .input-container:has(.input:focus) {
     outline: 2px solid white;
 }
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+    .input-container {
+        width: 100%;
+    }
+}

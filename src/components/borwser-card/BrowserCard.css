@@ -8,3 +8,11 @@
     background-color: var(--color-bg-ternary);
 }
 
+
+/* For mobile phones */
+@media screen and (max-width: 400px) { 
+    .browser-card {
+        width: 100px;
+        height: 100px;
+    }
+}
