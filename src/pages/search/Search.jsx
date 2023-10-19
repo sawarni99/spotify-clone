@@ -1,5 +1,5 @@
 import './Search.css'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import NavBar from '../../sections/nav-bar/NavBar'
 import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useResize } from '../../hooks/hooks';
@@ -10,6 +10,7 @@ export default function Search() {
 
 	const mainRef = useRef(null);
 	const widthState = useResize(mainRef, [1300, 1150, 1000, 770, 560]);
+	const [showSearchLayout, setShowSearchLayout] = useState(false);
 	let style = {};
 	switch(widthState) {
 		case 0 :
@@ -44,32 +45,40 @@ export default function Search() {
 	}
 
 	const onChangeInputvalue = (value) => {
-		// console.log(value);
+		if(value === null || value === '') {
+			setShowSearchLayout(true);
+		} else {
+			setShowSearchLayout(false);
+		}
 	}
 
 	return (
 		<div className='search' ref={mainRef}>
 			<NavBar onChange={onChangeInputvalue} page='search' parentRef={mainRef} />
-			{/* <div className="search-browser">
-				<div className="search-browser-header">
-					Browse all
-				</div>
-				<div style={style} className="search-browser-body">
-					<BrowserCard />
-					<BrowserCard />
-					<BrowserCard />
-					<BrowserCard />
-					<BrowserCard />
-					<BrowserCard />
-				</div>
-			</div> */}
+			{
+				showSearchLayout ?
+				<div className="search-browser">
+					<div className="search-browser-header">
+						Browse all
+					</div>
+					<div style={style} className="search-browser-body">
+						<BrowserCard />
+						<BrowserCard />
+						<BrowserCard />
+						<BrowserCard />
+						<BrowserCard />
+						<BrowserCard />
+					</div>
+				</div> : 
 
-			<div className="search-browser">
-				<TrackSearchResult />
-				<Carousel title="Artists" parentRef={mainRef} hideShowAll/>
-				<Carousel title="Albums" parentRef={mainRef} hideShowAll />
-				<Carousel title="Playlists" parentRef={mainRef} hideShowAll />
-			</div>
+				<div className="search-browser">
+					<TrackSearchResult />
+					<Carousel title="Artists" parentRef={mainRef} hideShowAll/>
+					<Carousel title="Albums" parentRef={mainRef} hideShowAll />
+					<Carousel title="Playlists" parentRef={mainRef} hideShowAll />
+				</div>
+			}
+
 		</div>
 	)
 }

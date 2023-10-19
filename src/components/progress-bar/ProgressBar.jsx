@@ -3,10 +3,10 @@ import React, { useRef } from 'react'
 import { useProgress } from '../../hooks/hooks';
 
 
-export default function ProgressBar({progress, setProgress, onClicked}) {
+export default function ProgressBar({progress, setProgress, onClicked, duration}) {
 	const barRef = useRef(null);
 	const progressRef = useRef(null);
-	const clicked = useProgress(barRef, progressRef, setProgress);
+	const clicked = useProgress(barRef, progressRef, setProgress, duration);
 	onClicked(clicked);
 
 	const progressStyle = {

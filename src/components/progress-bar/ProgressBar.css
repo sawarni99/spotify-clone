@@ -28,6 +28,10 @@
     -ms-user-select: none;
 }
 
+.progress-bar-slider {
+    transform: translate(50%);
+}
+
 .progress-bar:hover .progress-bar-progress {
     background-color: var(--color-primary-green);
 }

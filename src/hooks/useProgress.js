@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
-export default function useProgress(barRef, progressRef, setProgress) {
+export default function useProgress(barRef, progressRef, setProgress, duration) {
 
     const [clicked, setClicked] = useState(false);
 
-    const getPositionPercent = (event, bar) => {
+    const getPositionPercent = (event, bar, duration) => {
         const barLeft = bar.getBoundingClientRect().left;
         const barWidth = bar.getBoundingClientRect().width;
         const position = event.clientX;
         const progressPercent = (position-barLeft)/barWidth*100;
-        return progressPercent;
+        const roundedDuration = Math.round(progressPercent*duration/100);
+        const roundedPercent = roundedDuration/duration*100;
+        return roundedPercent;
     }
 
     useEffect(() => {
@@ -17,7 +19,7 @@ export default function useProgress(barRef, progressRef, setProgress) {
         const bar = barRef.current;
 
         const onMouseMove = (event) => {
-            const progressPercent = getPositionPercent(event, bar);
+            const progressPercent = getPositionPercent(event, bar, duration);
 
             if(progressPercent < 0) {
                 setProgress(0);
@@ -38,7 +40,7 @@ export default function useProgress(barRef, progressRef, setProgress) {
             window.addEventListener('mousemove', onMouseMove);
 
             setClicked(true);
-            const progressPercent = getPositionPercent(event, bar);
+            const progressPercent = getPositionPercent(event, bar, duration);
             setProgress(progressPercent);
         }
         
@@ -55,7 +57,7 @@ export default function useProgress(barRef, progressRef, setProgress) {
 			window.removeEventListener('mouseup', onMouseUp);
         }
 
-    }, [barRef, progressRef, setProgress]);
+    }, [barRef, progressRef, setProgress, duration]);
 
     return clicked;
 }

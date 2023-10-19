@@ -4,11 +4,12 @@ import ProgressBar from '../../components/progress-bar/ProgressBar';
 import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover } from '../../hooks/hooks';
+import { getFormattedTime } from '../../utils/Helper';
 
 const duration = 60; // Testing purpose...
 
 export default function Player() {
-
+    
     const [progress, setProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     let isProgressBarClicked = false;
@@ -41,7 +42,6 @@ export default function Player() {
         let interval = null;
 
         if(isPlaying && progress < 100) {
-            console.log(progress);
             interval = setInterval(() => {
                 if(!isProgressBarClicked){
                     setProgress(progress => progress + (100/duration));
@@ -90,9 +90,9 @@ export default function Player() {
                     </div>
                 </div>
                 <div className="player-progress">
-                    <div className="player-time">0:00</div>
-                    <ProgressBar progress={progress} setProgress={setProgress} onClicked={onProgressBarClicked} />
-                    <div className="player-time">2:00</div>
+                    <div className="player-time">{getFormattedTime(Math.round(progress*duration/100))}</div>
+                    <ProgressBar progress={progress} duration={duration} setProgress={setProgress} onClicked={onProgressBarClicked} />
+                    <div className="player-time">{getFormattedTime(duration)}</div>
                 </div>
             </div>
             <div className="player-right">
