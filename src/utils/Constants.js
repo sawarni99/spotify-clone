@@ -1,3 +1,7 @@
+export const CLIENT_ID = 'd7031b3133c041f79b03de1fe8928c90';
+export const INITIAL_INDEX = 1;
+export const MIN_WIDTH_MAIN = 400;
+
 export const sizeInterval = [
     {min: 72, max: 72}, 
     {min: 280, max: 420}, 
@@ -10,14 +14,13 @@ export const widthStates = {
     large: 2,
 }
 
-export const INITIAL_INDEX = 1;
-export const MIN_WIDTH_MAIN = 400;
 export const pages = {
     home: '/',
     search: '/search',
     album: '/album',
     playlist: '/playlist',
     artist: '/artist',
+    login: '/login'
 }
 
 export const profileMenuList = [

@@ -30,6 +30,10 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
 		const sideBar = sideBarRef.current;
         const resizer = resizerRef.current;
 
+		if(sideBar === null || sideBar === undefined) {
+			return;
+		}
+
         sideBarRef.current.style.width = numToPx(sizeInterval[INITIAL_INDEX].min);
 
         // Logic while resizing window...

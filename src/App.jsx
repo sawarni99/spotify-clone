@@ -10,6 +10,7 @@ import './App.css';
 import Songs from './pages/songs/Songs';
 import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
 import Player from './sections/player/Player';
+import Login from './pages/login/Login';
 
 /*
 	1. Have to create a 404 page...
@@ -48,65 +49,66 @@ function App() {
 	}
 
 	return (
-		<Router>
-			<div className="App" ref={appRef}>
-				<div className='app-body'>
-					<div className='app-side-bar' ref={sideBarRef} >
-						<div className='app-side-bar-container'>
-							<div className='app-side-bar-menu'>
-								<SideBarLink 
-									icon='home' 
-									onClick={onClickHome} 
-									name='Home' 
-									selected={window.location.pathname === pages.home || selectedPage === pages.home}
-									widthState={widthState}
-									to={pages.home}
-								/>
-								<SideBarLink 
-									icon='search' 
-									onClick={onClickSearch} 
-									name='Search'
-									selected={window.location.pathname.startsWith(pages.search) || selectedPage === pages.search} 
-									widthState={widthState}
-									to={pages.search}
-								/>
-							</div>
-							<div className='app-side-bar-library'>
-								<div className="app-side-bar-library-head">
-									<SideBarLink 
-										icon='library'
-										name='Library'
-										widthState={widthState}
-										onClick={onClickLibrary}
-									/>
-									{ 
-										( widthState === widthStates.large ) ?
-											<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
-										(widthState === widthStates.medium) ?
-											<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
-										null
-									}
-								</div>
-								<div className="app-side-bar-library-body">
-									<SideBarLibrary widthState={widthState} parentRef={sideBarRef} />
-								</div>
-							</div>
-						</div>
-						<div className='app-resizer' ref={resizerRef} />
-					</div>
-					<div className='app-main'>
-						<Routes>
-							<Route path={pages.home} element={<Home />}/>
-							<Route path={pages.search} element={<Search />}/>
-							<Route path={pages.album || pages.artist || pages.playlist} element={<Songs/>} />
-						</Routes>
-					</div>
-				</div>
-				<div className='app-player'>
-					<Player />
-				</div>
-			</div>
-		</Router>	
+		<Login />
+		// <Router>
+		// 	<div className="App" ref={appRef}>
+		// 		<div className='app-body'>
+		// 			<div className='app-side-bar' ref={sideBarRef} >
+		// 				<div className='app-side-bar-container'>
+		// 					<div className='app-side-bar-menu'>
+		// 						<SideBarLink 
+		// 							icon='home' 
+		// 							onClick={onClickHome} 
+		// 							name='Home' 
+		// 							selected={window.location.pathname === pages.home || selectedPage === pages.home}
+		// 							widthState={widthState}
+		// 							to={pages.home}
+		// 						/>
+		// 						<SideBarLink 
+		// 							icon='search' 
+		// 							onClick={onClickSearch} 
+		// 							name='Search'
+		// 							selected={window.location.pathname.startsWith(pages.search) || selectedPage === pages.search} 
+		// 							widthState={widthState}
+		// 							to={pages.search}
+		// 						/>
+		// 					</div>
+		// 					<div className='app-side-bar-library'>
+		// 						<div className="app-side-bar-library-head">
+		// 							<SideBarLink 
+		// 								icon='library'
+		// 								name='Library'
+		// 								widthState={widthState}
+		// 								onClick={onClickLibrary}
+		// 							/>
+		// 							{ 
+		// 								( widthState === widthStates.large ) ?
+		// 									<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
+		// 								(widthState === widthStates.medium) ?
+		// 									<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
+		// 								null
+		// 							}
+		// 						</div>
+		// 						<div className="app-side-bar-library-body">
+		// 							<SideBarLibrary widthState={widthState} parentRef={sideBarRef} />
+		// 						</div>
+		// 					</div>
+		// 				</div>
+		// 				<div className='app-resizer' ref={resizerRef} />
+		// 			</div>
+		// 			<div className='app-main'>
+		// 				<Routes>
+		// 					<Route path={pages.home} element={<Home />}/>
+		// 					<Route path={pages.search} element={<Search />}/>
+		// 					<Route path={pages.album || pages.artist || pages.playlist} element={<Songs/>} />
+		// 				</Routes>
+		// 			</div>
+		// 		</div>
+		// 		<div className='app-player'>
+		// 			<Player />
+		// 		</div>
+		// 	</div>
+		// </Router>	
 	);
 }
 
