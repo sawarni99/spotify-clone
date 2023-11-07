@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ACCESS_TOKEN_KEY, CLIENT_ID, EXPIRES_IN_KEY, REDIRECT_URL, REFRESH_TOKEN_KEY, getAccessToken, getExpiresIn, getRefreshToken, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
+import { ACCESS_TOKEN_KEY, CLIENT_ID, EXPIRES_IN_KEY, REDIRECT_URL, REFRESH_TOKEN_KEY, getAccessToken, getExpiresIn, getRefreshToken, logout, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
 import { getLocalStorage, setLocalStorage } from "../utils/Helper";
 import { post } from "../utils/ApiUtil";
 
@@ -45,16 +45,11 @@ export default function useAuth() {
                 const previousTime = Number(getLocalStorage('timestamp'));
                 const currentTime = Date.now();
                 const expiry = getExpiresIn()*1000;
-            
+                
                 // If App is opened after long time...
                 if(currentTime >= previousTime+expiry) {
-                    window.localStorage.removeItem('code_verifier');
-                    window.localStorage.removeItem(ACCESS_TOKEN_KEY);
-                    window.localStorage.removeItem(REFRESH_TOKEN_KEY);
-                    window.localStorage.removeItem(EXPIRES_IN_KEY);
-                    window.localStorage.removeItem('timestamp');
+                    logout();
                     clearInterval(interval);
-                    window.location.href = REDIRECT_URL;
 
                 // If App is still running...
                 } else if (currentTime+60000 >= previousTime+expiry) {

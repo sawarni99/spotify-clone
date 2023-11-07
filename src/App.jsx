@@ -11,6 +11,7 @@ import Songs from './pages/songs/Songs';
 import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
 import Player from './sections/player/Player';
 import Login from './pages/login/Login';
+import { getAccessToken } from './utils/AuthUtil';
 
 /*
 	1. Have to create a Error (404, 400 etc.) page...
@@ -50,9 +51,12 @@ function App() {
 		setWidthState(widthStates.large);
 	}
 
-	return (
-		<Login />
-	)
+	if(getAccessToken() === null) {
+		return (
+			<Login />
+		)
+	}
+	
 	return (
 		<Router>
 			<div className="App" ref={appRef}>

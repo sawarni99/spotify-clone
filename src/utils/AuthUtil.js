@@ -67,3 +67,12 @@ export const getExpiresIn = () => {
 
     return parseInt(expiresIn)
 }
+
+export const logout = () => {
+    window.localStorage.removeItem('code_verifier');
+    window.localStorage.removeItem(ACCESS_TOKEN_KEY);
+    window.localStorage.removeItem(REFRESH_TOKEN_KEY);
+    window.localStorage.removeItem(EXPIRES_IN_KEY);
+    window.localStorage.removeItem('timestamp');
+    window.location.href = REDIRECT_URL;
+}

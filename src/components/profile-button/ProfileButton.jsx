@@ -2,6 +2,7 @@ import './ProfileButton.css'
 import React, { useState, useRef } from 'react'
 import { profileMenuList } from '../../utils/Constants';
 import { useCheckOutsideClick } from '../../hooks/hooks';
+import { logout } from '../../utils/AuthUtil';
 
 export default function ProfileButton({src}) {
 
@@ -23,7 +24,7 @@ export default function ProfileButton({src}) {
                 // Fill here...
                 break;
             case 'logout':
-                // Fill here...
+                logout();
                 break;
             default:
                 return;
