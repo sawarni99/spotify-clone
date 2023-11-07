@@ -1,0 +1,8 @@
+.loading {
+    border: 7px solid;
+    width: 80px;
+    height: 80px;
+    border-radius: 500px;
+    border-color: transparent var(--color-primary-green) var(--color-primary-green) transparent;
+    opacity: 0.75;
+}

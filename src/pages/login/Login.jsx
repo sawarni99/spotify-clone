@@ -2,6 +2,7 @@ import React from 'react'
 import { generateRandomString, sha256, base64encode, setLocalStorage } from '../../utils/Helper';
 import { REDIRECT_URL, CLIENT_ID, SCOPES } from '../../utils/AuthUtil';
 import './Login.css'
+import Loading from '../../components/loading/Loading';
 
 export default function Login() {
 
@@ -33,6 +34,7 @@ export default function Login() {
         <img className='login-page-img' src='./assets/icons/spotify.png' alt='Spotify' />
         <span className='login-page-desc'>This is a clone of Spotify made for educational purposes</span>
         <button className='login-button' onClick={login}>Login</button>
+        <Loading />
     </div>
   )
 }

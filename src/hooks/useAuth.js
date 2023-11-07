@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ACCESS_TOKEN_KEY, CLIENT_ID, EXPIRES_IN_KEY, REDIRECT_URL, REFRESH_TOKEN_KEY, getAccessToken, getExpiresIn, getRefreshToken, logout, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
+import { CLIENT_ID, REDIRECT_URL, getAccessToken, getExpiresIn, getRefreshToken, logout, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
 import { getLocalStorage, setLocalStorage } from "../utils/Helper";
 import { post } from "../utils/ApiUtil";
 
