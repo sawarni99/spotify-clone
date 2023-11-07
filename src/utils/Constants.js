@@ -1,4 +1,3 @@
-export const CLIENT_ID = 'd7031b3133c041f79b03de1fe8928c90';
 export const INITIAL_INDEX = 1;
 export const MIN_WIDTH_MAIN = 400;
 
