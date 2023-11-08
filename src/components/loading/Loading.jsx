@@ -1,23 +1,37 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import './Loading.css'
 
-export default function Loading() {
+export default function Loading(size, color) {
 
-    const mainRef = useRef(null);
+    let classSize = null;
+    let classColor = null;
 
-    useEffect(() => {
-        let degree = 0;
-        const interval = setInterval(() => {
-            mainRef.current.style.transform = `rotate(${degree}deg)`;
-            degree = (degree + 1)%360;
-        }, 5);
+    switch(size) {
+        case "small" :
+            classSize = "loading-size-small";
+            break;
+        case "large" :
+            classSize = "loading-size-large";
+            break;
+        default:
+            classSize = "loading-size-small";
+    }
 
-        return () => {
-            clearInterval(interval);
-        }
-    })
+    switch(color) {
+        case "white":
+            classColor = "loading-color-white";
+            break;
+        case "green":
+            classColor = "loading-color-green";
+            break;
+        default:
+            classColor = "loading-color-green";
+
+    }
+
+    const className = `loading ${classSize} ${classColor}`
 
     return (
-        <div ref={mainRef} className='loading'/>
+        <div className={className}/>
     )
 }

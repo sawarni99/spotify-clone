@@ -1,10 +1,16 @@
-import React from 'react'
-import { generateRandomString, sha256, base64encode, setLocalStorage } from '../../utils/Helper';
+import React, { useEffect, useState } from 'react'
+import { generateRandomString, sha256, base64encode, setLocalStorage, getLocalStorage } from '../../utils/Helper';
 import { REDIRECT_URL, CLIENT_ID, SCOPES } from '../../utils/AuthUtil';
 import './Login.css'
 import Loading from '../../components/loading/Loading';
 
 export default function Login() {
+
+  const [loginClicked, setLoginClicked] = useState(false);
+
+  const onLoginClicked = () => {
+    setLoginClicked(true);
+  }
 
   const login = async () => {
     const codeVerifier = generateRandomString(64);
@@ -29,12 +35,20 @@ export default function Login() {
     window.location.href = authUrl.toString();
   }
 
+  useEffect(() => {
+    if(loginClicked) {
+      login();
+    }
+  }, [loginClicked]);
+
   return (
     <div className='login-page'>
         <img className='login-page-img' src='./assets/icons/spotify.png' alt='Spotify' />
         <span className='login-page-desc'>This is a clone of Spotify made for educational purposes</span>
-        <button className='login-button' onClick={login}>Login</button>
-        <Loading />
+        { loginClicked || getLocalStorage('code_verifier') !== null ?
+          <Loading /> :
+          <button className='login-button' onClick={onLoginClicked}>Login</button>
+        }
     </div>
   )
 }
