@@ -21,7 +21,7 @@ export default function Card({src, name, desc, onClick, plain}) {
     return (
         <div className={className} onClick={onClick}>
             <div className="card-img-container">
-                <img src="" alt="" className="card-img" />
+                <img src={src} alt="" className="card-img" />
                 <div className='card-play-button'>
                     <PlayButton onClick={onClickPlay} />
                 </div>

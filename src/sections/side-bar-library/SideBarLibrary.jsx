@@ -4,12 +4,25 @@ import LongCard from '../../components/long-card/LongCard'
 import Card from '../../components/card/Card'
 import { widthStates } from '../../utils/Constants'
 import { useResize, useScroll } from '../../hooks/hooks'
+import useAPI from '../../hooks/useAPI'
+import { FAILURE, TOP10_USER_LIBRARY } from '../../utils/ApiUtil'
 
 export default function SideBarLibrary({widthState, parentRef}) {
 
     const parentSizeState = useResize(parentRef, [1100,900,700]);
     const mainRef = useRef(null);
     const scrolled = useScroll(mainRef, 1);
+    const libraryRes = useAPI(TOP10_USER_LIBRARY);
+    let libraryData = [];
+    
+    if(libraryRes !== null) {
+        if(libraryRes.status === FAILURE) {
+            // TODO :: Have to handle here... 
+            console.log(libraryRes);
+        } else {
+            libraryData = libraryRes.result.items;
+        }
+    }
 
     let noDesc = false
     if(widthState === widthStates.small){
@@ -51,29 +64,18 @@ export default function SideBarLibrary({widthState, parentRef}) {
                 widthState === widthStates.large ?
 
                 <div style={style} className="side-bar-library-large">
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
-                    <Card plain />
+                    {
+                        libraryData.map(({id, image_url, name}) => {
+                            return <Card plain key={id} src={image_url} name={name}/>
+                        })
+                    }
                 </div>:
                 <div className="side-bar-library-small">
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
-                    <LongCard plain noDesc={noDesc} />
+                    {
+                        libraryData.map(({id, image_url, name}) => {
+                            return <LongCard plain noDesc={noDesc} key={id} src={image_url} name={name} />
+                        })
+                    }
                 </div>
             }
         </div>

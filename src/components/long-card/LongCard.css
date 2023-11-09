@@ -21,8 +21,14 @@
 .long-card-img-container {
     height: inherit;
     aspect-ratio: 1;
-    background: var(--color-gray-secondary);
+    background: transparent;
     box-shadow: 4px 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.long-card-img {
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
 }
 
 .long-card .long-card-img-container {
