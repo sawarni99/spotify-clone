@@ -13,7 +13,7 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
-    if(albumInfo === undefined || albumInfo === null) albumInfo = null; 
+    if(albumInfo === undefined || albumInfo === null) albumInfo = null;
 
     const mainStyle = {
         background: isSolid ? color : null,
@@ -42,7 +42,7 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
                     null,
                 height: 'calc(var(--nav-bar-bg-height) - var(--nav-bar-height)',
             }
-            child = <NavBarHome parentRef={parentRef} sizeState={widthState} />
+            child = <NavBarHome sizeState={widthState} />
             break;
 
         case 'search':

@@ -4,7 +4,7 @@ import LongCard from '../../components/long-card/LongCard'
 import Card from '../../components/card/Card'
 import { widthStates } from '../../utils/Constants'
 import { useResize, useScroll } from '../../hooks/hooks'
-import useAPI from '../../hooks/useAPI'
+import { useAPI } from '../../hooks/hooks'
 import { FAILURE, TOP10_USER_LIBRARY } from '../../utils/ApiUtil'
 
 export default function SideBarLibrary({widthState, parentRef}) {

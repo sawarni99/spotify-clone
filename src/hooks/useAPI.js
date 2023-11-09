@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
-import { FAILURE, SUCCESS, TOP10_USER_LIBRARY, get } from '../utils/ApiUtil';
+import { FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, get } from '../utils/ApiUtil';
 
-export default function useAPI(url) {
+export default function useAPI(url, query=null) {
     const [ toRet, setToRet ] = useState(null);
 
     const parseResponse = (url, response) => {
         let toRet = {};
         switch(url) {
+            case USER_LIBRARY :
             case TOP10_USER_LIBRARY :
                 toRet = {
                     items: response.items.map((item) => {
@@ -26,7 +27,7 @@ export default function useAPI(url) {
     }
 
     useEffect(() => {
-        get(url).then((response) => {
+        get(url, query).then((response) => {
             if(response.error === undefined) {
                 setToRet({ status: SUCCESS, result: parseResponse(url, response)});
             } else {

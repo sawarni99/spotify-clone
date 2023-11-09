@@ -21,7 +21,7 @@ export default function ProfileButton({src}) {
         // Logic to do something when something is clicked...
         switch(key){
             case 'account':
-                // Fill here...
+                window.location.href = 'https://www.spotify.com/in-en/account/overview/';
                 break;
             case 'logout':
                 logout();

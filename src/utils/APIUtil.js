@@ -3,6 +3,7 @@ import { getAccessToken } from "./AuthUtil";
 export const SUCCESS = "SUCCESS";
 export const FAILURE = "FAILURE";
 export const TOP10_USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists?limit=10&offset=0';
+export const USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists';
 
 export const post = async (url, body) => {
     const payload = {
@@ -23,7 +24,10 @@ export const post = async (url, body) => {
 
 }
 
-export const get = async (url) => {
+export const get = async (url, query=null) => {
+    if(query !== null) {
+        url = `${url}?${query}`;
+    }
     const payload = {
         method: 'GET',
         headers: {
