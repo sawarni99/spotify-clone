@@ -1,11 +1,13 @@
 import './NavBar.css'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProfileButton from '../../components/profile-button/ProfileButton'
 import SearchInput from '../../components/input/Input'
 import NavBarHome from '../nav-bar-home/NavBarHome'
 import NavBarSongs from '../nav-bar-songs/NavBarSongs'
 import { getRootStyle } from '../../utils/StyleUtil'
 import {useResize, useScroll} from '../../hooks/hooks';
+import { ProfileContext } from '../../utils/Contexts'
+import { SUCCESS } from '../../utils/ApiUtil'
 
 export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     
@@ -13,6 +15,12 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
+    const profile = useContext(ProfileContext);
+    let src = './assets/icons/sample-dp.webp';
+    if(profile !== null && profile.status === SUCCESS) {
+        src = profile.result.image_url;
+    }
+
     if(albumInfo === undefined || albumInfo === null) albumInfo = null;
 
     const mainStyle = {
@@ -82,7 +90,7 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
                     }
                 </div>
                 <div className="nav-bar-right">
-                    <ProfileButton src='./assets/icons/sample-dp.webp' />
+                    <ProfileButton src={src} />
                 </div>
             </div>
             <div style={bgStyle} className="nav-bar-background" />

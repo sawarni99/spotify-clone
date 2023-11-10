@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, get } from '../utils/ApiUtil';
+import { FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, USER_PROFILE, get } from '../utils/ApiUtil';
+import { logout } from '../utils/AuthUtil';
 
 export default function useAPI(url, query=null) {
     const [ toRet, setToRet ] = useState(null);
@@ -20,6 +21,15 @@ export default function useAPI(url, query=null) {
                     })
                 }
                 break;
+            case USER_PROFILE :
+                toRet = {
+                    id: response.id,
+                    image_url: response.images[0].url,
+                    name: response.display_name,
+                    email: response.email,
+                    country: response.country,
+                }
+                break;
             default:
                 return null;
         }
@@ -31,12 +41,16 @@ export default function useAPI(url, query=null) {
             if(response.error === undefined) {
                 setToRet({ status: SUCCESS, result: parseResponse(url, response)});
             } else {
-                setToRet({status: FAILURE, result: response.error});
+                if(response.error.status === 401) {
+                    logout();
+                } else {
+                    setToRet({status: FAILURE, result: response.error});
+                }
             }
         }).catch(exception => {
             setToRet({status: FAILURE, exception: exception});
         })
-    }, [url]);
+    }, [url, query]);
 
     return toRet;
 }

@@ -4,6 +4,8 @@ export const SUCCESS = "SUCCESS";
 export const FAILURE = "FAILURE";
 export const TOP10_USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists?limit=10&offset=0';
 export const USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists';
+export const RECOMMENDATION = 'https://api.spotify.com/v1/recommendations?limit=10&market=IN&seed_genres=indian';
+export const USER_PROFILE = 'https://api.spotify.com/v1/me';
 
 export const post = async (url, body) => {
     const payload = {
@@ -25,21 +27,25 @@ export const post = async (url, body) => {
 }
 
 export const get = async (url, query=null) => {
-    if(query !== null) {
-        url = `${url}?${query}`;
-    }
-    const payload = {
-        method: 'GET',
-        headers: {
-            'Authorization' : `Bearer ${getAccessToken()}`,
+    if(getAccessToken() !== null) {
+        if(query !== null) {
+            url = `${url}?${query}`;
+        }
+        const payload = {
+            method: 'GET',
+            headers: {
+                'Authorization' : `Bearer ${getAccessToken()}`,
+            }
+        }
+    
+        try {
+            const data = await fetch(url, payload);
+            return data.json();
+        } catch (exception) {
+            console.log(exception);
+            return Promise.reject(exception);
         }
     }
 
-    try {
-        const data = await fetch(url, payload);
-        return data.json();
-    } catch (exception) {
-        console.log(exception);
-        return Promise.reject(exception);
-    }
+    return Promise.reject("No Access Token...");
 }
