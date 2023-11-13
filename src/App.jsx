@@ -12,7 +12,7 @@ import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
 import Player from './sections/player/Player';
 import Login from './pages/login/Login';
 import { getAccessToken } from './utils/AuthUtil';
-import { USER_PROFILE } from './utils/ApiUtil';
+import { SUCCESS, USER_PROFILE } from './utils/ApiUtil';
 import { ProfileContext } from './utils/Contexts';
 
 
@@ -28,7 +28,11 @@ function App() {
 	const appRef = useRef(null);
 	const [ widthState, setWidthState ] = useResizeAll(appRef, sideBarRef, resizerRef);
 	const [selectedPage, setSelectedPage] = useState(null);
-	const profile = useAPI(USER_PROFILE);
+	const profile_res = useAPI(USER_PROFILE);
+	let profile = null;
+	if(profile_res !== null && profile_res.status === SUCCESS) {
+		profile = profile_res.result;
+	}
 
 	const onClickHome = () => {
 		setSelectedPage(pages.home)

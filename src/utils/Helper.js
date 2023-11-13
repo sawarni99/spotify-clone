@@ -1,3 +1,4 @@
+import { alphabetColorMap } from "./Constants";
 
 export const getGreetings = () => {
     const now = new Date();
@@ -51,4 +52,13 @@ export const base64encode = (input) => {
       .replace(/=/g, '')
       .replace(/\+/g, '-')
       .replace(/\//g, '_');
+}
+
+export const getColorByName = (name) => {
+    if(typeof name !== 'string' || name.length <= 0) {
+        return "#282828";
+    }
+
+    return alphabetColorMap[name[0]];
+
 }

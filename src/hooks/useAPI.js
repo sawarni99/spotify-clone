@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, USER_PROFILE, get } from '../utils/ApiUtil';
+import { CATEGORIES, FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, USER_PROFILE, get } from '../utils/ApiUtil';
 import { logout } from '../utils/AuthUtil';
 
 export default function useAPI(url, query=null) {
@@ -28,6 +28,17 @@ export default function useAPI(url, query=null) {
                     name: response.display_name,
                     email: response.email,
                     country: response.country,
+                }
+                break;
+            case CATEGORIES :
+                toRet = {
+                    items: response.categories.items.map((item) => {
+                        return {
+                            id: item.id,
+                            name: item.name,
+                            image_url: item.icons[0].url
+                        }
+                    })
                 }
                 break;
             default:

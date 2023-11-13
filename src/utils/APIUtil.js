@@ -6,6 +6,7 @@ export const TOP10_USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists?limit
 export const USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists';
 export const RECOMMENDATION = 'https://api.spotify.com/v1/recommendations?limit=10&market=IN&seed_genres=indian';
 export const USER_PROFILE = 'https://api.spotify.com/v1/me';
+export const CATEGORIES = 'https://api.spotify.com/v1/browse/categories';
 
 export const post = async (url, body) => {
     const payload = {

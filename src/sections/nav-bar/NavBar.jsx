@@ -7,7 +7,6 @@ import NavBarSongs from '../nav-bar-songs/NavBarSongs'
 import { getRootStyle } from '../../utils/StyleUtil'
 import {useResize, useScroll} from '../../hooks/hooks';
 import { ProfileContext } from '../../utils/Contexts'
-import { SUCCESS } from '../../utils/ApiUtil'
 
 export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     
@@ -16,9 +15,11 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
     const profile = useContext(ProfileContext);
+
+    // Setting profile picture...
     let src = './assets/icons/sample-dp.webp';
-    if(profile !== null && profile.status === SUCCESS) {
-        src = profile.result.image_url;
+    if(profile !== null) {
+        src = profile.image_url;
     }
 
     if(albumInfo === undefined || albumInfo === null) albumInfo = null;
