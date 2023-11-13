@@ -41,6 +41,12 @@
     border-radius: inherit;
 }
 
+.track-result-left-img {
+    height: auto;
+    width: 100%;
+    border-radius: inherit;
+}
+
 .track-result-left-desc {
     font-size: var(--font-size-large);
     font-family: spotify-sans-bold;

@@ -62,3 +62,12 @@ export const getColorByName = (name) => {
     return alphabetColorMap[name[0]];
 
 }
+
+export const getShortMessage = (message) => {
+    const threshold = 15;
+    if(message.length >= threshold){
+        return `${message.substring(0, threshold)}...`;
+    }
+
+    return message;
+}

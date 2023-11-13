@@ -50,3 +50,11 @@ export const get = async (url, query=null) => {
 
     return Promise.reject("No Access Token...");
 }
+
+export const getImageUrl = (images) => {
+    if(images === null || images.length === 0 || images[0] === undefined) {
+        return "";
+    } 
+
+    return images[0].url;
+}

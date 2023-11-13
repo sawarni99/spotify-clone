@@ -1,11 +1,13 @@
 import './Search.css'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import NavBar from '../../sections/nav-bar/NavBar'
 import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useAPI, useResize } from '../../hooks/hooks';
 import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
 import Carousel from '../../sections/carousel/Carousel';
-import { CATEGORIES, SUCCESS } from '../../utils/ApiUtil';
+import { CATEGORIES, SUCCESS, get, getImageUrl } from '../../utils/ApiUtil';
+import { logout } from '../../utils/AuthUtil';
+import { ProfileContext } from '../../utils/Contexts';
 
 export default function Search() {
 
@@ -13,8 +15,11 @@ export default function Search() {
 	const widthState = useResize(mainRef, [1300, 1150, 1000, 770, 560]);
 	const [showSearchLayout, setShowSearchLayout] = useState(false);
 	const categories = useAPI(CATEGORIES);
+	const [searchValue, setSearchValue] = useState("");
+	const [ searchResult, setSearchResult ] = useState(null);
+	// console.log(searchResult)
+	const {country} = useContext(ProfileContext);
 	let style = {};
-
 
 	switch(widthState) {
 		case 0 :
@@ -49,13 +54,83 @@ export default function Search() {
 	}
 
 	const onChangeInputvalue = (value) => {
-		if(value === null || value === '') {
-			setShowSearchLayout(true);
-		} else {
-			setShowSearchLayout(false);
-		}
+		setSearchValue(() => {
+			if(value === null || value === '') {
+				setShowSearchLayout(() => {
+					setSearchResult(null);
+					return true;
+				});
+			} else {
+				setShowSearchLayout(false);
+			}
+			return value;
+		})
 	}
 
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if(searchValue !== '') {
+				const url = 'https://api.spotify.com/v1/search';
+				const query = `q=${searchValue}&type=album%2Cplaylist%2Cartist%2Ctrack&market=${country}&limit=10`;
+
+				get(url, query).then((response) => {
+					if(response.error === undefined) {
+						setSearchResult({
+							tracks: response.tracks.items.map((item) => {
+								return {
+									artist : item.artists[0].name,
+									album : item.album.name,
+									id: item.id,
+									image_url: getImageUrl(item.album.images),
+									type: item.type,
+									duration_ms: item.duration_ms,
+									name: item.name,
+								}
+							}),
+							albums: response.albums.items.map((item) => {
+								return {
+									artist: item.artists[0].name,
+									name: item.name,
+									id: item.id,
+									image_url: getImageUrl(item.images),
+									type: item.type,
+								}
+							}),
+							artists: response.artists.items.map((item) => {
+								return {
+									name: item.name,
+									image_url: getImageUrl(item.images),
+									type: item.type,
+									id: item.id,
+								}
+							}),
+							playlists: response.playlists.items.map((item) => {
+								return {
+									name: item.name,
+									image_url: getImageUrl(item.images),
+									id: item.id,
+									description: item.description,
+								}
+							})
+						})
+					} else {
+						if(response.error.status === 401) {
+							logout();
+						} else {
+							console.log(response.error);
+						}
+					}
+				}).catch((exception) => {
+					console.log(exception);
+				})
+			}
+		}, 500);
+
+		return () => clearTimeout(timeout);
+	}, [searchValue, country]);
+
+
+	// Setting the browser Cards when nothing is searched...
 	let categoriesView = null;
 	if(categories !== null && categories.status === SUCCESS) {
 		categoriesView = categories.result.items.map(({id, name}) => <BrowserCard key={id} name={name}/>)
@@ -78,10 +153,68 @@ export default function Search() {
 				</div> : 
 
 				<div className="search-browser">
-					<TrackSearchResult />
-					<Carousel title="Artists" parentRef={mainRef} hideShowAll/>
-					<Carousel title="Albums" parentRef={mainRef} hideShowAll />
-					<Carousel title="Playlists" parentRef={mainRef} hideShowAll />
+					{
+						searchResult !== null &&
+						<TrackSearchResult 
+							data={searchResult.tracks.map((item) => {
+								return {
+									key: item.id,
+									name: item.name,
+									artist: item.artist,
+									src: item.image_url,
+									duration: Math.round(item.duration_ms/1000),
+								}
+							})}
+						/>
+					}
+					{
+						searchResult !== null && searchResult.artists.length > 1 && 
+						<Carousel 
+							title="Artists" 
+							parentRef={mainRef} 
+							hideShowAll
+							data={searchResult.artists.map((item) => {
+								return {
+									key: item.id,
+									src: item.image_url,
+									name: item.name,
+									desc: "",
+								}
+							})}
+						/>
+					}
+					{
+						searchResult !== null && searchResult.albums.length > 1 &&
+						<Carousel 
+							title="Albums" 
+							parentRef={mainRef} 
+							hideShowAll 
+							data={searchResult.albums.map((item) => {
+								return {
+									key: item.id,
+									src: item.image_url,
+									name: item.name,
+									desc: item.artist
+								}
+							})}
+						/>
+					}
+					{
+						searchResult !== null && searchResult.playlists.length > 1 &&
+						<Carousel 
+							title="Playlists" 
+							parentRef={mainRef} 
+							hideShowAll
+							data={searchResult.playlists.map((item => {
+								return {
+									key: item.id,
+									src: item.image_url,
+									name: item.name,
+									desc: item.description,
+								}
+							}))}
+						/>
+					}
 				</div>
 			}
 

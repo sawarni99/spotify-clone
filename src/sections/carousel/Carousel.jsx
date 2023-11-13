@@ -44,7 +44,7 @@ export default function Carousel({title, parentRef, data, hideShowAll}) {
   if(data.length >= numOfItems) {
     cards = data.slice(0, numOfItems);
   }
-  
+
   return (
     <div className='carousel'>
         <div className="carousel-head">

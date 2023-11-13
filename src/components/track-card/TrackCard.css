@@ -11,10 +11,15 @@
 
 .track-card-img-container {
     width: 45px;
-    aspect-ratio: 1;
+    height: 45px;
     border-radius: inherit;
     background-color: var(--color-bg-ternary);
     cursor: pointer;
+}
+
+.track-card-img {
+    height: 45px;
+    border-radius: inherit;
 }
 
 .track-card-desc {

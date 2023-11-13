@@ -1,6 +1,7 @@
 import './Card.css';
 import React from 'react'
 import PlayButton from '../play-button/PlayButton';
+import { getShortMessage } from '../../utils/Helper';
 
 export default function Card({src, name, desc, onClick, plain}) {
 
@@ -27,10 +28,10 @@ export default function Card({src, name, desc, onClick, plain}) {
                 </div>
             </div>
             <div className="card-name">
-                {name}
+                {getShortMessage(name)}
             </div>
             <div className="card-desc">
-                {desc}
+                {getShortMessage(desc)}
             </div>
         </div>
     )

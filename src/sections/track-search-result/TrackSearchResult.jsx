@@ -3,7 +3,20 @@ import TrackCard from '../../components/track-card/TrackCard'
 import './TrackSearchResult.css'
 import React from 'react'
 
-export default function TrackSearchResult() {
+const sampleData = [];
+for(let i=0; i<5; i++) {
+  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', duration: 0})
+}
+
+export default function TrackSearchResult({data}) {
+
+    if(data === undefined || data === null) {
+        data = sampleData;
+    } else {
+        if(data.length > 5) {
+            data = data.slice(0, 4);
+        }
+    }
 
     const onClickPlay = () => {
         // Logic to play the Song/Album...
@@ -17,10 +30,10 @@ export default function TrackSearchResult() {
                 </div>
                 <div className="track-result-left-body">
                     <div className="track-result-img-left-container">
-                        <img className='track-result-left-img' src='' alt='' />
+                        <img className='track-result-left-img' src={data[0].src} alt='' />
                     </div>
                     <div className="track-result-left-desc">
-                        Loading...
+                        {data[0].name}
                     </div>
                     <div className="track-result-left-play">
                         <PlayButton onclick={onClickPlay} />
@@ -32,10 +45,11 @@ export default function TrackSearchResult() {
                     Songs
                 </div>
                 <div className="track-result-right-body">
-                    <TrackCard />
-                    <TrackCard />
-                    <TrackCard />
-                    <TrackCard />
+                    {
+                        data.map(({src, name, artist, duration, key}) =>
+                            <TrackCard key={key} src={src} name={name} artist={artist} duration={duration} />
+                        )
+                    }
                 </div>
             </div>
         </div>
