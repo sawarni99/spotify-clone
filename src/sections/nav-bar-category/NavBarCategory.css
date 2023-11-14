@@ -1,0 +1,16 @@
+.nav-bar-category {
+    display: flex;
+    align-items: flex-end;
+    font-size: var(--font-size-xx-large);
+    min-height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
+    padding-bottom: var(--secondary-padding);
+    z-index: 2;
+    position: relative;
+}
+
+/* For mobile phones */
+@media screen and (max-width: 400px) {
+    .nav-bar-category {
+        font-size: var(--font-size-large);
+    }
+}

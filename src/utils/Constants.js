@@ -19,7 +19,8 @@ export const pages = {
     album: '/album',
     playlist: '/playlist',
     artist: '/artist',
-    login: '/login'
+    login: '/login',
+    category: '/category'
 }
 
 export const profileMenuList = [

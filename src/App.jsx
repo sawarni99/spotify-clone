@@ -14,6 +14,7 @@ import Login from './pages/login/Login';
 import { getAccessToken } from './utils/AuthUtil';
 import { SUCCESS, USER_PROFILE } from './utils/ApiUtil';
 import { ProfileContext } from './utils/Contexts';
+import Category from './pages/category/Category';
 
 
 /*
@@ -119,6 +120,7 @@ function App() {
 								<Route path={pages.home} element={<Home />}/>
 								<Route path={pages.search} element={<Search />}/>
 								<Route path={pages.album || pages.artist || pages.playlist} element={<Songs/>} />
+								<Route path={pages.category} element={<Category />} />
 							</Routes>
 						</div>
 					</div>

@@ -7,10 +7,10 @@ import NavBarSongs from '../nav-bar-songs/NavBarSongs'
 import { getRootStyle } from '../../utils/StyleUtil'
 import {useResize, useScroll} from '../../hooks/hooks';
 import { ProfileContext } from '../../utils/Contexts'
+import NavBarCategory from '../nav-bar-category/NavBarCategory'
 
-export default function NavBar({ onChange, page, parentRef, albumInfo }) {
+export default function NavBar({ onChange, page, parentRef, info, color='#212121' }) {
     
-    const color = '#212121';
     const [ inputValue, setInputValue ] = useState('');
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
@@ -22,7 +22,7 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
         src = profile.image_url;
     }
 
-    if(albumInfo === undefined || albumInfo === null) albumInfo = null;
+    if(info === undefined || info === null) info = null;
 
     const mainStyle = {
         background: isSolid ? color : null,
@@ -40,7 +40,7 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
         }
     }, [inputValue, onChange]);
     
-    // Checking the page type... { 'home', 'search', 'album' }
+    // Checking the page type... { 'home', 'search', 'album', 'category' }
     let bgStyle = null;
     let child = null;
     switch(page) {
@@ -67,7 +67,17 @@ export default function NavBar({ onChange, page, parentRef, albumInfo }) {
                     null,
                 height: 'calc(100vh - 3 * var(--nav-bar-height))',
             }
-            child = <NavBarSongs parentRef={parentRef} sizeState={widthState} info={albumInfo} />
+            child = <NavBarSongs parentRef={parentRef} sizeState={widthState} info={info} />
+            break;
+        
+        case 'category' :
+            bgStyle = {
+                backgroundImage: (getRootStyle('--color-bg') !== color) ? 
+                `linear-gradient(180deg, ${color}, ${getRootStyle('--color-bg')})` :
+                null,
+                height: 'calc(var(--nav-bar-bg-height) - var(--nav-bar-height)',
+            }
+            child = <NavBarCategory title={info} />
             break;
 
         default:

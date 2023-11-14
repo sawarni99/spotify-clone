@@ -1,0 +1,14 @@
+.category {
+    overflow: auto;
+    padding-inline: var(--secondary-padding);
+    height: 100%;
+    width: calc(100% - 2*var(--secondary-padding));
+    border-radius: inherit;
+    position: relative;
+    overflow: auto;
+}
+
+.category-body {
+    display: grid;
+    gap: var(--secondary-padding);
+}
