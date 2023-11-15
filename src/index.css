@@ -38,6 +38,7 @@ body {
 
 .react-link {
     text-decoration: none;
+    color: inherit;
 }
 
 input {

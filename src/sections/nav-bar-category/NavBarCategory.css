@@ -3,7 +3,7 @@
     align-items: flex-end;
     font-size: var(--font-size-xx-large);
     min-height: calc(var(--nav-bar-bg-height) - var(--nav-bar-height));
-    padding-bottom: var(--secondary-padding);
+    padding-inline: var(--secondary-padding);
     z-index: 2;
     position: relative;
 }

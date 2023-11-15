@@ -1,13 +1,15 @@
 import './Search.css'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavBar from '../../sections/nav-bar/NavBar'
 import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useAPI, useResize } from '../../hooks/hooks';
 import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
 import Carousel from '../../sections/carousel/Carousel';
 import { CATEGORIES, SUCCESS, get, getImageUrl } from '../../utils/ApiUtil';
-import { logout } from '../../utils/AuthUtil';
-import { ProfileContext } from '../../utils/Contexts';
+import { COUNTRY_KEY, logout } from '../../utils/AuthUtil';
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import { pages } from '../../utils/Constants';
+import { getLocalStorage } from '../../utils/Helper';
 
 export default function Search() {
 
@@ -17,8 +19,9 @@ export default function Search() {
 	const categories = useAPI(CATEGORIES);
 	const [searchValue, setSearchValue] = useState("");
 	const [ searchResult, setSearchResult ] = useState(null);
-	// console.log(searchResult)
-	const {country} = useContext(ProfileContext);
+	const country = getLocalStorage(COUNTRY_KEY);
+	const navigate = useNavigate();
+
 	let style = {};
 
 	switch(widthState) {
@@ -129,11 +132,19 @@ export default function Search() {
 		return () => clearTimeout(timeout);
 	}, [searchValue, country]);
 
+	const onClickBrowseCard = (id) => {
+		navigate({
+			pathname: pages.category,
+			search: createSearchParams({
+				id: id,
+			}).toString()
+		})
+	}
 
 	// Setting the browser Cards when nothing is searched...
 	let categoriesView = null;
 	if(categories !== null && categories.status === SUCCESS) {
-		categoriesView = categories.result.items.map(({id, name}) => <BrowserCard key={id} name={name}/>)
+		categoriesView = categories.result.items.map(({id, name}) => <BrowserCard key={id} name={name} onClick={() => onClickBrowseCard(id)}/>)
 	} 
 
 	return (

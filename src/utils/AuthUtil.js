@@ -3,6 +3,7 @@ export const REDIRECT_URL = 'http://localhost:3000';
 export const ACCESS_TOKEN_KEY = 'spotify_access_token';
 export const REFRESH_TOKEN_KEY = 'spotify_refresh_token';
 export const EXPIRES_IN_KEY = 'spotify_expires_in';
+export const COUNTRY_KEY = 'country';
 export const SCOPES = [
     'user-read-private',
     'user-read-email',
@@ -74,5 +75,6 @@ export const logout = () => {
     window.localStorage.removeItem(REFRESH_TOKEN_KEY);
     window.localStorage.removeItem(EXPIRES_IN_KEY);
     window.localStorage.removeItem('timestamp');
+    window.localStorage.removeItem(COUNTRY_KEY);
     window.location.href = REDIRECT_URL;
 }

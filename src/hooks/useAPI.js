@@ -1,56 +1,14 @@
 import { useEffect, useState } from 'react'
-import { CATEGORIES, FAILURE, SUCCESS, TOP10_USER_LIBRARY, USER_LIBRARY, USER_PROFILE, get } from '../utils/ApiUtil';
+import { FAILURE, SUCCESS, get, getReplacedUrl, parseResponse } from '../utils/ApiUtil';
 import { logout } from '../utils/AuthUtil';
 
-export default function useAPI(url, query=null) {
+export default function useAPI(url, query=null, replacer='') {
     const [ toRet, setToRet ] = useState(null);
-
-    const parseResponse = (url, response) => {
-        let toRet = {};
-        switch(url) {
-            case USER_LIBRARY :
-            case TOP10_USER_LIBRARY :
-                toRet = {
-                    items: response.items.map((item) => {
-                        return {
-                            id: item.id,
-                            image_url: item.images[0].url,
-                            name: item.name,
-                            type: item.type,
-                        }
-                    })
-                }
-                break;
-            case USER_PROFILE :
-                toRet = {
-                    id: response.id,
-                    image_url: response.images[0].url,
-                    name: response.display_name,
-                    email: response.email,
-                    country: response.country,
-                }
-                break;
-            case CATEGORIES :
-                toRet = {
-                    items: response.categories.items.map((item) => {
-                        return {
-                            id: item.id,
-                            name: item.name,
-                            image_url: item.icons[0].url
-                        }
-                    })
-                }
-                break;
-            default:
-                return null;
-        }
-        return toRet;
-    }
-
+    url = getReplacedUrl(url, replacer);
     useEffect(() => {
         get(url, query).then((response) => {
             if(response.error === undefined) {
-                setToRet({ status: SUCCESS, result: parseResponse(url, response)});
+                setToRet({ status: SUCCESS, result: parseResponse(url, response, replacer)});
             } else {
                 if(response.error.status === 401) {
                     logout();
@@ -61,7 +19,7 @@ export default function useAPI(url, query=null) {
         }).catch(exception => {
             setToRet({status: FAILURE, exception: exception});
         })
-    }, [url, query]);
+    }, [url, query, replacer]);
 
     return toRet;
 }

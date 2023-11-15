@@ -11,10 +11,11 @@ import Songs from './pages/songs/Songs';
 import SideBarLibrary from './sections/side-bar-library/SideBarLibrary';
 import Player from './sections/player/Player';
 import Login from './pages/login/Login';
-import { getAccessToken } from './utils/AuthUtil';
+import { COUNTRY_KEY, getAccessToken } from './utils/AuthUtil';
 import { SUCCESS, USER_PROFILE } from './utils/ApiUtil';
 import { ProfileContext } from './utils/Contexts';
 import Category from './pages/category/Category';
+import { setLocalStorage } from './utils/Helper';
 
 
 /*
@@ -33,6 +34,7 @@ function App() {
 	let profile = null;
 	if(profile_res !== null && profile_res.status === SUCCESS) {
 		profile = profile_res.result;
+		setLocalStorage(COUNTRY_KEY, profile.country);
 	}
 
 	const onClickHome = () => {
