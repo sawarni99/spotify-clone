@@ -15,7 +15,7 @@ export default function Category() {
     const widthState = useResize(mainRef, [1300, 1150, 1000, 770, 560]);
 	const [ searchParams ] = useSearchParams();
 	const id = searchParams.get('id');
-	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `limit=10&country=${getLocalStorage(COUNTRY_KEY)}`, id);
+	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `country=${getLocalStorage(COUNTRY_KEY)}`, id);
 	const category_res = useAPI(CATEGORY, `country=${getLocalStorage(COUNTRY_KEY)}`, id);
 
 	let categoryName = 'Loading...';
