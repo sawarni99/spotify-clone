@@ -1,13 +1,17 @@
 import './Carousel.css'
 import Card from '../../components/card/Card'
 import { useResize } from '../../hooks/hooks'
+import { createSearchParams, useNavigate } from 'react-router-dom';
+import { pages } from '../../utils/Constants';
 
 const sampleData = [];
 for(let i=0; i<10; i++) {
   sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...'})
 }
 
-export default function Carousel({title, parentRef, data, hideShowAll}) {
+export default function Carousel({title, parentRef, data, hideShowAll, id}) {
+
+  const navigate = useNavigate();
 
   if( title === undefined || title === null ) {
     title = 'Title Loading...'
@@ -45,11 +49,20 @@ export default function Carousel({title, parentRef, data, hideShowAll}) {
     cards = data.slice(0, numOfItems);
   }
 
+  const onClickShowAll = (id) => {
+    navigate({
+      pathname: pages.category,
+      search: createSearchParams({
+        id: id,
+      }).toString()
+    })
+  }
+
   return (
     <div className='carousel'>
         <div className="carousel-head">
           <div className='carousel-title'>{title}</div>
-          { !hideShowAll && <div className="carousel-show-all">Show all</div> }
+          { !hideShowAll && <div onClick={() => onClickShowAll(id)} className="carousel-show-all">Show all</div> }
         </div>
         <div className="carousel-items">
             {
