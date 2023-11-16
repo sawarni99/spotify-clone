@@ -2,7 +2,7 @@ import PlayButton from '../play-button/PlayButton'
 import './LongCard.css'
 import React from 'react'
 
-export default function LongCard({src, name, onClick, plain, noDesc}) {
+export default function LongCard({src, name, onClick, plain, noDesc, onMouseOver}) {
 
     if(name === undefined || name === null) name = 'Loading...'
 
@@ -17,7 +17,7 @@ export default function LongCard({src, name, onClick, plain, noDesc}) {
     }
 
     return (
-        <div className={className} onClick={onClick}>
+        <div className={className} onClick={onClick} onMouseOver={onMouseOver}>
             <div className="long-card-img-container">
                 <img className='long-card-img' src={src} alt='' />
             </div>

@@ -12,9 +12,14 @@ import NavBarCategory from '../nav-bar-category/NavBarCategory'
 export default function NavBar({ onChange, page, parentRef, info, color='#212121' }) {
     
     const [ inputValue, setInputValue ] = useState('');
+    const [ colorState, setColorState ] = useState(null);
     const widthState = useResize(parentRef, [970, 570]);
     const isSolid = useScroll(parentRef, 200);
     const profile = useContext(ProfileContext);
+
+    if(colorState !== null) {
+        color = colorState;
+    }
 
     // Setting profile picture...
     let src = './assets/icons/sample-dp.webp';
@@ -51,7 +56,7 @@ export default function NavBar({ onChange, page, parentRef, info, color='#212121
                     null,
                 height: 'calc(var(--nav-bar-bg-height) - var(--nav-bar-height)',
             }
-            child = <NavBarHome sizeState={widthState} />
+            child = <NavBarHome sizeState={widthState} setColor={setColorState} />
             break;
 
         case 'search':

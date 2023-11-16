@@ -1,11 +1,11 @@
 import './NavBarHome.css';
 import LongCard from '../../components/long-card/LongCard';
-import { getGreetings } from '../../utils/Helper';
+import { getColorByName, getGreetings } from '../../utils/Helper';
 import { useAPI } from '../../hooks/hooks';
 import { USER_LIBRARY, FAILURE } from '../../utils/ApiUtil';
 import React from 'react'
 
-export default function NavBarHome({sizeState}) {
+export default function NavBarHome({sizeState, setColor}) {
     let childStyle = {};
 
     const libraryRes = useAPI(USER_LIBRARY, "limit=6");
@@ -33,6 +33,10 @@ export default function NavBarHome({sizeState}) {
         }
     }
 
+    const onMouseOver = (name) => {
+        setColor(getColorByName(name));
+    }
+
     return (
         <div className="nav-bar-home">
             <div className="nav-bar-home-head">
@@ -41,7 +45,7 @@ export default function NavBarHome({sizeState}) {
             <div style={childStyle} className="nav-bar-home-body">
                 {
                     libraryData.map(({id, image_url, name}) => {
-                        return <LongCard key={id} src={image_url} name={name} />
+                        return <LongCard onMouseOver={() => onMouseOver(name)} key={id} src={image_url} name={name} />
                     })
                 }
             </div>
