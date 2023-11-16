@@ -31,6 +31,7 @@
     z-index: 0;
     padding-top: var(--nav-bar-height);
     padding-inline: var(--secondary-padding);
+    opacity: 0.5;
 }
 
 /* For mobile phones */
