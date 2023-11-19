@@ -5,11 +5,13 @@ export default function NavBarSongs({info, sizeState}) {
     let src = '';
     let desc = 'Loading...';
     let name = 'Loading...';
+    let pageType = '';
 
     if(info !== null) {
         src = info.src;
         desc = info.desc;
         name = info.name;
+        pageType = info.pageType;
     }
 
     let style = {}

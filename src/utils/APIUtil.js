@@ -11,8 +11,9 @@ export const CATEGORIES = 'https://api.spotify.com/v1/browse/categories';
 export const CATEGORY_PLAYLISTS = 'https://api.spotify.com/v1/browse/categories/$/playlists';
 export const CATEGORY = 'https://api.spotify.com/v1/browse/categories/$';
 export const ARTIST_TOP_TRACKS = 'https://api.spotify.com/v1/artists/$/top-tracks';
-export const ALBUM_TRACKS = 'https://api.spotify.com/v1/albums/$/tracks';
-export const PLAYLIST_TRACKS = 'https://api.spotify.com/v1/playlists/$/tracks';
+export const ALBUM_TRACKS = 'https://api.spotify.com/v1/albums/$';
+export const PLAYLIST_TRACKS = 'https://api.spotify.com/v1/playlists/$';
+export const ARTIST = 'https://api.spotify.com/v1/artists/$';
 
 export const parseResponse = (url, response, replacer='') => {
     let toRet = {};
@@ -71,7 +72,13 @@ export const parseResponse = (url, response, replacer='') => {
             break;
         case getReplacedUrl(PLAYLIST_TRACKS, replacer) :
             toRet = {
-                items: response.items.map((item) => {
+                info: {
+                    description: response.description,
+                    name: response.name,
+                    image_url: response.images[0].url,
+                    type: response.type,  
+                },
+                items: response.tracks.items.map((item) => {
                     return {
                         id: item.track.id,
                         name: item.track.name,
@@ -81,6 +88,49 @@ export const parseResponse = (url, response, replacer='') => {
                         image_url: item.track.album.images[0].url,
                     }
                 })
+            }
+            break;
+        case getReplacedUrl(ALBUM_TRACKS, replacer) :
+            console.log(response);
+            toRet = {
+                info:{
+                    name: response.name,
+                    image_url: response.images[0].url,
+                    type: response.type,
+                    description: "",
+                },
+                items: response.tracks.items.map((item) => {
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        artist: item.artists[0].name,
+                        type: item.type,
+                        duration_ms: item.duration_ms,
+                        image_url: response.images[0].url,
+                    }
+                })
+            }
+            break;
+        case getReplacedUrl(ARTIST_TOP_TRACKS, replacer) :
+            toRet = {
+                items: response.tracks.map((item) => {
+                    return {
+                        id: item.id,
+                        duration_ms: item.duration_ms,
+                        name: item.name,
+                        type: item.type,
+                        artist: item.artists[0].name,
+                        image_url: item.album.images[0].url,
+                    }
+                })
+            }
+            break;
+        case getReplacedUrl(ARTIST, replacer) :
+            console.log(response);
+            toRet = {
+                id: response.id,
+                image_url: response.images[0].url,
+                name: response.name,
             }
             break;
         case SEARCH :
@@ -187,5 +237,7 @@ export const getImageUrl = (images) => {
 }
 
 export const getReplacedUrl = (url, replacer) => {
-    return url.replace('$', replacer);
+    if(url !== null) return url.replace('$', replacer);
+
+    return "";
 }

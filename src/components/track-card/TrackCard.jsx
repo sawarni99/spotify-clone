@@ -12,10 +12,6 @@ export default function TrackCard({src, name, artist, duration}) {
 
     duration = getFormattedTime(duration);
 
-    const onClickOptions = () => {
-        // Logic to see options...
-    }
-
     const onClickPlay = () => {
         // Logic to play song...
     }
@@ -30,9 +26,6 @@ export default function TrackCard({src, name, artist, duration}) {
                 <div className="track-card-artist">{artist}</div>
             </div>
             <div className="track-card-duration">{duration}</div>
-            <div className="track-card-options">
-                <Icon onClick={onClickOptions} size='small' name='3-dots' state='hover' />
-            </div>
         </div>
     )
 }
