@@ -34,7 +34,7 @@ export default function NavBarSongs({info, sizeState}) {
     return (
         <div className='nav-bar-songs'>
             <div className="nav-bar-songs-img-container">
-                <img src={src} alt='' classname='nav-bar-songs-img' />
+                <img src={src} alt='' className='nav-bar-songs-img' />
             </div>
             <div className="nav-bar-songs-info">
                 <div style={style} className="nav-bar-songs-name">{name}</div>

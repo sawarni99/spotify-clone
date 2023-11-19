@@ -5,10 +5,14 @@ export const FAILURE = "FAILURE";
 export const TOP10_USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists?limit=10&offset=0';
 export const USER_LIBRARY = 'https://api.spotify.com/v1/me/playlists';
 export const RECOMMENDATION = 'https://api.spotify.com/v1/recommendations?limit=10&market=IN&seed_genres=indian';
+export const SEARCH = 'https://api.spotify.com/v1/search';
 export const USER_PROFILE = 'https://api.spotify.com/v1/me';
 export const CATEGORIES = 'https://api.spotify.com/v1/browse/categories';
 export const CATEGORY_PLAYLISTS = 'https://api.spotify.com/v1/browse/categories/$/playlists';
-export const CATEGORY = 'https://api.spotify.com/v1/browse/categories/$'
+export const CATEGORY = 'https://api.spotify.com/v1/browse/categories/$';
+export const ARTIST_TOP_TRACKS = 'https://api.spotify.com/v1/artists/$/top-tracks';
+export const ALBUM_TRACKS = 'https://api.spotify.com/v1/albums/$/tracks';
+export const PLAYLIST_TRACKS = 'https://api.spotify.com/v1/playlists/$/tracks';
 
 export const parseResponse = (url, response, replacer='') => {
     let toRet = {};
@@ -54,6 +58,7 @@ export const parseResponse = (url, response, replacer='') => {
                         description: item.description,
                         name: item.name,
                         image_url: item.images[0].url,
+                        type: item.type,
                     }
                 })
             }
@@ -63,6 +68,62 @@ export const parseResponse = (url, response, replacer='') => {
                 id: response.id,
                 name: response.name,
             }
+            break;
+        case getReplacedUrl(PLAYLIST_TRACKS, replacer) :
+            toRet = {
+                items: response.items.map((item) => {
+                    return {
+                        id: item.track.id,
+                        name: item.track.name,
+                        type: item.track.type,
+                        artist: item.track.artists[0].name,
+                        duration_ms: item.track.duration_ms,
+                        image_url: item.track.album.images[0].url,
+                    }
+                })
+            }
+            break;
+        case SEARCH :
+            toRet = {	
+                tracks: response.tracks.items.map((item) => {
+                    return {
+                        artist : item.artists[0].name,
+                        album : item.album.name,
+                        id: item.id,
+                        image_url: getImageUrl(item.album.images),
+                        type: item.type,
+                        duration_ms: item.duration_ms,
+                        name: item.name,
+                    }
+                }),
+                albums: response.albums.items.map((item) => {
+                    return {
+                        artist: item.artists[0].name,
+                        name: item.name,
+                        id: item.id,
+                        image_url: getImageUrl(item.images),
+                        type: item.type,
+                    }
+                }),
+                artists: response.artists.items.map((item) => {
+                    return {
+                        name: item.name,
+                        image_url: getImageUrl(item.images),
+                        type: item.type,
+                        id: item.id,
+                    }
+                }),
+                playlists: response.playlists.items.map((item) => {
+                    return {
+                        name: item.name,
+                        image_url: getImageUrl(item.images),
+                        id: item.id,
+                        description: item.description,
+                        type: item.type,
+                    }
+                })
+            }
+            console.log(toRet);
             break;
         default:
             return null;
@@ -91,8 +152,12 @@ export const post = async (url, body) => {
 
 export const get = async (url, query=null) => {
     if(getAccessToken() !== null) {
-        if(query !== null) {
-            url = `${url}?${query}`;
+        if(query !== null) {   
+            if(url.indexOf('?') !== -1){
+                url = `${url}&${query}`;
+            } else {
+                url = `${url}?${query}`;
+            }
         }
         const payload = {
             method: 'GET',

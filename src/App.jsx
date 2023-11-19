@@ -121,7 +121,9 @@ function App() {
 							<Routes>
 								<Route path={pages.home} element={<Home />}/>
 								<Route path={pages.search} element={<Search />}/>
-								<Route path={pages.album || pages.artist || pages.playlist} element={<Songs/>} />
+								<Route path={pages.album} element={<Songs pageType={pages.album}/>} />
+								<Route path={pages.artist} element={<Songs pageType={pages.artist}/>} />
+								<Route path={pages.playlist} element={<Songs pageType={pages.playlist}/>} />
 								<Route path={pages.category} element={<Category />} />
 							</Routes>
 						</div>

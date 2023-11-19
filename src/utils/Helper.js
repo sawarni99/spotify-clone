@@ -1,4 +1,4 @@
-import { alphabetColorMap } from "./Constants";
+import { alphabetColorMap, pages } from "./Constants";
 
 export const getGreetings = () => {
     const now = new Date();
@@ -70,4 +70,17 @@ export const getShortMessage = (message) => {
     }
 
     return message;
+}
+
+export const getPageFromType = (type) => {
+    switch(type) {
+        case 'playlist':
+            return pages.playlist;
+        case 'album':
+            return pages.album;
+        case 'artist':
+            return pages.artist;
+        default:
+            return '/'
+    }
 }

@@ -3,14 +3,14 @@ import Card from '../../components/card/Card'
 import { useResize } from '../../hooks/hooks'
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { pages } from '../../utils/Constants';
+import { getPageFromType } from '../../utils/Helper';
 
 const sampleData = [];
 for(let i=0; i<10; i++) {
-  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...'})
+  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', type: ''})
 }
 
 export default function Carousel({title, parentRef, data, hideShowAll, id}) {
-
   const navigate = useNavigate();
 
   if( title === undefined || title === null ) {
@@ -58,6 +58,16 @@ export default function Carousel({title, parentRef, data, hideShowAll, id}) {
     })
   }
 
+  const onClickCard = (id, type) => {
+    console.log(type);
+    navigate({
+      pathname: getPageFromType(type),
+      search: createSearchParams({
+        id: id,
+      }).toString()
+    })
+  }
+
   return (
     <div className='carousel'>
         <div className="carousel-head">
@@ -67,7 +77,7 @@ export default function Carousel({title, parentRef, data, hideShowAll, id}) {
         <div className="carousel-items">
             {
               cards.map((card) => {
-                return <Card key={card.key} src={card.src} name={card.name} desc={card.desc}/>
+                return <Card onClick={() => onClickCard(card.key, card.type)} key={card.key} src={card.src} name={card.name} desc={card.desc}/>
               })
             }
         </div>

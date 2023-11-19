@@ -2,14 +2,16 @@ import './SideBarLibrary.css'
 import React, { useRef } from 'react'
 import LongCard from '../../components/long-card/LongCard'
 import Card from '../../components/card/Card'
-import { widthStates } from '../../utils/Constants'
+import { pages, widthStates } from '../../utils/Constants'
 import { useResize, useScroll } from '../../hooks/hooks'
 import { useAPI } from '../../hooks/hooks'
 import { FAILURE, TOP10_USER_LIBRARY } from '../../utils/ApiUtil'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 
 export default function SideBarLibrary({widthState, parentRef}) {
 
     const parentSizeState = useResize(parentRef, [1100,900,700]);
+    const navigate = useNavigate();
     const mainRef = useRef(null);
     const scrolled = useScroll(mainRef, 1);
     const libraryRes = useAPI(TOP10_USER_LIBRARY);
@@ -55,6 +57,14 @@ export default function SideBarLibrary({widthState, parentRef}) {
             break;
     }
 
+    const onClickPlaylist = (id) => {
+        navigate({
+            pathname: pages.playlist,
+            search: createSearchParams({
+                id: id,
+            }).toString()
+        })
+    }
 
     return (
         <div className='side-bar-library' ref={mainRef}>
@@ -66,14 +76,27 @@ export default function SideBarLibrary({widthState, parentRef}) {
                 <div style={style} className="side-bar-library-large">
                     {
                         libraryData.map(({id, image_url, name}) => {
-                            return <Card plain key={id} src={image_url} name={name}/>
+                            return <Card 
+                                onClick={() => onClickPlaylist(id)} 
+                                plain 
+                                key={id} 
+                                src={image_url} 
+                                name={name}
+                            />
                         })
                     }
                 </div>:
                 <div className="side-bar-library-small">
                     {
                         libraryData.map(({id, image_url, name}) => {
-                            return <LongCard plain noDesc={noDesc} key={id} src={image_url} name={name} />
+                            return <LongCard 
+                                onClick={() => onClickPlaylist(id)} 
+                                plain 
+                                noDesc={noDesc} 
+                                key={id} 
+                                src={image_url} 
+                                name={name} 
+                            />
                         })
                     }
                 </div>

@@ -5,7 +5,7 @@ import BrowserCard from '../../components/borwser-card/BrowserCard';
 import { useAPI, useResize } from '../../hooks/hooks';
 import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
 import Carousel from '../../sections/carousel/Carousel';
-import { CATEGORIES, SUCCESS, get, getImageUrl } from '../../utils/ApiUtil';
+import { CATEGORIES, SEARCH, SUCCESS, get, parseResponse } from '../../utils/ApiUtil';
 import { COUNTRY_KEY, logout } from '../../utils/AuthUtil';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { pages } from '../../utils/Constants';
@@ -73,49 +73,13 @@ export default function Search() {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			if(searchValue !== '') {
-				const url = 'https://api.spotify.com/v1/search';
+				const url = SEARCH;
 				const query = `q=${searchValue}&type=album%2Cplaylist%2Cartist%2Ctrack&market=${country}&limit=10`;
 
 				get(url, query).then((response) => {
 					if(response.error === undefined) {
-						setSearchResult({
-							tracks: response.tracks.items.map((item) => {
-								return {
-									artist : item.artists[0].name,
-									album : item.album.name,
-									id: item.id,
-									image_url: getImageUrl(item.album.images),
-									type: item.type,
-									duration_ms: item.duration_ms,
-									name: item.name,
-								}
-							}),
-							albums: response.albums.items.map((item) => {
-								return {
-									artist: item.artists[0].name,
-									name: item.name,
-									id: item.id,
-									image_url: getImageUrl(item.images),
-									type: item.type,
-								}
-							}),
-							artists: response.artists.items.map((item) => {
-								return {
-									name: item.name,
-									image_url: getImageUrl(item.images),
-									type: item.type,
-									id: item.id,
-								}
-							}),
-							playlists: response.playlists.items.map((item) => {
-								return {
-									name: item.name,
-									image_url: getImageUrl(item.images),
-									id: item.id,
-									description: item.description,
-								}
-							})
-						})
+						setSearchResult(
+							parseResponse(url, response));
 					} else {
 						if(response.error.status === 401) {
 							logout();
@@ -174,6 +138,7 @@ export default function Search() {
 									artist: item.artist,
 									src: item.image_url,
 									duration: Math.round(item.duration_ms/1000),
+									type: item.type,
 								}
 							})}
 						/>
@@ -190,6 +155,7 @@ export default function Search() {
 									src: item.image_url,
 									name: item.name,
 									desc: "",
+									type: item.type,
 								}
 							})}
 						/>
@@ -205,7 +171,8 @@ export default function Search() {
 									key: item.id,
 									src: item.image_url,
 									name: item.name,
-									desc: item.artist
+									desc: item.artist,
+									type: item.type,
 								}
 							})}
 						/>
@@ -222,6 +189,7 @@ export default function Search() {
 									src: item.image_url,
 									name: item.name,
 									desc: item.description,
+									type: item.type,
 								}
 							}))}
 						/>
