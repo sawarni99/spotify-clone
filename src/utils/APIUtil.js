@@ -24,7 +24,7 @@ export const parseResponse = (url, response, replacer='') => {
                 items: response.items.map((item) => {
                     return {
                         id: item.id,
-                        image_url: item.images[0].url,
+                        image_url: getImageUrl(item.images),
                         name: item.name,
                         type: item.type,
                     }
@@ -34,7 +34,7 @@ export const parseResponse = (url, response, replacer='') => {
         case USER_PROFILE :
             toRet = {
                 id: response.id,
-                image_url: response.images[0].url,
+                image_url: getImageUrl(response.images),
                 name: response.display_name,
                 email: response.email,
                 country: response.country,
@@ -46,7 +46,7 @@ export const parseResponse = (url, response, replacer='') => {
                     return {
                         id: item.id,
                         name: item.name,
-                        image_url: item.icons[0].url
+                        image_url: getImageUrl(item.icons),
                     }
                 })
             }
@@ -58,7 +58,7 @@ export const parseResponse = (url, response, replacer='') => {
                         id: item.id,
                         description: item.description,
                         name: item.name,
-                        image_url: item.images[0].url,
+                        image_url: getImageUrl(item.images),
                         type: item.type,
                     }
                 })
@@ -75,17 +75,18 @@ export const parseResponse = (url, response, replacer='') => {
                 info: {
                     description: response.description,
                     name: response.name,
-                    image_url: response.images[0].url,
+                    image_url: getImageUrl(response.images),
                     type: response.type,  
                 },
                 items: response.tracks.items.map((item) => {
+                    console.log(item);
                     return {
                         id: item.track.id,
                         name: item.track.name,
                         type: item.track.type,
                         artist: item.track.artists[0].name,
                         duration_ms: item.track.duration_ms,
-                        image_url: item.track.album.images[0].url,
+                        image_url: getImageUrl(item.track.album.images),
                     }
                 })
             }
@@ -94,7 +95,7 @@ export const parseResponse = (url, response, replacer='') => {
             toRet = {
                 info:{
                     name: response.name,
-                    image_url: response.images[0].url,
+                    image_url: getImageUrl(response.images),
                     type: response.type,
                     description: "",
                 },
@@ -105,7 +106,7 @@ export const parseResponse = (url, response, replacer='') => {
                         artist: item.artists[0].name,
                         type: item.type,
                         duration_ms: item.duration_ms,
-                        image_url: response.images[0].url,
+                        image_url: getImageUrl(response.images),
                     }
                 })
             }
@@ -119,7 +120,7 @@ export const parseResponse = (url, response, replacer='') => {
                         name: item.name,
                         type: item.type,
                         artist: item.artists[0].name,
-                        image_url: item.album.images[0].url,
+                        image_url: getImageUrl(item.album.images),
                     }
                 })
             }
@@ -127,7 +128,7 @@ export const parseResponse = (url, response, replacer='') => {
         case getReplacedUrl(ARTIST, replacer) :
             toRet = {
                 id: response.id,
-                image_url: response.images[0].url,
+                image_url: getImageUrl(response.images),
                 name: response.name,
             }
             break;

@@ -7,7 +7,7 @@ import PlayButton from '../../components/play-button/PlayButton';
 import { pages } from '../../utils/Constants'
 import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, PLAYLIST_TRACKS, SUCCESS } from '../../utils/ApiUtil'
 import useAPI from '../../hooks/useAPI'
-import { getLocalStorage } from '../../utils/Helper'
+import { getColorByName, getLocalStorage } from '../../utils/Helper'
 import { COUNTRY_KEY } from '../../utils/AuthUtil'
 import { useSearchParams } from 'react-router-dom'
 
@@ -78,7 +78,12 @@ export default function Songs({pageType}) {
 
     return (
         <div ref={mainRef} className='songs-page'>
-            <NavBar parentRef={mainRef} page='songs' info={info} />
+            <NavBar 
+                parentRef={mainRef} 
+                page='songs' 
+                info={info} 
+                color={(info !== null) ? getColorByName(info.name):'#212121'} 
+            />
             <div className="songs-page-menu">
                 <div className="songs-page-controls">
                     <PlayButton onClick={onClickPlay} />
