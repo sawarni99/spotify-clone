@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { CLIENT_ID, REDIRECT_URL, getAccessToken, getExpiresIn, getRefreshToken, logout, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
+import { CLIENT_ID, CODE_VERIFIER_KEY, REDIRECT_URL, getAccessToken, getExpiresIn, getRefreshToken, logout, setAccessToken, setExpiresIn, setRefreshToken } from "../utils/AuthUtil";
 import { getLocalStorage, setLocalStorage } from "../utils/Helper";
 import { post } from "../utils/ApiUtil";
 
@@ -12,7 +12,7 @@ export default function useAuth() {
     // Setting access_token first time...
     useEffect(() => {
         if(code !== undefined && code !== null && code !== "" && getAccessToken() === null) {
-            const codeVerifier = getLocalStorage('code_verifier');
+            const codeVerifier = getLocalStorage(CODE_VERIFIER_KEY);
             const body = {
                 client_id: CLIENT_ID,
                 grant_type: 'authorization_code',
@@ -33,6 +33,8 @@ export default function useAuth() {
                 // TODO :: Need to handle exception...
                 console.log(exception);
             }) 
+        } else {
+            window.localStorage.removeItem(CODE_VERIFIER_KEY);
         }
     }, [code]);
 

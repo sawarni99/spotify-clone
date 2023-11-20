@@ -91,7 +91,6 @@ export const parseResponse = (url, response, replacer='') => {
             }
             break;
         case getReplacedUrl(ALBUM_TRACKS, replacer) :
-            console.log(response);
             toRet = {
                 info:{
                     name: response.name,
@@ -126,7 +125,6 @@ export const parseResponse = (url, response, replacer='') => {
             }
             break;
         case getReplacedUrl(ARTIST, replacer) :
-            console.log(response);
             toRet = {
                 id: response.id,
                 image_url: response.images[0].url,
@@ -173,7 +171,6 @@ export const parseResponse = (url, response, replacer='') => {
                     }
                 })
             }
-            console.log(toRet);
             break;
         default:
             return null;

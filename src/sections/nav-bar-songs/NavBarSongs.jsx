@@ -1,3 +1,4 @@
+import { getShortMessage } from '../../utils/Helper';
 import './NavBarSongs.css';
 import React from 'react'
 
@@ -5,13 +6,11 @@ export default function NavBarSongs({info, sizeState}) {
     let src = '';
     let desc = 'Loading...';
     let name = 'Loading...';
-    let pageType = '';
 
     if(info !== null) {
         src = info.src;
         desc = info.desc;
         name = info.name;
-        pageType = info.pageType;
     }
 
     let style = {}
@@ -24,12 +23,12 @@ export default function NavBarSongs({info, sizeState}) {
             break;
         case 1:
             style = {
-                fontSize: 'var(--font-size-xx-large)'
+                fontSize: 'var(--font-size-x-large)'
             }
             break;
         default:
             style = {
-                fontSize: 'var(--font-size-xxx-large)'
+                fontSize: 'var(--font-size-xx-large)'
             }
     }   
 
@@ -39,7 +38,7 @@ export default function NavBarSongs({info, sizeState}) {
                 <img src={src} alt='' className='nav-bar-songs-img' />
             </div>
             <div className="nav-bar-songs-info">
-                <div style={style} className="nav-bar-songs-name">{name}</div>
+                <div style={style} className="nav-bar-songs-name">{getShortMessage(name, 20)}</div>
                 <div className="nav-bar-songs-desc">{desc}</div>
             </div>
         </div>

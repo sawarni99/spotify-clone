@@ -63,8 +63,7 @@ export const getColorByName = (name) => {
 
 }
 
-export const getShortMessage = (message) => {
-    const threshold = 15;
+export const getShortMessage = (message, threshold=15) => {
     if(message.length >= threshold){
         return `${message.substring(0, threshold)}...`;
     }

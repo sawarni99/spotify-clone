@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { generateRandomString, sha256, base64encode, setLocalStorage, getLocalStorage } from '../../utils/Helper';
-import { REDIRECT_URL, CLIENT_ID, SCOPES } from '../../utils/AuthUtil';
+import { REDIRECT_URL, CLIENT_ID, SCOPES, CODE_VERIFIER_KEY } from '../../utils/AuthUtil';
 import './Login.css'
 import Loading from '../../components/loading/Loading';
 
@@ -20,7 +20,7 @@ export default function Login() {
     const authUrl = new URL("https://accounts.spotify.com/authorize")
 
     // generated in the previous step
-    setLocalStorage('code_verifier', codeVerifier);
+    setLocalStorage(CODE_VERIFIER_KEY, codeVerifier);
 
     const params =  {
     response_type: 'code',

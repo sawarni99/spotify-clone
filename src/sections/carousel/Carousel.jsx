@@ -59,7 +59,6 @@ export default function Carousel({title, parentRef, data, hideShowAll, id}) {
   }
 
   const onClickCard = (id, type) => {
-    console.log(type);
     navigate({
       pathname: getPageFromType(type),
       search: createSearchParams({

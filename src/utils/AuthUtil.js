@@ -3,6 +3,7 @@ export const REDIRECT_URL = 'http://localhost:3000';
 export const ACCESS_TOKEN_KEY = 'spotify_access_token';
 export const REFRESH_TOKEN_KEY = 'spotify_refresh_token';
 export const EXPIRES_IN_KEY = 'spotify_expires_in';
+export const CODE_VERIFIER_KEY = 'spotify_code_verifier';
 export const COUNTRY_KEY = 'country';
 export const SCOPES = [
     'user-read-private',
@@ -70,7 +71,7 @@ export const getExpiresIn = () => {
 }
 
 export const logout = () => {
-    window.localStorage.removeItem('code_verifier');
+    window.localStorage.removeItem(CODE_VERIFIER_KEY);
     window.localStorage.removeItem(ACCESS_TOKEN_KEY);
     window.localStorage.removeItem(REFRESH_TOKEN_KEY);
     window.localStorage.removeItem(EXPIRES_IN_KEY);
