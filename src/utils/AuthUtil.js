@@ -4,7 +4,8 @@ export const ACCESS_TOKEN_KEY = 'spotify_access_token';
 export const REFRESH_TOKEN_KEY = 'spotify_refresh_token';
 export const EXPIRES_IN_KEY = 'spotify_expires_in';
 export const CODE_VERIFIER_KEY = 'spotify_code_verifier';
-export const COUNTRY_KEY = 'country';
+export const COUNTRY_KEY = 'spotify_country';
+export const DEVICE_ID = 'spotify_device_id';
 export const SCOPES = [
     'user-read-private',
     'user-read-email',
@@ -21,6 +22,7 @@ export const SCOPES = [
     'user-read-recently-played',
     'user-library-modify',
     'user-library-read',
+    'streaming'
 ];  
 
 export const getAccessToken = () => {
@@ -70,6 +72,15 @@ export const getExpiresIn = () => {
     return parseInt(expiresIn)
 }
 
+export const getCountry = () => {
+    const country = window.localStorage.getItem(COUNTRY_KEY);
+    if(country === null || country === '') {
+        return null;
+    }
+
+    return country;
+}
+
 export const logout = () => {
     window.localStorage.removeItem(CODE_VERIFIER_KEY);
     window.localStorage.removeItem(ACCESS_TOKEN_KEY);
@@ -77,5 +88,6 @@ export const logout = () => {
     window.localStorage.removeItem(EXPIRES_IN_KEY);
     window.localStorage.removeItem('timestamp');
     window.localStorage.removeItem(COUNTRY_KEY);
+    window.localStorage.removeItem(DEVICE_ID);
     window.location.href = REDIRECT_URL;
 }

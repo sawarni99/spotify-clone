@@ -14,6 +14,8 @@ export const ARTIST_TOP_TRACKS = 'https://api.spotify.com/v1/artists/$/top-track
 export const ALBUM_TRACKS = 'https://api.spotify.com/v1/albums/$';
 export const PLAYLIST_TRACKS = 'https://api.spotify.com/v1/playlists/$';
 export const ARTIST = 'https://api.spotify.com/v1/artists/$';
+export const CURRENTLY_PLAYING_TRACK = 'https://api.spotify.com/v1/me/player/currently-playing';
+export const TRANSFER_PLAYBACK = 'https://api.spotify.com/v1/me/player';
 
 export const parseResponse = (url, response, replacer='') => {
     let toRet = {};
@@ -173,6 +175,16 @@ export const parseResponse = (url, response, replacer='') => {
                 })
             }
             break;
+        case CURRENTLY_PLAYING_TRACK:
+            toRet = {
+                id: response.item.id,
+                name: response.item.name,
+                progress_ms: response.progress_ms,
+                type: response.item.type,
+                duration_ms: response.item.duration_ms,
+                artist: response.item.artists[0].name,
+            }
+            break;
         default:
             return null;
     }
@@ -182,7 +194,7 @@ export const parseResponse = (url, response, replacer='') => {
 export const post = async (url, body) => {
     const payload = {
         method: 'POST',
-        header: {
+        headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams(body),
@@ -200,13 +212,7 @@ export const post = async (url, body) => {
 
 export const get = async (url, query=null) => {
     if(getAccessToken() !== null) {
-        if(query !== null) {   
-            if(url.indexOf('?') !== -1){
-                url = `${url}&${query}`;
-            } else {
-                url = `${url}?${query}`;
-            }
-        }
+        url = getUrlWithQuery(url, query);
         const payload = {
             method: 'GET',
             headers: {
@@ -218,12 +224,45 @@ export const get = async (url, query=null) => {
             const data = await fetch(url, payload);
             return data.json();
         } catch (exception) {
-            console.log(exception);
+            console.error(exception);
             return Promise.reject(exception);
         }
     }
 
     return Promise.reject("No Access Token...");
+}
+
+export const put = async (url, body, query=null) => {
+    if(getAccessToken() !== null) {
+        url = getUrlWithQuery(url, query);
+        const payload = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${getAccessToken()}`,
+            },
+            body: body,
+        }
+
+        try {
+            const data = await fetch(url, payload);
+            return data.json();
+        } catch (exception) {
+            console.log(exception);
+            return Promise.reject(exception);
+        }
+    }
+}
+
+const getUrlWithQuery = (url, query) => {
+    if(query !== null) {   
+        if(url.indexOf('?') !== -1){
+            url = `${url}&${query}`;
+        } else {
+            url = `${url}?${query}`;
+        }
+    }
+    return url;
 }
 
 export const getImageUrl = (images) => {

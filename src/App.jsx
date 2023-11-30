@@ -35,6 +35,8 @@ function App() {
 	if(profile_res !== null && profile_res.status === SUCCESS) {
 		profile = profile_res.result;
 		setLocalStorage(COUNTRY_KEY, profile.country);
+	} else if(getAccessToken() !== null) {
+		return <Login loading />
 	}
 
 	const onClickHome = () => {

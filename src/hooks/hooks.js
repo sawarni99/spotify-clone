@@ -6,5 +6,6 @@ import useScroll from './useScroll';
 import useProgress from './useProgress'
 import useAuth from './useAuth';
 import useAPI from './useAPI';
+import usePlayer from './usePlayer';
 
-export { useResizeAll, useHover, useCheckOutsideClick, useResize, useScroll, useProgress, useAuth, useAPI };
+export { useResizeAll, useHover, useCheckOutsideClick, useResize, useScroll, useProgress, useAuth, useAPI, usePlayer };

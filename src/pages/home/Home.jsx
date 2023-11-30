@@ -4,14 +4,13 @@ import NavBar from '../../sections/nav-bar/NavBar'
 import Carousel from '../../sections/carousel/Carousel'
 import { CATEGORY_PLAYLISTS, SUCCESS } from '../../utils/ApiUtil';
 import useAPI from '../../hooks/useAPI';
-import { getLocalStorage } from '../../utils/Helper';
-import { COUNTRY_KEY } from '../../utils/AuthUtil';
+import { getCountry } from '../../utils/AuthUtil';
 
 export default function Home() {
 
 	const mainRef = useRef(null);
 	const id = 'toplists'
-	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `country=${getLocalStorage(COUNTRY_KEY)}`, id);
+	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `country=${getCountry()}`, id);
 
 	return (
 		<div ref={mainRef} className='home'>

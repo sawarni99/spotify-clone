@@ -4,7 +4,7 @@ import { REDIRECT_URL, CLIENT_ID, SCOPES, CODE_VERIFIER_KEY } from '../../utils/
 import './Login.css'
 import Loading from '../../components/loading/Loading';
 
-export default function Login() {
+export default function Login({loading}) {
 
   const [loginClicked, setLoginClicked] = useState(false);
 
@@ -41,11 +41,14 @@ export default function Login() {
     }
   }, [loginClicked]);
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+
   return (
     <div className='login-page'>
         <img className='login-page-img' src='./assets/icons/spotify.png' alt='Spotify' />
         <span className='login-page-desc'>This is a clone of Spotify made for educational purposes</span>
-        { loginClicked || getLocalStorage('code_verifier') !== null ?
+        { loginClicked || getLocalStorage('code_verifier') !== null || code !== null || loading ?
           <Loading /> :
           <button className='login-button' onClick={onLoginClicked}>Login</button>
         }

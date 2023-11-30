@@ -3,13 +3,16 @@ import PlayButton from '../../components/play-button/PlayButton';
 import ProgressBar from '../../components/progress-bar/ProgressBar';
 import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
-import { useHover } from '../../hooks/hooks';
-import { getFormattedTime } from '../../utils/Helper';
+import { useHover, usePlayer } from '../../hooks/hooks';
+import { getFormattedTime, getLocalStorage } from '../../utils/Helper';
+import { TRANSFER_PLAYBACK, put } from '../../utils/ApiUtil';
+import { DEVICE_ID } from '../../utils/AuthUtil';
 
 const duration = 60; // Testing purpose...
 
 export default function Player() {
     
+    const player = usePlayer();
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -20,9 +23,17 @@ export default function Player() {
     
     const prevHover = useHover(prevRef);
     const nextHover = useHover(nextRef);
+    
+    const device_id = getLocalStorage(DEVICE_ID);
+
+    useEffect(() => {
+        if(device_id === null) return;
+        put(TRANSFER_PLAYBACK, `{"device_ids": ["${device_id}"]}`);
+    }, [device_id]);
 
     const onClickPlay = () => {
         // Logic to play/pasue...
+        player.togglePlay();
         setIsPlaying(isPlaying => !isPlaying);
     }
 
@@ -88,8 +99,8 @@ export default function Player() {
                     <img src="" alt="" className="player-song-img" />
                 </div>
                 <div className="player-song-desc">
-                    <div className="player-song-name">Loading...</div>
-                    <div className="player-song-artist">Loading...</div>
+                    <div className="player-song-name"></div>
+                    <div className="player-song-artist"></div>
                 </div>
             </div>
             <div className="player-center">

@@ -6,10 +6,9 @@ import { useAPI, useResize } from '../../hooks/hooks';
 import TrackSearchResult from '../../sections/track-search-result/TrackSearchResult';
 import Carousel from '../../sections/carousel/Carousel';
 import { CATEGORIES, SEARCH, SUCCESS, get, parseResponse } from '../../utils/ApiUtil';
-import { COUNTRY_KEY, logout } from '../../utils/AuthUtil';
+import { getCountry, logout } from '../../utils/AuthUtil';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import { pages } from '../../utils/Constants';
-import { getLocalStorage } from '../../utils/Helper';
 
 export default function Search() {
 
@@ -19,7 +18,7 @@ export default function Search() {
 	const categories = useAPI(CATEGORIES);
 	const [searchValue, setSearchValue] = useState("");
 	const [ searchResult, setSearchResult ] = useState(null);
-	const country = getLocalStorage(COUNTRY_KEY);
+	const country = getCountry();
 	const navigate = useNavigate();
 
 	let style = {};

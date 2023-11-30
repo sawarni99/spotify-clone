@@ -7,8 +7,8 @@ import PlayButton from '../../components/play-button/PlayButton';
 import { pages } from '../../utils/Constants'
 import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, PLAYLIST_TRACKS, SUCCESS } from '../../utils/ApiUtil'
 import useAPI from '../../hooks/useAPI'
-import { getColorByName, getLocalStorage } from '../../utils/Helper'
-import { COUNTRY_KEY } from '../../utils/AuthUtil'
+import { getColorByName } from '../../utils/Helper'
+import { getCountry } from '../../utils/AuthUtil'
 import { useSearchParams } from 'react-router-dom'
 
 export default function Songs({pageType}) {
@@ -38,7 +38,7 @@ export default function Songs({pageType}) {
     const [ searchParams ] = useSearchParams();
     const id = searchParams.get('id');
     const mainRef = useRef(null);
-    const tracks_res = useAPI(apiUrl, `market=${getLocalStorage(COUNTRY_KEY)}`, id);
+    const tracks_res = useAPI(apiUrl, `market=${getCountry()}`, id);
     const artist_res = useAPI(infoApiUrl, null, id);
     let info = null;
 

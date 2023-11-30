@@ -6,8 +6,8 @@ import NavBar from '../../sections/nav-bar/NavBar';
 import { useRef } from 'react';
 import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { CATEGORY, CATEGORY_PLAYLISTS, SUCCESS } from '../../utils/ApiUtil';
-import { getColorByName, getLocalStorage } from '../../utils/Helper';
-import { COUNTRY_KEY } from '../../utils/AuthUtil';
+import { getColorByName } from '../../utils/Helper';
+import { getCountry } from '../../utils/AuthUtil';
 import { pages } from '../../utils/Constants';
 
 export default function Category() {
@@ -17,8 +17,8 @@ export default function Category() {
     const widthState = useResize(mainRef, [1300, 1150, 1000, 770, 560]);
 	const [ searchParams ] = useSearchParams();
 	const id = searchParams.get('id');
-	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `country=${getLocalStorage(COUNTRY_KEY)}`, id);
-	const category_res = useAPI(CATEGORY, `country=${getLocalStorage(COUNTRY_KEY)}`, id);
+	const playlists_res = useAPI(CATEGORY_PLAYLISTS, `country=${getCountry()}`, id);
+	const category_res = useAPI(CATEGORY, `country=${getCountry()}`, id);
 
 	let categoryName = 'Loading...';
 	let color = null;
