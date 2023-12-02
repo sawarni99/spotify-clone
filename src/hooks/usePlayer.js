@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
-import { DEVICE_ID, getAccessToken } from "../utils/AuthUtil";
-import { removeLocalStorage, setLocalStorage } from "../utils/Helper";
+import { getAccessToken } from "../utils/AuthUtil";
+import { CURRENTLY_PLAYING_TRACK, parseResponse } from "../utils/ApiUtil";
 
 export default function usePlayer() {
 
-    const [player, setPlayer] = useState(null);
+    const [playerState, setPlayerState] = useState({
+        player: null,
+        deviceId: null,
+        track: null,
+    });
     const accessToken = getAccessToken();
     
     useEffect(() => {
@@ -15,18 +19,34 @@ export default function usePlayer() {
         let player = null;
 
         const onPlayerReady = ({ device_id }) => {
-            setLocalStorage(DEVICE_ID, device_id);
-            setPlayer(player);
+            setPlayerState(playerState => {
+                return {
+                    ...playerState,
+                    player: player,
+                    deviceId: device_id,
+                }
+            });
             console.log(`Player is ready with device ID: ${device_id}`);
         }
 
         const onPlayerNotReady = ({ device_id }) => {
-            removeLocalStorage(DEVICE_ID);
             console.log('Device ID has gone offline: ', device_id);
         }
 
         const onPlayerStateChange = (state) => {
-            console.log('State Changed.');
+            if(!state) return;
+
+            player.getCurrentState().then(data => {
+                if(data !== null && data.track_window !== null && data.track_window !== null ){
+                    setPlayerState((playerState) => {
+                        return {
+                            ...playerState,
+                            track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                        }
+                    });
+                    console.log('State Changed.');
+                }
+            })
         }
 
         const onInitializationError = ({message}) => {
@@ -80,5 +100,5 @@ export default function usePlayer() {
         }
     }, [accessToken]);
 
-    return player;
+    return playerState;
 }

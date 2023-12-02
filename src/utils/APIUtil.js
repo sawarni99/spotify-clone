@@ -81,7 +81,6 @@ export const parseResponse = (url, response, replacer='') => {
                     type: response.type,  
                 },
                 items: response.tracks.items.map((item) => {
-                    console.log(item);
                     return {
                         id: item.track.id,
                         name: item.track.name,
@@ -177,12 +176,13 @@ export const parseResponse = (url, response, replacer='') => {
             break;
         case CURRENTLY_PLAYING_TRACK:
             toRet = {
-                id: response.item.id,
-                name: response.item.name,
+                id: response.id,
+                name: response.name,
                 progress_ms: response.progress_ms,
-                type: response.item.type,
-                duration_ms: response.item.duration_ms,
-                artist: response.item.artists[0].name,
+                type: response.type,
+                duration_ms: response.duration_ms,
+                artist: response.artists[0].name,
+                image_url: getImageUrl(response.album.images),
             }
             break;
         default:
@@ -222,7 +222,11 @@ export const get = async (url, query=null) => {
     
         try {
             const data = await fetch(url, payload);
-            return data.json();
+            if(data.status < 203) {
+                return data.json();
+            } else {
+                return Promise.reject(`Response Code for URL ${url} is ${data.status}`);
+            }
         } catch (exception) {
             console.error(exception);
             return Promise.reject(exception);
@@ -246,12 +250,14 @@ export const put = async (url, body, query=null) => {
 
         try {
             const data = await fetch(url, payload);
-            return data.json();
+            return Promise.resolve(data);
         } catch (exception) {
             console.log(exception);
             return Promise.reject(exception);
         }
     }
+
+    return Promise.reject("No Access Token...");
 }
 
 const getUrlWithQuery = (url, query) => {

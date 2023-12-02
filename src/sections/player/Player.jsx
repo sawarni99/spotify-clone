@@ -4,15 +4,15 @@ import ProgressBar from '../../components/progress-bar/ProgressBar';
 import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
-import { getFormattedTime, getLocalStorage } from '../../utils/Helper';
+import { getFormattedTime } from '../../utils/Helper';
 import { TRANSFER_PLAYBACK, put } from '../../utils/ApiUtil';
-import { DEVICE_ID } from '../../utils/AuthUtil';
 
 const duration = 60; // Testing purpose...
 
 export default function Player() {
     
-    const player = usePlayer();
+    const {player, track, deviceId} = usePlayer();
+    console.log(track);
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -23,13 +23,17 @@ export default function Player() {
     
     const prevHover = useHover(prevRef);
     const nextHover = useHover(nextRef);
-    
-    const device_id = getLocalStorage(DEVICE_ID);
 
-    useEffect(() => {
-        if(device_id === null) return;
-        put(TRANSFER_PLAYBACK, `{"device_ids": ["${device_id}"]}`);
-    }, [device_id]);
+    useEffect(() => { 
+        if(deviceId === null) return;
+
+        put(TRANSFER_PLAYBACK, `{"device_ids": ["${deviceId}"]}`).then(data => {
+            
+        }).catch(exception => {
+            console.log(exception);
+        })
+
+    }, [deviceId]);
 
     const onClickPlay = () => {
         // Logic to play/pasue...

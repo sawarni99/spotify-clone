@@ -5,7 +5,6 @@ export const REFRESH_TOKEN_KEY = 'spotify_refresh_token';
 export const EXPIRES_IN_KEY = 'spotify_expires_in';
 export const CODE_VERIFIER_KEY = 'spotify_code_verifier';
 export const COUNTRY_KEY = 'spotify_country';
-export const DEVICE_ID = 'spotify_device_id';
 export const SCOPES = [
     'user-read-private',
     'user-read-email',
@@ -88,6 +87,5 @@ export const logout = () => {
     window.localStorage.removeItem(EXPIRES_IN_KEY);
     window.localStorage.removeItem('timestamp');
     window.localStorage.removeItem(COUNTRY_KEY);
-    window.localStorage.removeItem(DEVICE_ID);
     window.location.href = REDIRECT_URL;
 }
