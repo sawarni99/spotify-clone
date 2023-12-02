@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { getAccessToken } from "../utils/AuthUtil";
 import { CURRENTLY_PLAYING_TRACK, parseResponse } from "../utils/ApiUtil";
 
-export default function usePlayer() {
+export default function usePlayer(setIsPlaying) {
 
     const [playerState, setPlayerState] = useState({
         player: null,
         deviceId: null,
         track: null,
+        is_playing: false,
     });
     const accessToken = getAccessToken();
     
@@ -37,16 +38,17 @@ export default function usePlayer() {
             if(!state) return;
 
             player.getCurrentState().then(data => {
-                if(data !== null && data.track_window !== null && data.track_window !== null ){
+                if(data && data.track_window && data.track_window.current_track){
                     setPlayerState((playerState) => {
                         return {
                             ...playerState,
                             track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                            is_playing: !data.paused,
                         }
                     });
-                    console.log('State Changed.');
                 }
             })
+            console.log('State Changed.');
         }
 
         const onInitializationError = ({message}) => {

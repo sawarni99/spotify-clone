@@ -17,6 +17,12 @@
     border-radius: 5px;
 }
 
+.player-song-img {
+    height: 100%;
+    width: auto;
+    border-radius: inherit;
+}
+
 .player-song-desc {
     display: flex;
     flex-direction: column;

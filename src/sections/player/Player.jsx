@@ -5,17 +5,16 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
 import { getFormattedTime } from '../../utils/Helper';
-import { TRANSFER_PLAYBACK, put } from '../../utils/ApiUtil';
-
-const duration = 60; // Testing purpose...
+import { CURRENTLY_PLAYING_TRACK, TRANSFER_PLAYBACK, get, put } from '../../utils/ApiUtil';
+import { getCountry } from '../../utils/AuthUtil';
 
 export default function Player() {
     
-    const {player, track, deviceId} = usePlayer();
-    console.log(track);
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
+    const {player, track, deviceId} = usePlayer(setIsPlaying);
+    const duration = track?track.duration_ms/1000:0;
     let isProgressBarClicked = false;
 
     const prevRef = useRef(null);
@@ -23,6 +22,18 @@ export default function Player() {
     
     const prevHover = useHover(prevRef);
     const nextHover = useHover(nextRef);
+
+    useEffect(() => {
+        if( !track ) return;
+        get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
+            if(response) {
+                console.log(response);
+                setIsPlaying(!response.is_playing);
+            }
+        }).catch(exception => {
+            console.log(exception)
+        });
+    }, [track])
 
     useEffect(() => { 
         if(deviceId === null) return;
@@ -36,9 +47,14 @@ export default function Player() {
     }, [deviceId]);
 
     const onClickPlay = () => {
-        // Logic to play/pasue...
-        player.togglePlay();
-        setIsPlaying(isPlaying => !isPlaying);
+        get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
+            if(response) {
+                setProgress(response.progress_ms/track.duration_ms*100);
+                player.togglePlay();
+            }
+        }).catch(exception => {
+            console.log(exception)
+        });
     }
 
     const onClickPrevious = () => {
@@ -83,7 +99,7 @@ export default function Player() {
             clearInterval(interval);
         }
 
-    }, [progress, isProgressBarClicked, isPlaying]);
+    }, [progress, isProgressBarClicked, isPlaying, duration ]);
 
     useEffect(() => {
         if(progress >= 100) {
@@ -95,28 +111,39 @@ export default function Player() {
         // Change sound here...
     }, [sound]);
 
-
     return (
         <div className='player'>
             <div className="player-left">
                 <div className="player-song-img-container">
-                    <img src="" alt="" className="player-song-img" />
+                    <img src={track ? track.image_url:''} alt="" className="player-song-img" />
                 </div>
                 <div className="player-song-desc">
-                    <div className="player-song-name"></div>
-                    <div className="player-song-artist"></div>
+                    <div className="player-song-name">{track ? track.name:''}</div>
+                    <div className="player-song-artist">{track ? track.artist:''}</div> 
                 </div>
             </div>
             <div className="player-center">
                 <div className="player-controls">
                     <div ref={prevRef} className="player-previous">
-                        <Icon onClick={onClickPrevious} name='previous' state={prevHover[0]} size='small' />
+                        {
+                            track ?
+                            <Icon onClick={onClickPrevious} name='previous' state={prevHover[0]} size='small' /> : 
+                            <Icon name='previous' state={'unselected'} size='small' />
+                        }
                     </div>
                     <div className="player-play">
-                        <PlayButton onClick={onClickPlay} size='small' plain isPlaying={isPlaying} />
+                        {
+                            track ?
+                            <PlayButton onClick={onClickPlay} size='small' plain isPlaying={isPlaying} /> :
+                            <PlayButton size='small' plain isPlaying={isPlaying} disabled />
+                        }
                     </div>
                     <div ref={nextRef} className="player-next">
-                        <Icon onClick={onClickNext} name='next' state={nextHover[0]} size='small' />
+                        {
+                            track ? 
+                            <Icon onClick={onClickNext} name='next' state={nextHover[0]} size='small' /> :
+                            <Icon name='next' state={'unselected'} size='small' />
+                        }
                     </div>
                 </div>
                 <div className="player-progress">
