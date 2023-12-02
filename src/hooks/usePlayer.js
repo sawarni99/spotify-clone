@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAccessToken } from "../utils/AuthUtil";
 import { CURRENTLY_PLAYING_TRACK, parseResponse } from "../utils/ApiUtil";
 
-export default function usePlayer(setIsPlaying) {
+export default function usePlayer() {
 
     const [playerState, setPlayerState] = useState({
         player: null,

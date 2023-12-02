@@ -23,24 +23,28 @@ export default function Player() {
     const prevHover = useHover(prevRef);
     const nextHover = useHover(nextRef);
 
+    // Whenever state changes setting progress and the play/paus button...
     useEffect(() => {
         if( !track ) return;
+
         get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
             if(response) {
-                console.log(response);
-                setIsPlaying(!response.is_playing);
+                setProgress(response.progress_ms/track.duration_ms*100);
+                return player.getCurrentState();
             }
-        }).catch(exception => {
+        }).then(state => {
+            setIsPlaying(!state.paused);
+        })
+        .catch(exception => {
             console.log(exception)
         });
-    }, [track])
+    }, [track, player]);
 
+    // To transfer the media here for playing the song...
     useEffect(() => { 
         if(deviceId === null) return;
 
-        put(TRANSFER_PLAYBACK, `{"device_ids": ["${deviceId}"]}`).then(data => {
-            
-        }).catch(exception => {
+        put(TRANSFER_PLAYBACK, `{"device_ids": ["${deviceId}"]}`).catch(exception => {
             console.log(exception);
         })
 
