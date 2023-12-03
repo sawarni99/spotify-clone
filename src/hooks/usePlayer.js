@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAccessToken } from "../utils/AuthUtil";
-import { CURRENTLY_PLAYING_TRACK, parseResponse } from "../utils/ApiUtil";
+import { getAccessToken, getCountry } from "../utils/AuthUtil";
+import { CURRENTLY_PLAYING_TRACK, TRANSFER_PLAYBACK, get, parseResponse, put } from "../utils/ApiUtil";
 
 export default function usePlayer() {
 
@@ -9,9 +9,22 @@ export default function usePlayer() {
         deviceId: null,
         track: null,
         is_playing: false,
+        progress_percent: 0,
+        progress_ms: 0,
     });
     const accessToken = getAccessToken();
+
+    // To transfer the media here for playing the song...
+    useEffect(() => { 
+        if(playerState.deviceId === null) return;
+
+        put(TRANSFER_PLAYBACK, `{"device_ids": ["${playerState.deviceId}"]}`).catch(exception => {
+            console.log(exception);
+        })
+
+    }, [playerState.deviceId]);
     
+    // To connect to the device and play music...
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://sdk.scdn.co/spotify-player.js";
@@ -39,14 +52,31 @@ export default function usePlayer() {
 
             player.getCurrentState().then(data => {
                 if(data && data.track_window && data.track_window.current_track){
-                    setPlayerState((playerState) => {
-                        return {
-                            ...playerState,
-                            track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
-                            is_playing: !data.paused,
+                    get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
+                        if(response){
+                            setPlayerState((playerState) => {
+                                return {
+                                    ...playerState,
+                                    progress_ms: response.progress_ms,
+                                    progress_percent: response.progress_ms/response.item.duration_ms*100,
+                                    track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                                    is_playing: !data.paused,
+                                }
+                            });
                         }
+                    }).catch(exception => {
+                        console.log(exception)
+                        setPlayerState((playerState) => {
+                            return {
+                                ...playerState,
+                                is_playing: !data.paused,
+                                track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                            }
+                        });
                     });
-                }
+                };
+
+
             })
             console.log('State Changed.');
         }

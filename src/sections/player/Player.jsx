@@ -5,15 +5,13 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
 import { getFormattedTime } from '../../utils/Helper';
-import { CURRENTLY_PLAYING_TRACK, TRANSFER_PLAYBACK, get, put } from '../../utils/ApiUtil';
-import { getCountry } from '../../utils/AuthUtil';
 
 export default function Player() {
     
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
-    const {player, track, deviceId} = usePlayer(setIsPlaying);
+    const {player, track, is_playing, progress_percent} = usePlayer();
     const duration = track?track.duration_ms/1000:0;
     let isProgressBarClicked = false;
 
@@ -23,42 +21,13 @@ export default function Player() {
     const prevHover = useHover(prevRef);
     const nextHover = useHover(nextRef);
 
-    // Whenever state changes setting progress and the play/paus button...
     useEffect(() => {
-        if( !track ) return;
-
-        get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
-            if(response) {
-                setProgress(response.progress_ms/track.duration_ms*100);
-                return player.getCurrentState();
-            }
-        }).then(state => {
-            setIsPlaying(!state.paused);
-        })
-        .catch(exception => {
-            console.log(exception)
-        });
-    }, [track, player]);
-
-    // To transfer the media here for playing the song...
-    useEffect(() => { 
-        if(deviceId === null) return;
-
-        put(TRANSFER_PLAYBACK, `{"device_ids": ["${deviceId}"]}`).catch(exception => {
-            console.log(exception);
-        })
-
-    }, [deviceId]);
+        setIsPlaying(is_playing);
+        setProgress(progress_percent);
+    }, [track, is_playing, progress_percent]);
 
     const onClickPlay = () => {
-        get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
-            if(response) {
-                setProgress(response.progress_ms/track.duration_ms*100);
-                player.togglePlay();
-            }
-        }).catch(exception => {
-            console.log(exception)
-        });
+        player.togglePlay();
     }
 
     const onClickPrevious = () => {
