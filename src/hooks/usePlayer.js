@@ -53,6 +53,7 @@ export default function usePlayer() {
             player.getCurrentState().then(data => {
                 if(data && data.track_window && data.track_window.current_track){
                     get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
+                        console.log(response);
                         if(response){
                             setPlayerState((playerState) => {
                                 return {
@@ -75,8 +76,6 @@ export default function usePlayer() {
                         });
                     });
                 };
-
-
             })
             console.log('State Changed.');
         }

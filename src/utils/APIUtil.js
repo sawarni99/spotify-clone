@@ -16,6 +16,9 @@ export const PLAYLIST_TRACKS = 'https://api.spotify.com/v1/playlists/$';
 export const ARTIST = 'https://api.spotify.com/v1/artists/$';
 export const CURRENTLY_PLAYING_TRACK = 'https://api.spotify.com/v1/me/player/currently-playing';
 export const TRANSFER_PLAYBACK = 'https://api.spotify.com/v1/me/player';
+export const SEEK_TO_POSITION = 'https://api.spotify.com/v1/me/player/seek';
+export const SKIP_TO_NEXT = 'https://api.spotify.com/v1/me/player/next';
+export const SKIP_TO_PREVIOUS = 'https://api.spotify.com/v1/me/player/previous';
 
 export const parseResponse = (url, response, replacer='') => {
     let toRet = {};
@@ -191,21 +194,41 @@ export const parseResponse = (url, response, replacer='') => {
     return toRet;
 }
 
-export const post = async (url, body) => {
-    const payload = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(body),
-    }
+export const post = async (url, body, query=null) => {
+    if(getAccessToken() === null) {
+        const payload = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(body),
+        }
+    
+        try {
+            const data = await fetch(url, payload);
+            return data.json();
+        } catch(exception) {
+            console.log(exception);
+            return Promise.reject(exception);
+        }
+    } else {
+        url = getUrlWithQuery(url, query);
+        const payload = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${getAccessToken()}`,
+            },
+            body: body,
+        }
 
-    try {
-        const data = await fetch(url, payload);
-        return data.json();
-    } catch(exception) {
-        console.log(exception);
-        return Promise.reject(exception);
+        try {
+            const data = await fetch(url, payload);
+            return Promise.resolve(data);
+        } catch (exception) {
+            console.log(exception);
+            return Promise.reject(exception);
+        }
     }
 
 }

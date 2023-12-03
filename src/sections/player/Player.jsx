@@ -5,13 +5,14 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
 import { getFormattedTime } from '../../utils/Helper';
+import { SEEK_TO_POSITION, SKIP_TO_NEXT, put } from '../../utils/ApiUtil';
 
 export default function Player() {
     
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
-    const {player, track, is_playing, progress_percent} = usePlayer();
+    const {player, track, is_playing, progress_percent, deviceId} = usePlayer();
     const duration = track?track.duration_ms/1000:0;
     let isProgressBarClicked = false;
 
@@ -31,15 +32,25 @@ export default function Player() {
     }
 
     const onClickPrevious = () => {
-        // Logic to play previous song...
+        player.previousTrack();
     }
 
     const onClickNext = () => {
-        // Logic to play next song...
+        player.nextTrack();
     }
 
     const onProgressBarClicked = (clicked) => {
-        // Logic to pause the progression when progress bar is clicked...
+
+        // // Point where the progress is dragged and stopped...
+        // if(isProgressBarClicked && !clicked) {
+        //     if(track){
+        //         const progress_ms = Math.round((progress*duration/100)*1000);
+        //         put(SEEK_TO_POSITION, null, `position_ms=${progress_ms}&device_id=${deviceId}`).catch((ex) => {
+        //             console.log(ex);
+        //         })
+        //     }
+        // }
+        
         isProgressBarClicked = clicked;
     }
 
@@ -55,7 +66,6 @@ export default function Player() {
 
     useEffect(() => {
         let interval = null;
-
         if(isPlaying && progress < 100) {
             interval = setInterval(() => {
                 if(!isProgressBarClicked){
