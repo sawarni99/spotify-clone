@@ -5,7 +5,7 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
 import { getFormattedTime } from '../../utils/Helper';
-import { SEEK_TO_POSITION, SKIP_TO_NEXT, put } from '../../utils/ApiUtil';
+import { SEEK_TO_POSITION, put } from '../../utils/ApiUtil';
 
 export default function Player() {
     
@@ -32,24 +32,32 @@ export default function Player() {
     }
 
     const onClickPrevious = () => {
-        player.previousTrack();
+        player.seek(0).then(() => {
+            return player.pause()
+        }).then(() => {
+            player.previousTrack();
+        })
     }
 
     const onClickNext = () => {
-        player.nextTrack();
+        player.seek(0).then(() => {
+            return player.pause()
+        }).then(() => {
+            player.nextTrack();
+        })
     }
 
     const onProgressBarClicked = (clicked) => {
 
-        // // Point where the progress is dragged and stopped...
-        // if(isProgressBarClicked && !clicked) {
-        //     if(track){
-        //         const progress_ms = Math.round((progress*duration/100)*1000);
-        //         put(SEEK_TO_POSITION, null, `position_ms=${progress_ms}&device_id=${deviceId}`).catch((ex) => {
-        //             console.log(ex);
-        //         })
-        //     }
-        // }
+        // Point where the progress is dragged and stopped...
+        if(isProgressBarClicked && !clicked) {
+            if(track){
+                const progress_ms = Math.round((progress*duration/100)*1000);
+                put(SEEK_TO_POSITION, null, `position_ms=${progress_ms}&device_id=${deviceId}`).catch((ex) => {
+                    console.log(ex);
+                })
+            }
+        }
         
         isProgressBarClicked = clicked;
     }

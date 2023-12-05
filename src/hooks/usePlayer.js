@@ -56,13 +56,18 @@ export default function usePlayer() {
                         console.log(response);
                         if(response){
                             setPlayerState((playerState) => {
-                                return {
-                                    ...playerState,
-                                    progress_ms: response.progress_ms,
-                                    progress_percent: response.progress_ms/response.item.duration_ms*100,
-                                    track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
-                                    is_playing: !data.paused,
-                                }
+                                console.log(playerState, playerState.is_playing, data.paused);
+                                if(playerState.is_playing === data.paused || (playerState.track && data.track_window.current_track.id !== playerState.track.id)) {
+                                    return {
+                                        ...playerState,
+                                        progress_ms: response.progress_ms,
+                                        progress_percent: response.progress_ms/response.item.duration_ms*100,
+                                        track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                                        is_playing: !data.paused,
+                                    }
+                                } 
+
+                                return playerState;
                             });
                         }
                     }).catch(exception => {
