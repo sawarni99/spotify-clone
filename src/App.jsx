@@ -13,7 +13,7 @@ import Player from './sections/player/Player';
 import Login from './pages/login/Login';
 import { COUNTRY_KEY, getAccessToken } from './utils/AuthUtil';
 import { SUCCESS, USER_PROFILE } from './utils/ApiUtil';
-import { ProfileContext } from './utils/Contexts';
+import { PlayerContext, ProfileContext } from './utils/Contexts';
 import Category from './pages/category/Category';
 import { setLocalStorage } from './utils/Helper';
 
@@ -30,6 +30,14 @@ function App() {
 	const appRef = useRef(null);
 	const [ widthState, setWidthState ] = useResizeAll(appRef, sideBarRef, resizerRef);
 	const [selectedPage, setSelectedPage] = useState(null);
+	const [playerState, setPlayerState] = useState({
+		player: null,
+        deviceId: null,
+        track: null,
+        is_playing: false,
+        progress_percent: 0,
+        progress_ms: 0,
+	})
 	const profile_res = useAPI(USER_PROFILE);
 	let profile = null;
 	if(profile_res !== null && profile_res.status === SUCCESS) {
@@ -73,6 +81,7 @@ function App() {
 	
 	return (
 		<ProfileContext.Provider value={profile}>
+		<PlayerContext.Provider value={{state: playerState, setState: setPlayerState}}>
 			<Router>
 				<div className="App" ref={appRef}>
 					<div className='app-body'>
@@ -86,7 +95,7 @@ function App() {
 										selected={window.location.pathname === pages.home || selectedPage === pages.home}
 										widthState={widthState}
 										to={pages.home}
-									/>
+										/>
 									<SideBarLink 
 										icon='search' 
 										onClick={onClickSearch} 
@@ -94,7 +103,7 @@ function App() {
 										selected={window.location.pathname.startsWith(pages.search) || selectedPage === pages.search} 
 										widthState={widthState}
 										to={pages.search}
-									/>
+										/>
 								</div>
 								<div className='app-side-bar-library'>
 									<div className="app-side-bar-library-head">
@@ -103,12 +112,12 @@ function App() {
 											name='Library'
 											widthState={widthState}
 											onClick={onClickLibrary}
-										/>
+											/>
 										{ 
 											( widthState === widthStates.large ) ?
-												<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
+											<CircularButton icon='arrow-left' onClick={onClickCollapse} /> : 
 											(widthState === widthStates.medium) ?
-												<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
+											<CircularButton icon='arrow-right' onClick={onClickExpand} /> :
 											null
 										}
 									</div>
@@ -135,6 +144,7 @@ function App() {
 					</div>
 				</div>
 			</Router>	
+		</PlayerContext.Provider>
 		</ProfileContext.Provider>
 	);
 }

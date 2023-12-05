@@ -5,14 +5,13 @@ import './Player.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { useHover, usePlayer } from '../../hooks/hooks';
 import { getFormattedTime } from '../../utils/Helper';
-import { SEEK_TO_POSITION, put } from '../../utils/ApiUtil';
 
 export default function Player() {
     
     const [progress, setProgress] = useState(0);
     const [sound, setSound] = useState(50);
     const [isPlaying, setIsPlaying] = useState(false);
-    const {player, track, is_playing, progress_percent, deviceId} = usePlayer();
+    const {player, track, is_playing, progress_percent} = usePlayer();
     const duration = track?track.duration_ms/1000:0;
     let isProgressBarClicked = false;
 
@@ -33,7 +32,7 @@ export default function Player() {
 
     const onClickPrevious = () => {
         player.seek(0).then(() => {
-            return player.pause()
+            return player.pause();
         }).then(() => {
             player.previousTrack();
         })
@@ -41,7 +40,7 @@ export default function Player() {
 
     const onClickNext = () => {
         player.seek(0).then(() => {
-            return player.pause()
+            return player.pause();
         }).then(() => {
             player.nextTrack();
         })
@@ -53,9 +52,7 @@ export default function Player() {
         if(isProgressBarClicked && !clicked) {
             if(track){
                 const progress_ms = Math.round((progress*duration/100)*1000);
-                put(SEEK_TO_POSITION, null, `position_ms=${progress_ms}&device_id=${deviceId}`).catch((ex) => {
-                    console.log(ex);
-                })
+                player.seek(progress_ms);
             }
         }
         

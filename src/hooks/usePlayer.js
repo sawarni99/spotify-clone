@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
-import { getAccessToken, getCountry } from "../utils/AuthUtil";
-import { CURRENTLY_PLAYING_TRACK, TRANSFER_PLAYBACK, get, parseResponse, put } from "../utils/ApiUtil";
+import { useContext, useEffect } from "react";
+import { getAccessToken } from "../utils/AuthUtil";
+import { CURRENTLY_PLAYING_TRACK, TRANSFER_PLAYBACK, parseResponse, put } from "../utils/ApiUtil";
+import { PlayerContext } from "../utils/Contexts";
 
 export default function usePlayer() {
 
-    const [playerState, setPlayerState] = useState({
-        player: null,
-        deviceId: null,
-        track: null,
-        is_playing: false,
-        progress_percent: 0,
-        progress_ms: 0,
-    });
+    const {state : playerState, setState : setPlayerState } = useContext(PlayerContext);
     const accessToken = getAccessToken();
 
     // To transfer the media here for playing the song...
@@ -52,33 +46,14 @@ export default function usePlayer() {
 
             player.getCurrentState().then(data => {
                 if(data && data.track_window && data.track_window.current_track){
-                    get(CURRENTLY_PLAYING_TRACK, `market=${getCountry()}`).then(response => {
-                        console.log(response);
-                        if(response){
-                            setPlayerState((playerState) => {
-                                console.log(playerState, playerState.is_playing, data.paused);
-                                if(playerState.is_playing === data.paused || (playerState.track && data.track_window.current_track.id !== playerState.track.id)) {
-                                    return {
-                                        ...playerState,
-                                        progress_ms: response.progress_ms,
-                                        progress_percent: response.progress_ms/response.item.duration_ms*100,
-                                        track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
-                                        is_playing: !data.paused,
-                                    }
-                                } 
-
-                                return playerState;
-                            });
+                    setPlayerState((playerState) => {
+                        return {
+                            ...playerState,
+                            progress_ms: data.position,
+                            progress_percent: data.position/data.duration*100,
+                            track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
+                            is_playing: !data.paused,
                         }
-                    }).catch(exception => {
-                        console.log(exception)
-                        setPlayerState((playerState) => {
-                            return {
-                                ...playerState,
-                                is_playing: !data.paused,
-                                track: parseResponse(CURRENTLY_PLAYING_TRACK, data.track_window.current_track),
-                            }
-                        });
                     });
                 };
             })
@@ -134,7 +109,7 @@ export default function usePlayer() {
                 }
             }
         }
-    }, [accessToken]);
+    }, [accessToken, setPlayerState]);
 
     return playerState;
 }
