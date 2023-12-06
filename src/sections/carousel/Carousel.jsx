@@ -21,7 +21,7 @@ export default function Carousel({title, parentRef, data, hideShowAll, id}) {
     data = sampleData;
   }
 
-  const widthState = useResize(parentRef, [1300, 1150, 1000, 770, 560]);
+  const widthState = useResize(parentRef, [1400, 1150, 1000, 770, 560]);
   let cards = [data];
 
   let numOfItems = 0;

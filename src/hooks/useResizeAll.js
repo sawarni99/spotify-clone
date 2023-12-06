@@ -10,7 +10,7 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
 
 		if(typeof value !== 'number') return;
 
-		const sideBar = sideBarRef.current;
+		const sideBar = sideBarRef;
 		let minWidth = sizeInterval[value].min;
 		let maxWidth = sizeInterval[value].max;
 
@@ -27,14 +27,15 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
 	}
 
 	useEffect(() => {
-		const sideBar = sideBarRef.current;
-        const resizer = resizerRef.current;
+		
+		const sideBar = sideBarRef;
+        const resizer = resizerRef;
 
 		if(sideBar === null || sideBar === undefined) {
 			return;
 		}
 
-        sideBarRef.current.style.width = numToPx(sizeInterval[INITIAL_INDEX].min);
+        sideBarRef.style.width = numToPx(sizeInterval[INITIAL_INDEX].min);
 
         // Logic while resizing window...
 		const observer = new ResizeObserver((entries) => {
@@ -62,6 +63,7 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
         // Logic while resizing SideBar...
         const onMouseMove = (event) => {
 			const mousePosX = event.clientX;
+			console.log(mousePosX);
 
 			for(let i=0; i<sizeInterval.length; i++){
 				if( i === 0){
@@ -104,7 +106,7 @@ export default function useResizeAll(appRef, sideBarRef, resizerRef) {
 		resizer.addEventListener('mousedown', onMouseDown);
 		window.addEventListener('mouseup', onMouseUp);
 
-		observer.observe(appRef.current);
+		observer.observe(appRef);
 		return () => {
 			observer.disconnect();
             resizer.removeEventListener('mousedown', onMouseDown);

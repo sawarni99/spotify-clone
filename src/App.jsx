@@ -28,7 +28,7 @@ function App() {
 	const sideBarRef = useRef(null);
 	const resizerRef = useRef(null);
 	const appRef = useRef(null);
-	const [ widthState, setWidthState ] = useResizeAll(appRef, sideBarRef, resizerRef);
+	const [ widthState, setWidthState ] = useResizeAll(appRef.current, sideBarRef.current, resizerRef.current);
 	const [selectedPage, setSelectedPage] = useState(null);
 	const [playerState, setPlayerState] = useState({
 		player: null,
