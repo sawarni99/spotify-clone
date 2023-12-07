@@ -1,11 +1,10 @@
 import NavBar from '../../sections/nav-bar/NavBar'
 import TrackCard from '../../components/track-card/TrackCard'
-import Icon from '../../components/icon/Icon'
 import './Songs.css'
 import React, { useRef } from 'react'
 import PlayButton from '../../components/play-button/PlayButton';
 import { pages } from '../../utils/Constants'
-import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, PLAYLIST_TRACKS, SUCCESS } from '../../utils/ApiUtil'
+import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, FAILURE, PLAY, PLAYLIST_TRACKS, SUCCESS, put } from '../../utils/ApiUtil'
 import useAPI from '../../hooks/useAPI'
 import { getColorByName } from '../../utils/Helper'
 import { getCountry } from '../../utils/AuthUtil'
@@ -51,6 +50,7 @@ export default function Songs({pageType}) {
                     desc: tracks_res.result.info.description,
                     name: tracks_res.result.info.name,
                     pageType: pageType,
+                    context_uri: tracks_res.result.info.context_uri,
                 }
                 break;
             case pages.artist:
@@ -60,6 +60,7 @@ export default function Songs({pageType}) {
                         desc: "",
                         name: artist_res.result.name,
                         pageType: pageType,
+                        context_uri: artist_res.result.context_uri,
                     }
                 }
                 break;
@@ -69,11 +70,10 @@ export default function Songs({pageType}) {
     }
 
     const onClickPlay = () => {
-        // Logic to play album... 
-    }
+        
+        if(!tracks_res || tracks_res.status === FAILURE) return;
 
-    const onClickOptions = () => {
-        // Logic to open options...
+        put(PLAY, `{"context_uri":"${info.context_uri}","position_ms":0}`);
     }
 
     return (

@@ -19,6 +19,7 @@ export const TRANSFER_PLAYBACK = 'https://api.spotify.com/v1/me/player';
 export const SEEK_TO_POSITION = 'https://api.spotify.com/v1/me/player/seek';
 export const SKIP_TO_NEXT = 'https://api.spotify.com/v1/me/player/next';
 export const SKIP_TO_PREVIOUS = 'https://api.spotify.com/v1/me/player/previous';
+export const PLAY = 'https://api.spotify.com/v1/me/player/play';
 
 export const parseResponse = (url, response, replacer='') => {
     let toRet = {};
@@ -84,6 +85,7 @@ export const parseResponse = (url, response, replacer='') => {
                     image_url: getImageUrl(response.images),
                     type: response.type,
                     context_uri: response.uri,
+                    id: response.id,
                 },
                 items: response.tracks.items.map((item) => {
                     return {
@@ -106,6 +108,7 @@ export const parseResponse = (url, response, replacer='') => {
                     type: response.type,
                     description: "",
                     context_uri: response.uri,
+                    id: response.id,
                 },
                 items: response.tracks.items.map((item) => {
                     return {
@@ -192,7 +195,6 @@ export const parseResponse = (url, response, replacer='') => {
             toRet = {
                 id: response.id,
                 name: response.name,
-                progress_ms: response.progress_ms,
                 type: response.type,
                 duration_ms: response.duration_ms,
                 artist: response.artists[0].name,
