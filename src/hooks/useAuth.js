@@ -50,13 +50,11 @@ export default function useAuth() {
                 
                 // If App is opened after long time...
                 if(currentTime >= previousTime+expiry) {
-                    console.log("Logging out");
                     logout();
                     clearInterval(interval);
 
                 // If App is still running...
                 } else if (currentTime+60000 >= previousTime+expiry) {
-                    console.log("Refreshing Token");
                     const refreshToken = getRefreshToken();
                     const body = {
                         grant_type: 'refresh_token',
