@@ -23,13 +23,14 @@ export default function Home() {
 					title='Top Lists' 
 					parentRef={mainRef}
 					data={
-						playlists_res.result.items.map(({id, image_url, description, name, type}) => {
+						playlists_res.result.items.map(({id, image_url, description, name, type, context_uri}) => {
 							return {
 								key: id,
 								src: image_url,
 								desc: description,
 								name: name,
 								type: type,
+								uri: context_uri,
 							}
 						})
 					}

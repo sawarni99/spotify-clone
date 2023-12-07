@@ -156,6 +156,7 @@ export default function Search() {
 									name: item.name,
 									desc: "",
 									type: item.type,
+									uri: item.context_uri,
 								}
 							})}
 						/>
@@ -173,6 +174,7 @@ export default function Search() {
 									name: item.name,
 									desc: item.artist,
 									type: item.type,
+									uri: item.context_uri,
 								}
 							})}
 						/>
@@ -190,6 +192,7 @@ export default function Search() {
 									name: item.name,
 									desc: item.description,
 									type: item.type,
+									uri: item.context_uri,
 								}
 							}))}
 						/>

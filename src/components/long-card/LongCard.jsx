@@ -9,7 +9,6 @@ export default function LongCard({src, name, onClick, plain, noDesc, onMouseOver
 
     const onClickPlay = (event) => {
         event.stopPropagation();
-        console.log("here", uri);
         if(!uri) return;
 
         put(PLAY, getBodyForSongPlay(uri));

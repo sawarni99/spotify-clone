@@ -7,7 +7,7 @@ import { getPageFromType } from '../../utils/Helper';
 
 const sampleData = [];
 for(let i=0; i<10; i++) {
-  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', type: ''})
+  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', type: '', uri: null})
 }
 
 export default function Carousel({title, parentRef, data, hideShowAll, id}) {
@@ -76,7 +76,13 @@ export default function Carousel({title, parentRef, data, hideShowAll, id}) {
         <div className="carousel-items">
             {
               cards.map((card) => {
-                return <Card onClick={() => onClickCard(card.key, card.type)} key={card.key} src={card.src} name={card.name} desc={card.desc}/>
+                return <Card 
+                  onClick={() => onClickCard(card.key, card.type)} 
+                  key={card.key} 
+                  src={card.src} 
+                  name={card.name} 
+                  desc={card.desc}
+                  uri={card.uri}/>
               })
             }
         </div>
