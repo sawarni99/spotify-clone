@@ -320,3 +320,7 @@ export const getReplacedUrl = (url, replacer) => {
 
     return "";
 }
+
+export const getBodyForSongPlay = (contextUri) => {
+    return `{"context_uri":"${contextUri}","position_ms":0}`
+}

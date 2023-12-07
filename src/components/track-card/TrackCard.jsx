@@ -1,9 +1,9 @@
+import { PLAY, put } from '../../utils/ApiUtil';
 import { getFormattedTime } from '../../utils/Helper';
-import Icon from '../icon/Icon'
 import './TrackCard.css'
 import React from 'react'
 
-export default function TrackCard({src, name, artist, duration}) {
+export default function TrackCard({src, name, artist, duration, uri}) {
 
     if(src === undefined || src === null) src=''
     if(name === undefined || name === null) name='Loading...'
@@ -13,7 +13,8 @@ export default function TrackCard({src, name, artist, duration}) {
     duration = getFormattedTime(duration);
 
     const onClickPlay = () => {
-        // Logic to play song...
+        if(!uri) return;
+        put(PLAY, `{"uris":["${uri}"], "progress_ms":0}`);
     }
 
     return (

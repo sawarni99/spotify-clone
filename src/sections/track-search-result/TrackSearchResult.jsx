@@ -5,7 +5,7 @@ import React from 'react'
 
 const sampleData = [];
 for(let i=0; i<5; i++) {
-  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', duration: 0})
+  sampleData.push({key: i, src:'', name: 'Loading...', desc: 'Loading...', duration: 0, uri: null})
 }
 
 export default function TrackSearchResult({data}) {
@@ -46,8 +46,8 @@ export default function TrackSearchResult({data}) {
                 </div>
                 <div className="track-result-right-body">
                     {
-                        data.map(({src, name, artist, duration, key}) =>
-                            <TrackCard key={key} src={src} name={name} artist={artist} duration={duration} />
+                        data.map(({src, name, artist, duration, key, uri}) =>
+                            <TrackCard key={key} src={src} name={name} artist={artist} duration={duration} uri={uri} />
                         )
                     }
                 </div>

@@ -4,7 +4,7 @@ import './Songs.css'
 import React, { useRef } from 'react'
 import PlayButton from '../../components/play-button/PlayButton';
 import { pages } from '../../utils/Constants'
-import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, FAILURE, PLAY, PLAYLIST_TRACKS, SUCCESS, put } from '../../utils/ApiUtil'
+import { ALBUM_TRACKS, ARTIST, ARTIST_TOP_TRACKS, FAILURE, PLAY, PLAYLIST_TRACKS, SUCCESS, getBodyForSongPlay, put } from '../../utils/ApiUtil'
 import useAPI from '../../hooks/useAPI'
 import { getColorByName } from '../../utils/Helper'
 import { getCountry } from '../../utils/AuthUtil'
@@ -73,7 +73,7 @@ export default function Songs({pageType}) {
         
         if(!tracks_res || tracks_res.status === FAILURE) return;
 
-        put(PLAY, `{"context_uri":"${info.context_uri}","position_ms":0}`);
+        put(PLAY, getBodyForSongPlay(info.context_uri));
     }
 
     return (
@@ -90,13 +90,14 @@ export default function Songs({pageType}) {
                 </div>
                 {
                     tracks_res !== null && tracks_res.status === SUCCESS &&
-                    tracks_res.result.items.map(({id, name, artist, duration_ms, image_url}) => 
+                    tracks_res.result.items.map(({id, name, artist, duration_ms, image_url, context_uri}) => 
                         <TrackCard 
                             key={id} 
                             name={name} 
                             artist={artist} 
                             duration={Math.round(duration_ms/1000)}
                             src={(image_url !== undefined) ? image_url : ""}
+                            uri={context_uri}
                         />
                     )
                 }

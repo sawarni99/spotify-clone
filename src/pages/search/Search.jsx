@@ -138,6 +138,7 @@ export default function Search() {
 									src: item.image_url,
 									duration: Math.round(item.duration_ms/1000),
 									type: item.type,
+									uri: item.context_uri,
 								}
 							})}
 						/>
