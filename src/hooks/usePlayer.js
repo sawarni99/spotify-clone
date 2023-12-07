@@ -97,16 +97,16 @@ export default function usePlayer() {
             player.setName("Spotify Clone");
             player.connect();
 
-            return () => {
-                if(player !== null){
-                    player.removeListener('ready', onPlayerReady);
-                    player.removeListener('not_ready', onPlayerNotReady);
-                    player.removeListener('player_state_changed', onPlayerStateChange);
-                    player.removeListener('initialization_error', onInitializationError);
-                    player.removeListener('authentication_error', onAuthenticationError);
-                    player.removeListener('account_error', onAccountError);
-                    player.disconnect();
-                }
+        }
+
+        return () => {
+            if(player !== null){
+                player.removeListener('ready', onPlayerReady);
+                player.removeListener('not_ready', onPlayerNotReady);
+                player.removeListener('player_state_changed', onPlayerStateChange);
+                player.removeListener('initialization_error', onInitializationError);
+                player.removeListener('authentication_error', onAuthenticationError);
+                player.removeListener('account_error', onAccountError);
             }
         }
     }, [accessToken, setPlayerState]);
