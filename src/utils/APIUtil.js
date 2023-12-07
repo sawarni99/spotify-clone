@@ -65,6 +65,7 @@ export const parseResponse = (url, response, replacer='') => {
                         name: item.name,
                         image_url: getImageUrl(item.images),
                         type: item.type,
+                        context_uri: item.uri,
                     }
                 })
             }
@@ -81,7 +82,8 @@ export const parseResponse = (url, response, replacer='') => {
                     description: response.description,
                     name: response.name,
                     image_url: getImageUrl(response.images),
-                    type: response.type,  
+                    type: response.type,
+                    context_uri: response.uri,
                 },
                 items: response.tracks.items.map((item) => {
                     return {
@@ -91,6 +93,7 @@ export const parseResponse = (url, response, replacer='') => {
                         artist: item.track.artists[0].name,
                         duration_ms: item.track.duration_ms,
                         image_url: getImageUrl(item.track.album.images),
+                        context_uri: item.track.uri,
                     }
                 })
             }
@@ -102,6 +105,7 @@ export const parseResponse = (url, response, replacer='') => {
                     image_url: getImageUrl(response.images),
                     type: response.type,
                     description: "",
+                    context_uri: response.uri,
                 },
                 items: response.tracks.items.map((item) => {
                     return {
@@ -111,6 +115,7 @@ export const parseResponse = (url, response, replacer='') => {
                         type: item.type,
                         duration_ms: item.duration_ms,
                         image_url: getImageUrl(response.images),
+                        context_uri: item.uri,
                     }
                 })
             }
@@ -125,6 +130,7 @@ export const parseResponse = (url, response, replacer='') => {
                         type: item.type,
                         artist: item.artists[0].name,
                         image_url: getImageUrl(item.album.images),
+                        context_uri: item.uri,
                     }
                 })
             }
@@ -134,6 +140,7 @@ export const parseResponse = (url, response, replacer='') => {
                 id: response.id,
                 image_url: getImageUrl(response.images),
                 name: response.name,
+                context_uri: response.uri,
             }
             break;
         case SEARCH :
@@ -147,6 +154,7 @@ export const parseResponse = (url, response, replacer='') => {
                         type: item.type,
                         duration_ms: item.duration_ms,
                         name: item.name,
+                        context_uri: item.uri,
                     }
                 }),
                 albums: response.albums.items.map((item) => {
@@ -156,6 +164,7 @@ export const parseResponse = (url, response, replacer='') => {
                         id: item.id,
                         image_url: getImageUrl(item.images),
                         type: item.type,
+                        context_uri: item.uri,
                     }
                 }),
                 artists: response.artists.items.map((item) => {
@@ -164,6 +173,7 @@ export const parseResponse = (url, response, replacer='') => {
                         image_url: getImageUrl(item.images),
                         type: item.type,
                         id: item.id,
+                        context_uri: item.uri,
                     }
                 }),
                 playlists: response.playlists.items.map((item) => {
@@ -173,6 +183,7 @@ export const parseResponse = (url, response, replacer='') => {
                         id: item.id,
                         description: item.description,
                         type: item.type,
+                        context_uri: item.uri,
                     }
                 })
             }
