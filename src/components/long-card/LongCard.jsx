@@ -1,14 +1,18 @@
+import { PLAY, getBodyForSongPlay, put } from '../../utils/ApiUtil'
 import PlayButton from '../play-button/PlayButton'
 import './LongCard.css'
 import React from 'react'
 
-export default function LongCard({src, name, onClick, plain, noDesc, onMouseOver}) {
+export default function LongCard({src, name, onClick, plain, noDesc, onMouseOver, uri}) {
 
     if(name === undefined || name === null) name = 'Loading...'
 
     const onClickPlay = (event) => {
         event.stopPropagation();
-        // Logic for play button...
+        console.log("here", uri);
+        if(!uri) return;
+
+        put(PLAY, getBodyForSongPlay(uri));
     }
 
     let className = 'long-card'

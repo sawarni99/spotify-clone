@@ -1,5 +1,6 @@
 import PlayButton from '../../components/play-button/PlayButton'
 import TrackCard from '../../components/track-card/TrackCard'
+import { PLAY, put } from '../../utils/ApiUtil';
 import './TrackSearchResult.css'
 import React from 'react'
 
@@ -19,7 +20,9 @@ export default function TrackSearchResult({data}) {
     }
 
     const onClickPlay = () => {
-        // Logic to play the Song/Album...
+        if(!data[0].uri) return;
+
+        put(PLAY, `{"uris":["${data[0].uri}"], "progress_ms":0}`);
     }
 
     return (
@@ -36,7 +39,7 @@ export default function TrackSearchResult({data}) {
                         {data[0].name}
                     </div>
                     <div className="track-result-left-play">
-                        <PlayButton onclick={onClickPlay} />
+                        <PlayButton onClick={onClickPlay} />
                     </div>
                 </div>
             </div>

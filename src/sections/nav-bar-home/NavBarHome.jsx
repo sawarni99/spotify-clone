@@ -56,13 +56,14 @@ export default function NavBarHome({sizeState, setColor}) {
             </div>
             <div style={childStyle} className="nav-bar-home-body">
                 {
-                    libraryData.map(({id, image_url, name}) => {
+                    libraryData.map(({id, image_url, name, context_uri}) => {
                         return <LongCard 
                             onClick={() => onClickPlaylist(id)} 
                             onMouseOver={() => onMouseOver(name)} 
                             key={id} 
                             src={image_url} 
                             name={name} 
+                            uri={context_uri}
                         />
                     })
                 }

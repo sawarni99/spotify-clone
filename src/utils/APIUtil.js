@@ -33,6 +33,7 @@ export const parseResponse = (url, response, replacer='') => {
                         image_url: getImageUrl(item.images),
                         name: item.name,
                         type: item.type,
+                        context_uri: item.uri,
                     }
                 })
             }
