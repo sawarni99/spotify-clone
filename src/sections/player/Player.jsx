@@ -32,9 +32,11 @@ export default function Player() {
 
     const onClickPrevious = () => {
         player.seek(0).then(() => {
-            return player.pause();
-        }).then(() => {
-            player.previousTrack();
+            return player.getCurrentState();
+        }).then((data) => {
+            if(data.position <= 5*1000){
+                player.previousTrack();
+            }
         })
     }
 
