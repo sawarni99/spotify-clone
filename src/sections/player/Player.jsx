@@ -95,9 +95,14 @@ export default function Player() {
         }
     }, [progress]);
 
+    // When sound is changed...
     useEffect(() => {
-        // Change sound here...
-    }, [sound]);
+
+        if(!player) return;
+
+        const soundToSet = sound/100;
+        player.setVolume(soundToSet);
+    }, [sound, player]);
 
     return (
         <div className='player'>
