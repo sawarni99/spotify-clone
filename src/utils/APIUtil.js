@@ -209,7 +209,6 @@ export const parseResponse = (url, response, replacer='') => {
 }
 
 export const post = async (url, body, query=null) => {
-    if(getAccessToken() === null) {
         const payload = {
             method: 'POST',
             headers: {
@@ -225,26 +224,6 @@ export const post = async (url, body, query=null) => {
             console.log(exception);
             return Promise.reject(exception);
         }
-    } else {
-        url = getUrlWithQuery(url, query);
-        const payload = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization' : `Bearer ${getAccessToken()}`,
-            },
-            body: body,
-        }
-
-        try {
-            const data = await fetch(url, payload);
-            return Promise.resolve(data);
-        } catch (exception) {
-            console.log(exception);
-            return Promise.reject(exception);
-        }
-    }
-
 }
 
 export const get = async (url, query=null) => {
